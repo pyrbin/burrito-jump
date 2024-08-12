@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+  
+    <ItemGroup>
+      <ProjectReference Include="..\SourceGenerators.Union\SourceGenerators.Union.csproj" PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include=".\obj\$(Configuration)\$(TargetFramework)\generated\Generator\pyr.Union.SourceGenerators.UnionGenerator\**\*.cs" Link="Generated/%(FileName)%(Extension)" />
+    </ItemGroup>
+</Project>

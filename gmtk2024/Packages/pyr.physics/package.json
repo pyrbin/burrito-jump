@@ -1,0 +1,12 @@
+{
+  "name": "pyr.physics",
+  "version": "0.0.1",
+  "displayName": "pyr.physics",
+  "description": "",
+  "dependencies": {},
+  "keywords": [],
+  "author": {
+    "name": "pyrbin",
+    "url": "https://github.com/pyrbin"
+  }
+}

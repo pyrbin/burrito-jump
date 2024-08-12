@@ -1,0 +1,28 @@
+{
+    "name": "pyr.physics",
+    "rootNamespace": "",
+    "references": [
+        "pyr.core",
+        "pyr.union",
+        "pyr.shared",
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "MathfsAsmdef",
+        "JacksonDunstan.NativeCollections",
+        "today.comes.saintsfield.Runtime",
+        "Hertzole.CecilAttributes",
+        "com.nomnom.raycast-visualization",
+        "UniTask",
+        "com.lurking-ninja.player-loop.runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

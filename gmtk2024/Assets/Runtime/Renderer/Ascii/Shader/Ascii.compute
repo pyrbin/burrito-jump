@@ -1,0 +1,24 @@
+#pragma kernel CS_Main
+
+#include "Assets/Graphics/ShaderLibrary/Color.hlsl"
+
+Texture2D<float4> _AsciiTex;
+RWTexture2D<float4> _Destination;
+
+[numthreads(8,8,1)]
+void CS_Main(uint3 id : SV_DISPATCHTHREADID, uint3 gid : SV_GROUPTHREADID)
+{
+    float4 rgba = _Destination[id.xy];
+    float3 oklch = srgb2oklch(rgba.rgb);
+    float luminance = oklch.r;
+    luminance = max(0, (floor(luminance * 10) - 1)) / 10.0f;
+
+    float2 local_uv;
+    local_uv.x = ((id.x % 8)) + luminance * 80;
+    local_uv.y = (id.y % 8);
+
+    float4 ascii = _AsciiTex[local_uv].r;
+    ascii.rgb *= rgba.rgb * 2;
+
+    _Destination[id.xy] = ascii;
+}

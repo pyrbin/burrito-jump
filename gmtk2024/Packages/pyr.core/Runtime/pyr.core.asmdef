@@ -1,0 +1,24 @@
+{
+    "name": "pyr.core",
+    "rootNamespace": "",
+    "references": [
+        "pyr.union",
+        "pyr.shared",
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "MathfsAsmdef",
+        "JacksonDunstan.NativeCollections",
+        "today.comes.saintsfield.Runtime",
+        "Hertzole.CecilAttributes"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

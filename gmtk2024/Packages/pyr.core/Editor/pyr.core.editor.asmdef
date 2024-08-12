@@ -1,0 +1,27 @@
+﻿{
+    "name": "pyr.core.editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "MathfsAsmdef",
+        "JacksonDunstan.NativeCollections",
+        "today.comes.saintsfield.Runtime",
+        "Hertzole.CecilAttributes",
+        "pyr.shared",
+        "pyr.union",
+        "pyr.core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

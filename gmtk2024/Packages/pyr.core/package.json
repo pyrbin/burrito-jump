@@ -1,0 +1,12 @@
+{
+  "name": "pyr.core",
+  "version": "0.0.1",
+  "displayName": "pyr.core",
+  "description": "",
+  "dependencies": {},
+  "keywords": [],
+  "author": {
+    "name": "pyrbin",
+    "url": "https://github.com/pyrbin"
+  }
+}

@@ -1,0 +1,46 @@
+Shader "Hidden/gmtk2024/Ascii"
+{
+    Properties
+    {
+        _AsciiTex ("Ascii Texture", 2D) = "white"
+    }
+
+    HLSLINCLUDE
+    #pragma target 2.0
+    #pragma editor_sync_compilation
+
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+    #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+    #include "Assets/Graphics/ShaderLibrary/Color.hlsl"
+    #include "Assets/Graphics/ShaderLibrary/Core.hlsl"
+
+    TEXTURE2D(_MainTex);
+    uniform float4 _MainTex_ST;
+    uniform float4 _MainTex_TexelSize;
+
+    uniform float _Sigma, _K, _Tau, _Threshold;
+    uniform int _GaussianKernelSize, _Invert;
+
+    TEXTURE2D(_AsciiTex);
+    uniform float4 _AsciiTex_ST;
+    uniform float4 _AsciiTex_TexelSize;
+
+    float4 Frag (Varyings IN) : SV_Target
+    {
+    }
+
+    ENDHLSL
+
+    SubShader
+    {
+        Tags{ "RenderPipeline" = "UniversalPipeline" }
+        Pass
+        {
+            ZWrite Off ZTest Always Blend Off Cull Off
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment Frag
+            ENDHLSL
+        }
+    }
+}
