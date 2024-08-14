@@ -8,11 +8,11 @@ ShaderVariantCollection:
   m_PrefabAsset: {fileID: 0}
   m_Name: Preload
   m_Shaders:
-  - first: {fileID: 0}
+  - first: {fileID: 4800000, guid: c2cdc7dc26e557b4ab0482f0a18664ab, type: 3}
     second:
       variants:
-      - keywords: _SHADING_STYLE_SKIN_AND_TEXTILES
-        passType: 8
+      - keywords: 
+        passType: 0
   - first: {fileID: 66, guid: 0000000000000000f000000000000000, type: 0}
     second:
       variants:
@@ -92,6 +92,11 @@ ShaderVariantCollection:
         passType: 0
       - keywords: _BLUE_NOISE _SAMPLE_COUNT_MEDIUM _SOURCE_DEPTH_NORMALS
         passType: 0
+  - first: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
     second:
       variants:
@@ -114,11 +119,6 @@ ShaderVariantCollection:
       - keywords: _ADDITIONAL_LIGHT_SHADOWS _FORWARD_PLUS _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_BLENDING
           _REFLECTION_PROBE_BOX_PROJECTION _SCREEN_SPACE_OCCLUSION
         passType: 13
-  - first: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
   - first: {fileID: 4800000, guid: 8a3e8e1270d3f40688b73ded8c1e3087, type: 3}
     second:
       variants:
@@ -151,11 +151,6 @@ ShaderVariantCollection:
       - keywords: 
         passType: 0
   - first: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
-  - first: {fileID: 4800000, guid: c2cdc7dc26e557b4ab0482f0a18664ab, type: 3}
     second:
       variants:
       - keywords: 
