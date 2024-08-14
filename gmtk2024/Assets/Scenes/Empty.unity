@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 1257214940}
   - component: {fileID: 1257214939}
   - component: {fileID: 1257214938}
+  - component: {fileID: 1257214942}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -347,6 +348,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1257214942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257214937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e809ccfcce438c499bf46c924d1c1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2282101033012911878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -358,6 +371,10 @@ PrefabInstance:
     - target: {fileID: 263259129366394536, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636073923536437497, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
+      propertyPath: EnableTransformSnapping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5412337856943340432, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: m_LocalPosition.x
@@ -398,6 +415,10 @@ PrefabInstance:
     - target: {fileID: 5412337856943340432, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834580362073425317, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
+      propertyPath: orthographic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
