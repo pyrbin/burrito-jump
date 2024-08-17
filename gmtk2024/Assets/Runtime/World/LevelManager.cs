@@ -11,6 +11,8 @@ public class LevelManager : MonoSingleton<LevelManager>
     public Goal GoalObject;
     public Transform GoalPosition;
 
+    public Transform CameraPosition;
+
     public const f32 k_BoundsOffset = 2f;
     public const f32 k_GoalYOffset = 3f;
 
@@ -86,5 +88,12 @@ public class LevelManager : MonoSingleton<LevelManager>
         };
 
         GoalObject.transform.position = GoalPosition.transform.position;
+
+        CameraPosition.transform.position = CameraPosition.transform.position with
+        {
+            x = 0f,
+            y = RightPillar.Collider.bounds.max.y - k_GoalYOffset
+        };
+
     }
 }

@@ -29,9 +29,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     public MovementController MovementController;
 
+    public CameraManager cameraManager;
+
     public Player Player;
 
     public GameInput Input => _GameInput;
+
+    public event Action<GameState> OnGameStateChanged;
 
     void OnEnable()
     {
@@ -72,6 +76,7 @@ public class GameManager : MonoSingleton<GameManager>
         OnExitGameState(GameState);
         LastGameState = GameState;
         GameState = gameState;
+        OnGameStateChanged?.Invoke(gameState);
         OnEnterGameState(gameState);
     }
 
@@ -87,9 +92,11 @@ public class GameManager : MonoSingleton<GameManager>
                 Player.RefillDeck();
                 AddBlock();
                 SetInputState(InputState.Building);
+                cameraManager?.SwitchToCamera("BuildCamera");
                 break;
             case (GameState.Platforming, _):
                 SetInputState(InputState.Platforming);
+                cameraManager?.SwitchToCamera("PlatformCamera");
                 break;
             case (GameState.Upgrades, _):
                 SetInputState(InputState.Menu);
