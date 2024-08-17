@@ -150,5 +150,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d8e87a73be29429e409d1d896a02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PixelsPerUnit: 8
+  PixelsPerUnit: 6
   EnableTransformSnapping: 1

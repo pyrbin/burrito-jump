@@ -13,7 +13,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     public Goal GoalObject;
     public Transform GoalPosition;
 
-    public const f32 k_BoundsOffset = 2f;
+    public const f32 k_BoundsOffset = 0;
     public const f32 k_GoalYOffset = 3f;
     public const f32 k_MapWidth = 20f;
 
