@@ -10,13 +10,16 @@ public class Block : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         _Rb = GetComponent<Rigidbody2D>();
         _Rb.gravityScale = 0;
         _Rb.mass = 0;
         _Rb.simulated = false;
         _Rb.bodyType = RigidbodyType2D.Kinematic;
-        if (_IsFalling)
-            StartFalling();
     }
 
     public void StartFalling()

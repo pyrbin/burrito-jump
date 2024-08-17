@@ -7,9 +7,22 @@ public enum InputState
     Menu
 }
 
+public enum GameState
+{
+    StartMenu,
+    Building,
+    Platforming,
+    Upgrades,
+    GameOver
+}
+
 public class GameManager : MonoSingleton<GameManager>
 {
+    public GameState GameState { get; private set; } = GameState.StartMenu;
+    public GameState LastGameState { get; private set; } = GameState.StartMenu;
+
     public InputState InputState { get; private set; } = InputState.Menu;
+
     private GameInput _GameInput;
 
     public BuildingController BuildingController;
@@ -30,31 +43,17 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Start()
     {
-        // TODO: start building automatically for now
-        StartRound();
+        SetupEvents();
 
+        SetGameState(GameState);
+
+        // TODO: auto to play
+        SetGameState(GameState.Building);
+    }
+
+    void SetupEvents()
+    {
         BuildingController.OnCurrentBlockStopped += () => AddBlock();
-    }
-
-    void StartRound()
-    {
-        SetInputState(InputState.Building);
-        Player.RefillDeck();
-        AddBlock();
-    }
-
-    void StartPlatforming()
-    {
-        SetInputState(InputState.Platforming);
-    }
-
-    void AddBlock()
-    {
-        var maybeBlock = Player.TakeBlockFromDeck();
-        if (maybeBlock.IsSome(out var block))
-        {
-            BuildingController.SetCurrentBlock(block);
-        }
     }
 
     void Update()
@@ -62,13 +61,64 @@ public class GameManager : MonoSingleton<GameManager>
         // DEBUG
         if (UnityEngine.Input.GetKeyDown(KeyCode.G))
         {
-            SetInputState(
-                InputState == InputState.Building ? InputState.Platforming : InputState.Building
+            SetGameState(
+                GameState == GameState.Building ? GameState.Platforming : GameState.Building
             );
         }
     }
 
-    void SetInputState(InputState state)
+    void SetGameState(GameState gameState)
+    {
+        OnExitGameState(GameState);
+        LastGameState = GameState;
+        GameState = gameState;
+        OnEnterGameState(gameState);
+    }
+
+    void OnEnterGameState(GameState gameState)
+    {
+        switch ((gameState, LastGameState))
+        {
+            case (GameState.StartMenu, _):
+                SetInputState(InputState.Menu);
+                break;
+            case (GameState.Building, _):
+                BuildingController.Enable();
+                Player.RefillDeck();
+                AddBlock();
+                SetInputState(InputState.Building);
+                break;
+            case (GameState.Platforming, _):
+                SetInputState(InputState.Platforming);
+                break;
+            case (GameState.Upgrades, _):
+                SetInputState(InputState.Menu);
+                break;
+            case (GameState.GameOver, _):
+                SetInputState(InputState.Menu);
+                break;
+        }
+    }
+
+    private void OnExitGameState(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.StartMenu:
+                break;
+            case GameState.Building:
+                BuildingController.Disable();
+                break;
+            case GameState.Platforming:
+                break;
+            case GameState.Upgrades:
+                break;
+            case GameState.GameOver:
+                break;
+        }
+    }
+
+    private void SetInputState(InputState state)
     {
         InputState = state;
         switch (InputState)
@@ -87,4 +137,17 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
         }
     }
+
+    #region Game Logic
+
+    void AddBlock()
+    {
+        var maybeBlock = Player.TakeBlockFromDeck();
+        if (maybeBlock.IsSome(out var block))
+        {
+            BuildingController.SetCurrentBlock(block);
+        }
+    }
+
+    #endregion
 }

@@ -1,68 +1,69 @@
-namespace gmtk2024.Runtime.Renderer.Pixelate;
-
-public class SnapTransform : MonoBehaviour
+namespace gmtk2024.Runtime.Renderer.Pixelate
 {
-    [ReadOnly]
-    [SerializeField]
-    public i32 _InstanceId = -1;
-
-    internal Pixelate? _RegisteredPixelate;
-
-    public bool IsRegistered => _InstanceId != -1;
-
-    public void Start()
+    public class SnapTransform : MonoBehaviour
     {
-        Register(None);
-    }
+        [ReadOnly]
+        [SerializeField]
+        public i32 _InstanceId = -1;
 
-    public void OnEnable()
-    {
-        Register(None);
-    }
+        internal Pixelate? _RegisteredPixelate;
 
-    public void OnDisable()
-    {
-        Unregister();
-    }
+        public bool IsRegistered => _InstanceId != -1;
 
-    public void OnDestroy()
-    {
-        Unregister();
-    }
+        public void Start()
+        {
+            Register(None);
+        }
 
-    [Button("Unregister")]
-    public void Test_Unregister()
-    {
-        Unregister();
-    }
+        public void OnEnable()
+        {
+            Register(None);
+        }
 
-    public void Register(Option<Pixelate> toPixelate)
-    {
-        Unregister();
+        public void OnDisable()
+        {
+            Unregister();
+        }
 
-        toPixelate = toPixelate.Match(
-            Some: v => v,
-            None: () =>
-                FindObjectsByType<Pixelate>(FindObjectsSortMode.None)
-                    .FirstOrDefault(x => x.EnableTransformSnapping)
-                    .ToOption()
-        );
+        public void OnDestroy()
+        {
+            Unregister();
+        }
 
-        if (!toPixelate.IsSome(out var pixelate))
-            return;
+        [Button("Unregister")]
+        public void Test_Unregister()
+        {
+            Unregister();
+        }
 
-        _InstanceId = pixelate.Snappable_Register(transform);
-        _RegisteredPixelate = pixelate;
-    }
+        public void Register(Option<Pixelate> toPixelate)
+        {
+            Unregister();
 
-    public void Unregister()
-    {
-        if (_InstanceId == -1)
-            return;
+            toPixelate = toPixelate.Match(
+                Some: v => v,
+                None: () =>
+                    FindObjectsByType<Pixelate>(FindObjectsSortMode.None)
+                        .FirstOrDefault(x => x.EnableTransformSnapping)
+                        .ToOption()
+            );
 
-        if (_RegisteredPixelate is not null)
-            _RegisteredPixelate.Snappable_Unregister(_InstanceId);
+            if (!toPixelate.IsSome(out var pixelate))
+                return;
 
-        _InstanceId = -1;
+            _InstanceId = pixelate.Snappable_Register(transform);
+            _RegisteredPixelate = pixelate;
+        }
+
+        public void Unregister()
+        {
+            if (_InstanceId == -1)
+                return;
+
+            if (_RegisteredPixelate is not null)
+                _RegisteredPixelate.Snappable_Unregister(_InstanceId);
+
+            _InstanceId = -1;
+        }
     }
 }

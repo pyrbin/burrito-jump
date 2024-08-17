@@ -7,10 +7,17 @@ public class PillarBounds : MonoBehaviour
 
     public float YPos;
 
+    public BoxCollider2D Collider;
+
     [Button("Save Y Pos")]
     void SaveYPosition()
     {
         YPos = transform.position.y;
+    }
+
+    void Start()
+    {
+        TryGetComponent<BoxCollider2D>(out var Collider);
     }
 
     void Update()
