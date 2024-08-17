@@ -31,6 +31,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Character Character => Character.Instance;
 
     public CameraManager cameraManager;
+    public UIManager uiManager;
 
     public Player Player;
 
