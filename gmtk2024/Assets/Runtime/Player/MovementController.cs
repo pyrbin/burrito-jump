@@ -8,11 +8,24 @@ public class MovementController : MonoBehaviour
         Free
     }
 
+    [SerializeField]
+    private Collider2D _Feet;
+    private RaycastHit2D _GroundHit;
+
+    [ReadOnly]
+    public bool _IsGrounded;
+
+    [SerializeField]
+    private Collider2D _Body;
+
     public float JumpForce = 7f;
     public float MaxSpeed = 5f;
     public float Acceleration = 15f;
     public float Deacceleration = 20f;
     public float MaxFallingSpeed = 20f;
+    public float AirAccelerationFactor = 0.75f;
+    public Duration JumpGracePeriod = 0.33f.Secs();
+    public LayerMask GroundLayer;
 
     public bool IsFacingRight { get; private set; } = true;
 
@@ -23,8 +36,6 @@ public class MovementController : MonoBehaviour
     }
 
     private Rigidbody2D _Rigidbody;
-    public ContactFilter2D ContactFilter;
-
     private float MovementDirection { get; set; }
 
     [SerializeField]
@@ -34,7 +45,7 @@ public class MovementController : MonoBehaviour
 
     public bool IsAcceleratingSideways => MovementDirection != 0;
 
-    public bool IsGrounded => _Rigidbody.IsTouching(ContactFilter);
+    public bool IsGrounded => _IsGrounded;
 
     public bool IsFalling => _Rigidbody.linearVelocity.y < 0 && !IsGrounded;
 
@@ -42,9 +53,12 @@ public class MovementController : MonoBehaviour
 
     public Vector2 MovingDirection => new(MovementDirection, 0);
 
+    private Timer _JumpGracePeriodTimer;
+
     // events.
 
     public event Action? OnJump;
+    public event Action<float>? OnFell;
 
     [Header("Debugging")]
     public bool DrawGizmos = true;
@@ -52,18 +66,62 @@ public class MovementController : MonoBehaviour
     void Awake()
     {
         IsFacingRight = true;
-
+        _JumpGracePeriodTimer = new Timer(JumpGracePeriod);
+        _JumpGracePeriodTimer.Tick(JumpGracePeriod);
         TryGetComponent(out _Rigidbody);
+    }
+
+    bool _MarkFall = false;
+    float _FallingHeight = 0;
+
+    void Update()
+    {
+        if (_JumpGracePeriodTimer.Finished && _JumpGracePeriodTimer.Duration != JumpGracePeriod)
+        {
+            _JumpGracePeriodTimer = new Timer(JumpGracePeriod);
+        }
     }
 
     void FixedUpdate()
     {
+        CollisionChecks();
+
         UpdateMovement();
+
+        CheckFallingHeight();
+
+        if (!_JumpGracePeriodTimer.Finished)
+            _JumpGracePeriodTimer.Tick(Time.fixedDeltaTime.Secs());
+    }
+
+    public void CheckFallingHeight()
+    {
+        if (IsFalling && !_MarkFall)
+        {
+            _JumpGracePeriodTimer.Reset();
+            _MarkFall = true;
+            _FallingHeight = transform.position.y;
+        }
+
+        if (IsGrounded && _MarkFall)
+        {
+            _MarkFall = false;
+            var height = _FallingHeight - transform.position.y;
+            if (height > 0)
+                OnFell?.Invoke(height);
+            _FallingHeight = 0;
+        }
+
+        if (_IsJumping && IsGrounded && _JumpGracePeriodTimer.Finished)
+        {
+            _IsJumping = false;
+            _UsedJumps = 0;
+        }
     }
 
     public void Stop()
     {
-        _Rigidbody.linearVelocity = float2.zero;
+        _Rigidbody.linearVelocityX = 0f;
     }
 
     private void UpdateMovement()
@@ -76,6 +134,7 @@ public class MovementController : MonoBehaviour
             {
                 Accelerate();
             }
+
             Deaccalerate();
 
             _Rigidbody.linearVelocityY = math.clamp(
@@ -83,6 +142,10 @@ public class MovementController : MonoBehaviour
                 -MaxFallingSpeed,
                 50f
             );
+        }
+        else
+        {
+            Stop();
         }
     }
 
@@ -112,11 +175,17 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    bool _IsJumping = false;
+    int _UsedJumps = 0;
+    const int k_TotalJumps = 2;
+
     public void Jump()
     {
-        if (IsGrounded)
+        if ((IsGrounded || !_JumpGracePeriodTimer.Finished) && _UsedJumps < k_TotalJumps)
         {
+            _IsJumping = true;
             _Rigidbody.AddForce(new float2(0, JumpForce), ForceMode2D.Impulse);
+            _UsedJumps++;
             OnJump?.Invoke();
         }
     }
@@ -124,7 +193,10 @@ public class MovementController : MonoBehaviour
     private void Accelerate()
     {
         var movementDir = new Vector2(MovementDirection, 0);
-        _Rigidbody.linearVelocity += movementDir * Acceleration * Time.fixedDeltaTime;
+        _Rigidbody.linearVelocity +=
+            movementDir
+            * (Acceleration * (IsFalling ? AirAccelerationFactor : 1f))
+            * Time.fixedDeltaTime;
         if (math.abs(_Rigidbody.linearVelocity.x) > MaxSpeed)
         {
             _Rigidbody.linearVelocity = new Vector2(
@@ -152,5 +224,26 @@ public class MovementController : MonoBehaviour
         }
 
         _Rigidbody.linearVelocity = new Vector2(xVelocity, _Rigidbody.linearVelocity.y);
+    }
+
+    private void CollisionChecks()
+    {
+        CheckIsGrounded();
+    }
+
+    private void CheckIsGrounded()
+    {
+        var boxCastOrigin = new Vector2(_Feet.bounds.center.x, _Feet.bounds.min.y);
+        var boxCastSize = new Vector2(_Feet.bounds.size.x, 0.5f);
+
+        _GroundHit = Physics2D.BoxCast(
+            boxCastOrigin,
+            boxCastSize,
+            0f,
+            Vector2.down,
+            0.5f,
+            GroundLayer
+        );
+        _IsGrounded = _GroundHit.collider != null;
     }
 }

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 134243441645794938}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 20, z: 0}
+  m_LocalPosition: {x: 7.5, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 15, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 2718947918423009538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 17, z: 0}
+  m_LocalPosition: {x: 0, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 3286424760373040032}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 17, z: 0}
+  m_LocalPosition: {x: 0, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 15, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -171,8 +171,8 @@ GameObject:
   - component: {fileID: 622192080491928244}
   - component: {fileID: 16395512437246960}
   - component: {fileID: 3261085560177776367}
-  m_Layer: 0
-  m_Name: Ground Boudns
+  m_Layer: 6
+  m_Name: Ground Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,8 +351,8 @@ MonoBehaviour:
   GoalObject: {fileID: 5812185110074790995}
   GoalPosition: {fileID: 7481682636813393548}
   Level: 1
-  LevelHeight: 20
-  Height: 20
+  LevelHeight: 15
+  Height: 15
   LastLevelHeight: 0
   Blocks: []
 --- !u!1 &5246740651662075959
@@ -380,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 5246740651662075959}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 20, z: 0}
+  m_LocalPosition: {x: -8.5, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 15, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -399,9 +399,9 @@ GameObject:
   - component: {fileID: 4994243889701674772}
   - component: {fileID: 853775570163489535}
   - component: {fileID: 3783076819928900649}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Left Pillar
-  m_TagString: Untagged
+  m_TagString: Pillar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -415,8 +415,8 @@ Transform:
   m_GameObject: {fileID: 5362995984896771013}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 20, z: 1}
+  m_LocalPosition: {x: -10, y: 7.5, z: 0}
+  m_LocalScale: {x: 1, y: 15, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7093936161376086137}
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557ce1a2a82d1124aa1acb17a0cbea4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: 20
+  Size: 15
   YPos: 0
   Collider: {fileID: 853775570163489535}
 --- !u!1 &8029981951914285821
@@ -612,9 +612,9 @@ GameObject:
   - component: {fileID: 4653519261605572448}
   - component: {fileID: 2866138392533279639}
   - component: {fileID: 6378829306602391594}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Right Pillar
-  m_TagString: Untagged
+  m_TagString: Pillar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -628,8 +628,8 @@ Transform:
   m_GameObject: {fileID: 8968158546832834492}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 20, z: 1}
+  m_LocalPosition: {x: 10, y: 7.5, z: 0}
+  m_LocalScale: {x: 1, y: 15, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7093936161376086137}
@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557ce1a2a82d1124aa1acb17a0cbea4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: 20
+  Size: 15
   YPos: 0
   Collider: {fileID: 2866138392533279639}
 --- !u!1001 &5861836995367325345

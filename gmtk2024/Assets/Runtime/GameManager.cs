@@ -26,8 +26,9 @@ public class GameManager : MonoSingleton<GameManager>
     private GameInput _GameInput;
 
     public BuildingController BuildingController;
-
     public MovementController MovementController;
+    public LevelManager LevelManager => LevelManager.Instance;
+    public Character Character => Character.Instance;
 
     public Player Player;
 
@@ -45,6 +46,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SetupEvents();
 
+        Restart();
+
         SetGameState(GameState);
 
         // TODO: auto to play
@@ -53,7 +56,12 @@ public class GameManager : MonoSingleton<GameManager>
 
     void SetupEvents()
     {
-        BuildingController.OnCurrentBlockStopped += () => AddBlock();
+        BuildingController.OnCurrentBlockStopped += OnBlockStopped;
+        LevelManager.FinishedLevel += () =>
+        {
+            MovementController.State = MovementController.MovementState.Frozen;
+            SetGameState(GameState.Upgrades);
+        };
     }
 
     void Update()
@@ -67,6 +75,13 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    void Restart()
+    {
+        LevelManager.Restart();
+        BuildingController.Restart();
+        Player.Restart();
+    }
+
     void SetGameState(GameState gameState)
     {
         OnExitGameState(GameState);
@@ -75,24 +90,37 @@ public class GameManager : MonoSingleton<GameManager>
         OnEnterGameState(gameState);
     }
 
-    void OnEnterGameState(GameState gameState)
+    async void OnEnterGameState(GameState gameState)
     {
         switch ((gameState, LastGameState))
         {
+            case (GameState.StartMenu, GameState.GameOver):
+                LevelManager.Restart();
+                BuildingController.Restart();
+                Player.Restart();
+                break;
             case (GameState.StartMenu, _):
                 SetInputState(InputState.Menu);
                 break;
             case (GameState.Building, _):
+                LevelManager.ShowGoalObject();
                 BuildingController.Enable();
                 Player.RefillDeck();
-                AddBlock();
+                TakeNextBlockFromDeck();
                 SetInputState(InputState.Building);
                 break;
             case (GameState.Platforming, _):
+                MovementController.State = MovementController.MovementState.Free;
+                LevelManager.ShowGoalObject();
                 SetInputState(InputState.Platforming);
                 break;
             case (GameState.Upgrades, _):
+                LevelManager.HideGoalObject();
                 SetInputState(InputState.Menu);
+                await UniTask.Delay(222);
+                // TODO: dont immeditedly go to building
+                SetGameState(GameState.Building);
+
                 break;
             case (GameState.GameOver, _):
                 SetInputState(InputState.Menu);
@@ -105,11 +133,13 @@ public class GameManager : MonoSingleton<GameManager>
         switch (gameState)
         {
             case GameState.StartMenu:
+
                 break;
             case GameState.Building:
                 BuildingController.Disable();
                 break;
             case GameState.Platforming:
+                MovementController.State = MovementController.MovementState.Frozen;
                 break;
             case GameState.Upgrades:
                 break;
@@ -140,7 +170,19 @@ public class GameManager : MonoSingleton<GameManager>
 
     #region Game Logic
 
-    void AddBlock()
+    void OnBlockStopped()
+    {
+        if (Player.ActiveDeckCount <= 0)
+        {
+            SetGameState(GameState.Platforming);
+        }
+        else
+        {
+            TakeNextBlockFromDeck();
+        }
+    }
+
+    void TakeNextBlockFromDeck()
     {
         var maybeBlock = Player.TakeBlockFromDeck();
         if (maybeBlock.IsSome(out var block))

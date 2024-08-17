@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7837322606559312957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4205288540527189280}
   - component: {fileID: 1385030766199978344}
   - component: {fileID: 2138091622357996616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1990802270699807435}
   - component: {fileID: 4030377336844575098}
   - component: {fileID: 2079081347553838098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156959878967972954}
   - component: {fileID: 830307132248833544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Feet
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -318,7 +318,8 @@ GameObject:
   - component: {fileID: 2903552564900812869}
   - component: {fileID: 5976406246467326258}
   - component: {fileID: 6229037555611203264}
-  m_Layer: 0
+  - component: {fileID: 65270918177434000}
+  m_Layer: 8
   m_Name: Platformer Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -354,25 +355,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a226578ec7428f541acf73c1097cfd7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 9
+  _Feet: {fileID: 830307132248833544}
+  _IsGrounded: 0
+  _Body: {fileID: 1830488351742302631}
+  JumpForce: 7
   MaxSpeed: 4
   Acceleration: 10
   Deacceleration: 20
   MaxFallingSpeed: 20
-  ContactFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 512
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  AirAccelerationFactor: 0.75
+  JumpGracePeriod:
+    _Secs: 0
+    _Nanos: 330000013
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 4672
   State: 1
   DrawGizmos: 1
 --- !u!50 &5976406246467326258
@@ -387,10 +384,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0.1
+  m_Mass: 1.25
+  m_LinearDamping: 0
   m_AngularDamping: 0
-  m_GravityScale: 1
+  m_GravityScale: 0.6
   m_Material: {fileID: 6200000, guid: 716c2b4ead9afe84d99a93e0416e11b4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -415,6 +412,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InstanceId: 1
+--- !u!114 &65270918177434000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6377326497718411943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2ea4b53b6384540a01ea077d596770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
 --- !u!1 &6935503792965327629
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6645234384730957849}
   - component: {fileID: 1830488351742302631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}

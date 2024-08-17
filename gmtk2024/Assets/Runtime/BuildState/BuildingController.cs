@@ -22,6 +22,8 @@ public class BuildingController : MonoBehaviour
         currentBlock = null;
     }
 
+    public void Restart() { }
+
     public async void SetCurrentBlock(Block block)
     {
         if (IsDropping || IsLoading)

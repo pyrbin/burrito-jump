@@ -48,7 +48,7 @@ public class Block : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_IsFalling)
+        if (_IsFalling && !collision.gameObject.CompareTag("Pillar"))
         {
             StopFalling();
         }
