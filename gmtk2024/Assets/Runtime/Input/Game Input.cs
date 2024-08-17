@@ -16,7 +16,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine;
 
-namespace gmtk2024.Runtime.Input
+namespace mote.Runtime.Input
 {
     public partial class @GameInput: IInputActionCollection2, IDisposable
     {
@@ -31,24 +31,141 @@ namespace gmtk2024.Runtime.Input
             ""id"": ""1d235e3e-c699-40aa-a62a-f5fc67cc188d"",
             ""actions"": [
                 {
-                    ""name"": ""MousePosition"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""84e46ef0-79b3-47d9-bf4d-e9ce0d3b9f3f"",
+                    ""id"": ""62a4a676-accb-40bc-95d8-5117152a28ed"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""fce673bb-608e-4082-9033-db4762a9a317"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3a76079-a241-4bfa-8cc3-6697b4533beb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1a6c7df2-12f0-4c13-bd92-fe4ba4088069"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""329935f2-c38a-4815-97b0-fed09e09439f"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MousePosition"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""3ff8ee7f-6ac2-4642-920f-f81d78133d3e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""c04cd28e-33d8-4c27-9876-6ce80674af92"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""4cbfff97-0bfe-453a-9fa4-715369c842f7"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d154d424-c885-4de8-ab58-a703f7c34f1a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""d3e5ee13-e40f-4084-87da-9a2ed93cc8e9"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""564570a9-b727-49ae-a541-0534d58d174d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd7d492d-0762-42d7-8a82-e2781b3fa0c4"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9fa4027-6d8d-4412-9450-397b478c36e1"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e14d2218-f83f-43f4-8d93-ba0e68fa7f7a"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -87,7 +204,9 @@ namespace gmtk2024.Runtime.Input
 }");
             // Gameplay
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
+            m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+            m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+            m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -158,12 +277,16 @@ namespace gmtk2024.Runtime.Input
         // Gameplay
         private readonly InputActionMap m_Gameplay;
         private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-        private readonly InputAction m_Gameplay_MousePosition;
+        private readonly InputAction m_Gameplay_Move;
+        private readonly InputAction m_Gameplay_Jump;
+        private readonly InputAction m_Gameplay_Run;
         public struct GameplayActions
         {
             private @GameInput m_Wrapper;
             public GameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MousePosition => m_Wrapper.m_Gameplay_MousePosition;
+            public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+            public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+            public InputAction @Run => m_Wrapper.m_Gameplay_Run;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -173,16 +296,28 @@ namespace gmtk2024.Runtime.Input
             {
                 if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-                @MousePosition.started += instance.OnMousePosition;
-                @MousePosition.performed += instance.OnMousePosition;
-                @MousePosition.canceled += instance.OnMousePosition;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
             {
-                @MousePosition.started -= instance.OnMousePosition;
-                @MousePosition.performed -= instance.OnMousePosition;
-                @MousePosition.canceled -= instance.OnMousePosition;
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
+                @Run.started -= instance.OnRun;
+                @Run.performed -= instance.OnRun;
+                @Run.canceled -= instance.OnRun;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -248,7 +383,9 @@ namespace gmtk2024.Runtime.Input
         public UIActions @UI => new UIActions(this);
         public interface IGameplayActions
         {
-            void OnMousePosition(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnRun(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
