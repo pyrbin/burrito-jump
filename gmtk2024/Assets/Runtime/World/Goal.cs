@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+
 public class Goal : MonoBehaviour
 {
     public PhysicsEvents2D Events;
@@ -15,12 +17,14 @@ public class Goal : MonoBehaviour
             if (collider.gameObject.CompareTag("Player"))
             {
                 ReachedGoal?.Invoke();
+                Enabled = false;
             }
         };
     }
 
     void Update()
     {
-        enabled = Enabled;
+        if (gameObject.activeSelf != Enabled)
+            gameObject.SetActive(Enabled);
     }
 }

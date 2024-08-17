@@ -141,10 +141,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 3636073923536437497, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
-      propertyPath: EnableTransformSnapping
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5412337856943340432, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -185,14 +181,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6834580362073425317, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
-      propertyPath: orthographic size
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834580362073425317, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -208,11 +196,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 339776980409641317, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 339776980409641317, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.94
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 339776980409641317, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: m_LocalPosition.z

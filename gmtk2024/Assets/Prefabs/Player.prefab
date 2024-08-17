@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ee930ec94ad0c4bb6e9d703996b52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 3
   MovementController: {fileID: 0}
   BuildingController: {fileID: 0}
   Deck:
@@ -52,6 +53,7 @@ MonoBehaviour:
   - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
   - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
   - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
+  CurrentRunDeck: []
   ActiveDeck: []
 --- !u!114 &2998312276167436933
 MonoBehaviour:
