@@ -3,7 +3,7 @@ public class Card : ScriptableObject
 {
     public string CardName = "Name";
 
-    public Texture2D IconAsset;
+    public Sprite IconAsset;
 
     [EnumFlags]
     public CardAction Action = CardAction.Spawn;

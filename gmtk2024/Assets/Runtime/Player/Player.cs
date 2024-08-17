@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     public MovementController MovementController;
     public BuildingController BuildingController;
 
-    public List<Block> Deck = new();
+    public List<Card> Deck = new();
 
     [ReadOnly]
-    public List<Block> CurrentRunDeck = new();
+    public List<Card> CurrentRunDeck = new();
 
     [ReadOnly]
-    public List<Block> ActiveDeck = new();
+    public List<Card> ActiveDeck = new();
 
     public int ActiveDeckCount => ActiveDeck.Count;
 
@@ -38,20 +38,21 @@ public class Player : MonoBehaviour
         ActiveDeck.Shuffle();
     }
 
-    public void AddToDeck(Block block)
+    public void AddToDeck(Card card)
     {
-        CurrentRunDeck.Add(block);
+        CurrentRunDeck.Add(card);
     }
 
-    public Option<Block> TakeBlockFromDeck()
+    public Option<Block> UseFirstCard()
     {
         if (ActiveDeck.Count == 0)
         {
             return None;
         }
 
-        var block = ActiveDeck[ActiveDeck.Count - 1];
+        var card = ActiveDeck[ActiveDeck.Count - 1];
         ActiveDeck.RemoveAt(ActiveDeck.Count - 1);
+        var block = card.Activate(null);
         return block;
     }
 

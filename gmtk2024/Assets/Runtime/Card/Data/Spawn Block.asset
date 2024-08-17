@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Spawn Block
   m_EditorClassIdentifier: 
   CardName: Spawn Block
-  IconAsset: {fileID: 2800000, guid: 61521df2e071645488ba3d05e49289ae, type: 3}
+  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   Action: 1
   Block: {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}

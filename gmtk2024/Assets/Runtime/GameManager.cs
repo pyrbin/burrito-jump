@@ -155,7 +155,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    private void SetInputState(InputState state)
+    public void SetInputState(InputState state)
     {
         InputState = state;
         switch (InputState)
@@ -191,7 +191,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     void TakeNextBlockFromDeck()
     {
-        var maybeBlock = Player.TakeBlockFromDeck();
+        var maybeBlock = Player.UseFirstCard();
         if (maybeBlock.IsSome(out var block))
         {
             BuildingController.SetCurrentBlock(block);
