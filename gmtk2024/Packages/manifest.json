@@ -13,6 +13,7 @@
     "com.lurking-ninja.player-loop": "https://github.com/LurkingNinja/com.lurking-ninja.player-loop.git?path=Packages/com.lurking-ninja.player-loop",
     "com.nomnom.raycast-visualization": "https://github.com/nomnomab/RaycastVisualization.git",
     "com.singularitygroup.hotreload": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.12.11",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.3",
     "com.unity.cinemachine": "3.1.0",
     "com.unity.collab-proxy": "2.4.4",

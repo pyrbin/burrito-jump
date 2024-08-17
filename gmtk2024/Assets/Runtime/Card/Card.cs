@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+
 [CreateAssetMenu(menuName = "GMTK2024 / Card")]
 public class Card : ScriptableObject
 {
@@ -15,6 +17,11 @@ public class Card : ScriptableObject
     public Block? Block;
 
     public bool IsNotSpawn() => !((Action & CardAction.Spawn) != 0);
+
+    public virtual Card Clone()
+    {
+        return this.CloneScriptableObject();
+    }
 
     public void OnEnable()
     {

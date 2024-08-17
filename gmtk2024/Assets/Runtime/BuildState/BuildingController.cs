@@ -1,4 +1,4 @@
-public class BuildingController : MonoBehaviour
+public class BuildingController : MonoSingleton<BuildingController>
 {
     public Block? currentBlock;
     public f32 rotationDegrees = 30f; // Rotation angle in degrees
@@ -47,6 +47,7 @@ public class BuildingController : MonoBehaviour
         if (currentBlock == null || IsDropping || IsLoading)
             return;
 
+        GameManager.Instance.SetInputState(InputState.Menu);
         LevelManager.Instance.Blocks.Add(currentBlock);
         currentBlock.IgnoreCollision(false);
         currentBlock.StartFalling();

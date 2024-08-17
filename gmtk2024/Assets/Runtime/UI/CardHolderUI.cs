@@ -1,17 +1,45 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardHolderUI : MonoBehaviour
 {
-    public float SpaceBetween = 20f;
-    public GameObject CardUIPrefab; // Assign this in the Unity Editor
-
+    public float SpaceBetween = 10f;
+    public GameObject CardUIPrefab;
     public List<CardUI> SpawnedCards = new();
+    public TMP_Text CardText;
+
+    public void DragStart(float3 mousePos) { }
+
+    public void DragEnd(float3 mousePos) { }
+
+    public void Sync(List<Card> cards)
+    {
+        var currentCards = new HashSet<Card>(SpawnedCards.Select(c => c.Card));
+        var newCards = new HashSet<Card>(cards);
+        foreach (var cardUI in SpawnedCards.ToList())
+        {
+            if (!newCards.Contains(cardUI.Card))
+            {
+                RemoveCard(cardUI.Card);
+            }
+        }
+        foreach (var card in cards)
+        {
+            if (!currentCards.Contains(card))
+            {
+                AddCard(card);
+            }
+        }
+        RetainOrder();
+
+        CardText.text = Player.Instance.ActiveDeck.Count.ToString();
+    }
 
     public void AddCard(Card card)
     {
-        var cardUIObject = Instantiate(CardUIPrefab);
+        var cardUIObject = Instantiate(CardUIPrefab, parent: this.transform);
         var cardUI = cardUIObject.GetComponent<CardUI>();
         cardUI.SetCardData(card);
         SpawnedCards.Add(cardUI);
@@ -19,7 +47,7 @@ public class CardHolderUI : MonoBehaviour
         RetainOrder();
     }
 
-    public void Removecard(Card card)
+    public void RemoveCard(Card card)
     {
         var cardToRemove = SpawnedCards.Find(c => c.Card == card);
         if (cardToRemove != null)
@@ -36,24 +64,21 @@ public class CardHolderUI : MonoBehaviour
         if (SpawnedCards.Count == 0)
             return;
 
-        // Calculate the total width of the cards including the space between them
-        float totalWidth = 0f;
+        var totalHeight = 0f;
         foreach (var cardUI in SpawnedCards)
         {
-            totalWidth += cardUI.GetComponent<RectTransform>().sizeDelta.x;
+            totalHeight += cardUI.GetComponent<RectTransform>().sizeDelta.y;
         }
-        totalWidth += (SpawnedCards.Count - 1) * SpaceBetween;
+        totalHeight += (SpawnedCards.Count - 1) * SpaceBetween;
 
-        // Calculate the starting position for the first card to center the list
-        float startX = -totalWidth / 2f;
+        var startY = totalHeight / 2f;
 
-        // Position each card in the list
-        for (int i = 0; i < SpawnedCards.Count; i++)
+        for (var i = 0; i < SpawnedCards.Count; i++)
         {
-            RectTransform rectTransform = SpawnedCards[i].GetComponent<RectTransform>();
-            float cardWidth = rectTransform.sizeDelta.x;
-            float cardPositionX = startX + (i * (cardWidth + SpaceBetween));
-            rectTransform.anchoredPosition = new Vector2(cardPositionX + cardWidth / 2f, 0);
+            var rectTransform = SpawnedCards[i].GetComponent<RectTransform>();
+            var cardHeight = rectTransform.sizeDelta.y;
+            var cardPositionY = -startY + (i * (cardHeight + SpaceBetween));
+            rectTransform.anchoredPosition = new Vector2(0, cardPositionY + cardHeight / 2f);
         }
     }
 }

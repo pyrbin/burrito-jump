@@ -1,11 +1,13 @@
 using gmtk2024.Runtime.Stat;
 using mote.Runtime.Input;
+using Unity.VisualScripting;
 
-public class Player : MonoBehaviour
+public class Player : MonoSingleton<Player>
 {
     public int Health = 3;
     public MovementController MovementController;
     public BuildingController BuildingController;
+    public CardHolderUI CardHolderUI;
 
     public List<Card> Deck = new();
 
@@ -15,7 +17,12 @@ public class Player : MonoBehaviour
     [ReadOnly]
     public List<Card> ActiveDeck = new();
 
+    [ReadOnly]
+    public List<Card> Hand = new();
+
     public int ActiveDeckCount => ActiveDeck.Count;
+
+    public event Action<Card>? UsedCard;
 
     public void Start()
     {
@@ -34,7 +41,7 @@ public class Player : MonoBehaviour
     public void RefillDeck()
     {
         ActiveDeck.Clear();
-        ActiveDeck.AddRange(CurrentRunDeck);
+        ActiveDeck.AddRange(CurrentRunDeck.Select(x => x.Clone()));
         ActiveDeck.Shuffle();
     }
 
@@ -43,17 +50,37 @@ public class Player : MonoBehaviour
         CurrentRunDeck.Add(card);
     }
 
-    public Option<Block> UseFirstCard()
+    public void ResetHand()
     {
+        Hand.Clear();
+        CardHolderUI.Sync(Hand);
+    }
+
+    public void DrawToHand(int count)
+    {
+        if (Hand.Count + count > 3)
+            return;
         if (ActiveDeck.Count == 0)
+            return;
+        var clampedCount = Math.Clamp(count, 0, ActiveDeck.Count);
+        Hand.AddRange(ActiveDeck.Take(clampedCount));
+        ActiveDeck.RemoveRange(0, clampedCount);
+
+        CardHolderUI.Sync(Hand);
+    }
+
+    public void ActivateCard(Card card, Block? block)
+    {
+        Hand.Remove(card);
+        var spawned = card.Activate(block);
+        if (spawned.IsNotNull())
         {
-            return None;
+            BuildingController.SetCurrentBlock(spawned);
         }
 
-        var card = ActiveDeck[ActiveDeck.Count - 1];
-        ActiveDeck.RemoveAt(ActiveDeck.Count - 1);
-        var block = card.Activate(null);
-        return block;
+        CardHolderUI.Sync(Hand);
+
+        UsedCard?.Invoke(card);
     }
 
     public void Restart()

@@ -66,6 +66,17 @@ public class GameManager : MonoSingleton<GameManager>
             MovementController.State = MovementController.MovementState.Frozen;
             SetGameState(GameState.Upgrades);
         };
+
+        Player.UsedCard += (_) =>
+        {
+            if (
+                BuildingController.currentBlock == null
+                && (Player.ActiveDeckCount <= 0 && Player.Hand.Count <= 0)
+            )
+            {
+                SetGameState(GameState.Platforming);
+            }
+        };
     }
 
     void Update()
@@ -111,7 +122,7 @@ public class GameManager : MonoSingleton<GameManager>
                 LevelManager.ShowGoalObject();
                 BuildingController.Enable();
                 Player.RefillDeck();
-                TakeNextBlockFromDeck();
+                Player.DrawToHand(3);
                 SetInputState(InputState.Building);
                 cameraManager?.SwitchToCamera("BuildCamera");
                 break;
@@ -179,22 +190,15 @@ public class GameManager : MonoSingleton<GameManager>
 
     void OnBlockStopped()
     {
-        if (Player.ActiveDeckCount <= 0)
+        Player.DrawToHand(1);
+
+        if (Player.ActiveDeckCount <= 0 && Player.Hand.Count <= 0)
         {
             SetGameState(GameState.Platforming);
         }
         else
         {
-            TakeNextBlockFromDeck();
-        }
-    }
-
-    void TakeNextBlockFromDeck()
-    {
-        var maybeBlock = Player.UseFirstCard();
-        if (maybeBlock.IsSome(out var block))
-        {
-            BuildingController.SetCurrentBlock(block);
+            SetInputState(InputState.Building);
         }
     }
 
