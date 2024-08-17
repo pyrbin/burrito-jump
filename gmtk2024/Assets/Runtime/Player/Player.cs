@@ -1,37 +1,66 @@
 using mote.Runtime.Input;
 
-[RequireComponent(typeof(MovementController))]
 public class Player : MonoBehaviour
 {
-    private MovementController Movement;
-    private GameInput _GameInput;
+    public MovementController MovementController;
+    public BuildingController BuildingController;
 
-    private float2 _MovementInput;
-    private bool _JumpPressed = false;
-    private bool _JumpReleased = false;
+    public List<Block> Deck = new();
 
-    void OnEnable()
+    [ReadOnly]
+    public List<Block> ActiveDeck = new();
+
+    public void RefillDeck()
     {
-        _GameInput ??= new GameInput();
-        _GameInput.Enable();
-        _GameInput.Gameplay.Enable();
+        ActiveDeck.AddRange(Deck);
+        ActiveDeck.Shuffle();
     }
 
-    void Start()
+    public Option<Block> TakeBlockFromDeck()
     {
-        TryGetComponent(out Movement);
+        if (ActiveDeck.Count == 0)
+        {
+            return None;
+        }
+
+        var block = ActiveDeck[ActiveDeck.Count - 1];
+        ActiveDeck.RemoveAt(ActiveDeck.Count - 1);
+        return block;
     }
 
     void Update()
     {
-        _JumpPressed = _GameInput.Gameplay.Jump.WasPressedThisFrame();
-        _JumpReleased = _GameInput.Gameplay.Jump.WasReleasedThisFrame();
-        _MovementInput = _GameInput.Gameplay.Move.ReadValue<Vector2>();
-
-        Movement.Direction = _MovementInput.x;
-        if (_JumpPressed)
+        switch (GameManager.Instance.InputState)
         {
-            Movement.Jump();
+            case InputState.Building:
+
+                if (GameManager.Instance.Input.Building.Drop.WasPressedThisFrame())
+                {
+                    BuildingController.Drop();
+                }
+
+                if (GameManager.Instance.Input.Building.RotateLeft.WasPressedThisFrame())
+                {
+                    BuildingController.RotateLeft();
+                }
+                else if (GameManager.Instance.Input.Building.RotateRight.WasPressedThisFrame())
+                {
+                    BuildingController.RotateRight();
+                }
+
+                var mousePosition = GameManager.Instance.Input.Building.Move.ReadValue<Vector2>();
+                BuildingController.UpdatePosition(Camera.main.ScreenToWorldPoint(mousePosition));
+
+                break;
+            case InputState.Platforming:
+                var jumpPressed = GameManager.Instance.Input.Gameplay.Jump.WasPressedThisFrame();
+                var movement = GameManager.Instance.Input.Gameplay.Move.ReadValue<Vector2>();
+                MovementController.Direction = movement.x;
+                if (jumpPressed)
+                {
+                    MovementController.Jump();
+                }
+                break;
         }
     }
 }

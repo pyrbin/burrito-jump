@@ -198,6 +198,105 @@ namespace mote.Runtime.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Building"",
+            ""id"": ""84799a26-8f56-4c1f-9ec2-0e24844d3d9c"",
+            ""actions"": [
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""99f94cc2-b32e-4e3b-b594-5c3c39f41c5b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""b39f363b-5e18-45c1-9894-b4204d26eb1b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""dcc9fc13-aaa2-400b-baad-39f42c19c49a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c76e82c-6ed9-4c11-806a-3dcb85b8975b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9cefd57d-f14a-4aec-8686-d264d9cd8c65"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bcd4736-1321-428d-9c2b-07e0ed48bb23"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0371a6e-ccb1-498b-aeb1-6984ca175b66"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abc9f6a5-bf64-4a2b-935b-a9234d099fd4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ce87974-fea7-44a3-b32e-09a944ab1213"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -210,12 +309,19 @@ namespace mote.Runtime.Input
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
+            // Building
+            m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
+            m_Building_Drop = m_Building.FindAction("Drop", throwIfNotFound: true);
+            m_Building_Move = m_Building.FindAction("Move", throwIfNotFound: true);
+            m_Building_RotateLeft = m_Building.FindAction("Rotate Left", throwIfNotFound: true);
+            m_Building_RotateRight = m_Building.FindAction("Rotate Right", throwIfNotFound: true);
         }
 
         ~@GameInput()
         {
             Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, GameInput.Gameplay.Disable() has not been called.");
             Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameInput.UI.Disable() has not been called.");
+            Debug.Assert(!m_Building.enabled, "This will cause a leak and performance issues, GameInput.Building.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -381,6 +487,76 @@ namespace mote.Runtime.Input
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Building
+        private readonly InputActionMap m_Building;
+        private List<IBuildingActions> m_BuildingActionsCallbackInterfaces = new List<IBuildingActions>();
+        private readonly InputAction m_Building_Drop;
+        private readonly InputAction m_Building_Move;
+        private readonly InputAction m_Building_RotateLeft;
+        private readonly InputAction m_Building_RotateRight;
+        public struct BuildingActions
+        {
+            private @GameInput m_Wrapper;
+            public BuildingActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Drop => m_Wrapper.m_Building_Drop;
+            public InputAction @Move => m_Wrapper.m_Building_Move;
+            public InputAction @RotateLeft => m_Wrapper.m_Building_RotateLeft;
+            public InputAction @RotateRight => m_Wrapper.m_Building_RotateRight;
+            public InputActionMap Get() { return m_Wrapper.m_Building; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(BuildingActions set) { return set.Get(); }
+            public void AddCallbacks(IBuildingActions instance)
+            {
+                if (instance == null || m_Wrapper.m_BuildingActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_BuildingActionsCallbackInterfaces.Add(instance);
+                @Drop.started += instance.OnDrop;
+                @Drop.performed += instance.OnDrop;
+                @Drop.canceled += instance.OnDrop;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @RotateLeft.started += instance.OnRotateLeft;
+                @RotateLeft.performed += instance.OnRotateLeft;
+                @RotateLeft.canceled += instance.OnRotateLeft;
+                @RotateRight.started += instance.OnRotateRight;
+                @RotateRight.performed += instance.OnRotateRight;
+                @RotateRight.canceled += instance.OnRotateRight;
+            }
+
+            private void UnregisterCallbacks(IBuildingActions instance)
+            {
+                @Drop.started -= instance.OnDrop;
+                @Drop.performed -= instance.OnDrop;
+                @Drop.canceled -= instance.OnDrop;
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @RotateLeft.started -= instance.OnRotateLeft;
+                @RotateLeft.performed -= instance.OnRotateLeft;
+                @RotateLeft.canceled -= instance.OnRotateLeft;
+                @RotateRight.started -= instance.OnRotateRight;
+                @RotateRight.performed -= instance.OnRotateRight;
+                @RotateRight.canceled -= instance.OnRotateRight;
+            }
+
+            public void RemoveCallbacks(IBuildingActions instance)
+            {
+                if (m_Wrapper.m_BuildingActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IBuildingActions instance)
+            {
+                foreach (var item in m_Wrapper.m_BuildingActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_BuildingActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public BuildingActions @Building => new BuildingActions(this);
         public interface IGameplayActions
         {
             void OnMove(InputAction.CallbackContext context);
@@ -390,6 +566,13 @@ namespace mote.Runtime.Input
         public interface IUIActions
         {
             void OnNewaction(InputAction.CallbackContext context);
+        }
+        public interface IBuildingActions
+        {
+            void OnDrop(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
+            void OnRotateLeft(InputAction.CallbackContext context);
+            void OnRotateRight(InputAction.CallbackContext context);
         }
     }
 }

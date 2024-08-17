@@ -1,11 +1,12 @@
-
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class Block : MonoBehaviour
 {
     public float fallSpeed = 5f;
     public bool _IsFalling = false;
     private Rigidbody2D _Rb;
-    public event Action<Block> OnStartFalling;
+
+    public event Action<Block>? OnStartFalling;
+    public event Action<Block>? OnStopFalling;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class Block : MonoBehaviour
         _Rb.mass = 0;
         _Rb.simulated = false;
         _Rb.bodyType = RigidbodyType2D.Kinematic;
-        if (_IsFalling) StartFalling();
+        if (_IsFalling)
+            StartFalling();
     }
 
     public void StartFalling()
@@ -27,6 +29,8 @@ public class Block : MonoBehaviour
 
     public void StopFalling()
     {
+        OnStopFalling?.Invoke(this);
+
         _Rb.linearVelocity = new Vector2(0, 0);
         _Rb.bodyType = RigidbodyType2D.Static;
         _IsFalling = false;
@@ -34,7 +38,8 @@ public class Block : MonoBehaviour
 
     public void IgnoreCollision(bool ignore)
     {
-        if (_Rb == null) return;    
+        if (_Rb == null)
+            return;
         _Rb.simulated = !ignore;
     }
 
@@ -45,5 +50,4 @@ public class Block : MonoBehaviour
             StopFalling();
         }
     }
-
 }

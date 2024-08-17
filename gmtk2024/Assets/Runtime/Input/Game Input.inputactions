@@ -173,6 +173,105 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Building",
+            "id": "84799a26-8f56-4c1f-9ec2-0e24844d3d9c",
+            "actions": [
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "99f94cc2-b32e-4e3b-b594-5c3c39f41c5b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "b39f363b-5e18-45c1-9894-b4204d26eb1b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotate Left",
+                    "type": "Button",
+                    "id": "dcc9fc13-aaa2-400b-baad-39f42c19c49a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate Right",
+                    "type": "Button",
+                    "id": "4c76e82c-6ed9-4c11-806a-3dcb85b8975b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9cefd57d-f14a-4aec-8686-d264d9cd8c65",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1bcd4736-1321-428d-9c2b-07e0ed48bb23",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0371a6e-ccb1-498b-aeb1-6984ca175b66",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abc9f6a5-bf64-4a2b-935b-a9234d099fd4",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ce87974-fea7-44a3-b32e-09a944ab1213",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
