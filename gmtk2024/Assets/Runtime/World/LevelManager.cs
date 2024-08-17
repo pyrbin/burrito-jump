@@ -70,6 +70,11 @@ public class LevelManager : MonoSingleton<LevelManager>
         Character.Instance.transform.position = new Vector3(-7, 1.7f, 0);
     }
 
+    public void RemoveBlock(Block block)
+    {
+        Blocks.Remove(block);
+    }
+
     public void ShowGoalObject()
     {
         GoalObject.gameObject.SetActive(true);
