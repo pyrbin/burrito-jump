@@ -31,6 +31,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Character Character => Character.Instance;
 
     public CameraManager cameraManager;
+    public UIManager uiManager;
 
     public Player Player;
 
@@ -54,8 +55,6 @@ public class GameManager : MonoSingleton<GameManager>
 
         SetGameState(GameState);
 
-        // TODO: auto to play
-        SetGameState(GameState.Building);
     }
 
     void SetupEvents()
@@ -203,4 +202,9 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     #endregion
+
+    public void StartGame()
+    {
+        SetGameState(GameState.Building);
+    }
 }
