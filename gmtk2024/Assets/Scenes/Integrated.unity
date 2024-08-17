@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903552564900812869, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: JumpGracePeriod._Nanos
-      value: 600000023
+      value: 888000011
       objectReference: {fileID: 0}
     - target: {fileID: 6377326497718411943, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: m_Name
@@ -464,6 +464,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2998610806316368677, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378364634552468602, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4580939595180832316, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_Name
       value: Level Manager

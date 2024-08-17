@@ -15,8 +15,6 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public Transform CameraPosition;
 
-
-    public const f32 k_BoundsOffset = 0;
     public const f32 k_GoalYOffset = 3f;
     public const f32 k_MapWidth = 20f;
 
@@ -136,13 +134,13 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LeftSpawnBounds.transform.position = LeftSpawnBounds.transform.position with
         {
-            x = LeftPillar.Collider.bounds.min.x + k_BoundsOffset,
+            x = LeftPillar.Collider.bounds.min.x + 2,
             y = LeftPillar.Collider.bounds.max.y
         };
 
         RightSpawnBounds.transform.position = RightSpawnBounds.transform.position with
         {
-            x = RightPillar.Collider.bounds.min.x - k_BoundsOffset,
+            x = RightPillar.Collider.bounds.min.x - 1,
             y = RightPillar.Collider.bounds.max.y
         };
 
@@ -159,6 +157,5 @@ public class LevelManager : MonoSingleton<LevelManager>
             x = 0f,
             y = RightPillar.Collider.bounds.max.y - k_GoalYOffset
         };
-
     }
 }
