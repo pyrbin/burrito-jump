@@ -87,7 +87,9 @@ public class CardHolderUI : MonoBehaviour
             return;
 
         var totalHeight = 0f;
-        foreach (var cardUI in SpawnedCards)
+        var copy = SpawnedCards.ToList();
+        copy.Reverse();
+        foreach (var cardUI in copy)
         {
             totalHeight += cardUI.GetComponent<RectTransform>().sizeDelta.y;
         }
@@ -95,9 +97,9 @@ public class CardHolderUI : MonoBehaviour
 
         var startY = totalHeight / 2f;
 
-        for (var i = 0; i < SpawnedCards.Count; i++)
+        for (var i = 0; i < copy.Count; i++)
         {
-            var rectTransform = SpawnedCards[i].GetComponent<RectTransform>();
+            var rectTransform = copy[i].GetComponent<RectTransform>();
             var cardHeight = rectTransform.sizeDelta.y;
             var cardPositionY = -startY + (i * (cardHeight + SpaceBetween));
             rectTransform.anchoredPosition = new Vector2(0, cardPositionY + cardHeight / 2f);

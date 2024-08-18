@@ -68,7 +68,7 @@ public class GameManager : MonoSingleton<GameManager>
             SetGameState(GameState.Upgrades);
         };
 
-        Player.UsedCard += (_) =>
+        Player.UsedCard += async (card) =>
         {
             if (
                 BuildingController.currentBlock == null
@@ -76,6 +76,11 @@ public class GameManager : MonoSingleton<GameManager>
             )
             {
                 SetGameState(GameState.Platforming);
+            }
+            else if (card.Action != CardAction.Spawn)
+            {
+                await UniTask.Delay(533);
+                Player.DrawToHand(1);
             }
         };
     }
@@ -123,9 +128,9 @@ public class GameManager : MonoSingleton<GameManager>
                 LevelManager.ShowGoalObject();
                 BuildingController.Enable();
                 Player.RefillDeck();
-                Player.DrawToHand(3);
                 SetInputState(InputState.Building);
                 cameraManager?.SwitchToCamera("BuildCamera");
+                await UniTask.Delay(222);
                 Player.DrawToHand(3);
                 break;
             case (GameState.Platforming, _):
