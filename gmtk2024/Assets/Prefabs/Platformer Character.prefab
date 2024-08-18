@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 5976406246467326258}
   - component: {fileID: 6229037555611203264}
   - component: {fileID: 65270918177434000}
+  - component: {fileID: 6732081164308397395}
   m_Layer: 8
   m_Name: Platformer Character
   m_TagString: Player
@@ -425,6 +426,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 2903552564900812869}
+--- !u!114 &6732081164308397395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6377326497718411943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8a95a77812a05429fef5ab2eef1a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JumpEvent:
+    Guid:
+      Data1: 510289876
+      Data2: 1254022662
+      Data3: -1771748438
+      Data4: -1780199025
+    Path: event:/Player/Jump
+  RunEvent:
+    Guid:
+      Data1: -1431192576
+      Data2: 1249363088
+      Data3: 390107795
+      Data4: -1364287631
+    Path: event:/Player/Footsteps
+  LandingEvent:
+    Guid:
+      Data1: -1648643219
+      Data2: 1287769940
+      Data3: -803749967
+      Data4: -341322695
+    Path: event:/Player/Landing
+  FallingEvent:
+    Guid:
+      Data1: 307981621
+      Data2: 1115731948
+      Data3: -279936629
+      Data4: 642876096
+    Path: event:/Player/Fall wind
+  FallingScreamEvent:
+    Guid:
+      Data1: -1278882232
+      Data2: 1313264539
+      Data3: 73224843
+      Data4: 2042086411
+    Path: event:/Player/Falli scream
+  movementController: {fileID: 2903552564900812869}
 --- !u!1 &6935503792965327629
 GameObject:
   m_ObjectHideFlags: 0
