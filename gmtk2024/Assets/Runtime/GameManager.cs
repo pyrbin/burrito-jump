@@ -103,7 +103,7 @@ public class GameManager : MonoSingleton<GameManager>
         Player.Restart();
     }
 
-    void SetGameState(GameState gameState)
+    public void SetGameState(GameState gameState)
     {
         OnExitGameState(GameState);
         LastGameState = GameState;
@@ -125,6 +125,7 @@ public class GameManager : MonoSingleton<GameManager>
                 SetInputState(InputState.Menu);
                 break;
             case (GameState.Building, _):
+                Player.Instance.CardHolderUI.Show();
                 LevelManager.ShowGoalObject();
                 BuildingController.Enable();
                 Player.RefillDeck();
@@ -141,6 +142,7 @@ public class GameManager : MonoSingleton<GameManager>
                 cameraManager?.SwitchToCamera("PlatformCamera");
                 break;
             case (GameState.Upgrades, _):
+                Player.Instance.CardHolderUI.Show();
                 cameraManager?.SwitchToCamera("BuildCamera");
                 LevelManager.HideGoalObject();
                 SetInputState(InputState.Menu);
@@ -170,6 +172,7 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.Building:
                 BuildingController.Disable();
+                Player.Instance.CardHolderUI.Hide();
                 break;
             case GameState.Platforming:
                 MovementController.State = MovementController.MovementState.Frozen;

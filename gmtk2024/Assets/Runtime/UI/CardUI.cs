@@ -1,6 +1,4 @@
-using DG.Tweening;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -89,7 +87,6 @@ public class CardUI
 
                 if (Card.Action == CardAction.Morph)
                     block = BuildingController.Instance.currentBlock;
-                ShakeAnimation();
                 Player.Instance.ActivateCard(Card, block);
             }
         }
@@ -145,7 +142,7 @@ public class CardUI
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_DoingAnimation)
+        if (_DoingAnimation || _ActionsDisabled)
             return;
         if (
             GameManager.Instance.GameState != GameState.Upgrades
@@ -153,9 +150,12 @@ public class CardUI
             && Card.Action == CardAction.Spawn
         )
         {
-            NotificationUI.Instance.HideMessage();
-            NotificationUI.Instance.ShowMessage("A block is already active!", 1500.Ms());
-            ShakeAnimation();
+            if (!BuildingController.Instance.IsDropping)
+            {
+                NotificationUI.Instance.HideMessage();
+                NotificationUI.Instance.ShowMessage("A block is already active!", 1500.Ms());
+                ShakeAnimation();
+            }
             return;
         }
         if (
@@ -223,7 +223,6 @@ public class CardUI
             if (hit.collider is not null)
             {
                 var block = hit.collider.gameObject.GetComponent<Block>();
-                ShakeAnimation();
                 Player.Instance.ActivateCard(Card, block);
             }
         }
@@ -254,7 +253,7 @@ public class CardUI
 
     void ShakeAnimation()
     {
-        _RectTransform.DOShakePosition(0.5f, 10f, 10, 90f, false, true).SetEase(Ease.OutQuad);
+        _RectTransform.DOShakePosition(0.33f, 7f, 5, 90f, false, true).SetEase(Ease.OutQuad);
     }
 
     bool _DoingAnimation = false;

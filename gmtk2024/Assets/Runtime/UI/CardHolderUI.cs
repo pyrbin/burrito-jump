@@ -10,10 +10,63 @@ public class CardHolderUI : MonoBehaviour
     public List<CardUI> SpawnedCards = new();
     public TMP_Text CardText;
     public CardDragIndicator CardDragIndicator;
+    public Button StartButton;
+
+    public void Show()
+    {
+        foreach (var t in transform.EnumerateHierarchy())
+        {
+            if (t == this)
+                continue;
+            t.gameObject.SetActive(true);
+        }
+        CardDragIndicator.gameObject.SetActive(true);
+        if (SpawnedCards.Count > 0 && GameManager.Instance.GameState == GameState.Building)
+        {
+            StartButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            StartButton.gameObject.SetActive(false);
+        }
+        CardText.gameObject.SetActive(true);
+        RetainOrder();
+    }
+
+    public void Hide()
+    {
+        foreach (var t in transform.EnumerateHierarchy())
+        {
+            if (t == this)
+                continue;
+            t.gameObject.SetActive(false);
+        }
+        CardDragIndicator.gameObject.SetActive(false);
+        StartButton.gameObject.SetActive(false);
+        CardText.gameObject.SetActive(false);
+    }
+
+    public void Awake()
+    {
+        StartButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.SetGameState(GameState.Platforming);
+        });
+        Hide();
+    }
 
     public void Update()
     {
         RetainOrder();
+
+        if (SpawnedCards.Count > 0 && GameManager.Instance.GameState == GameState.Building)
+        {
+            StartButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            StartButton.gameObject.SetActive(false);
+        }
     }
 
     public void Reset()
@@ -63,20 +116,15 @@ public class CardHolderUI : MonoBehaviour
         if (cardToRemove != null)
         {
             cardToRemove.enabled = false;
-            var sequence = DOTween.Sequence();
-            sequence.Append(
-                cardToRemove.transform.DOShakePosition(0.255f, 10f, 10, 90f, false, true)
-            );
-            sequence.Join(
-                cardToRemove.transform.DOScale(Vector3.zero, 0.255f).SetEase(Ease.InQuad)
-            );
-
-            sequence.OnComplete(() =>
-            {
-                SpawnedCards.Remove(cardToRemove);
-                Destroy(cardToRemove.gameObject);
-                RetainOrder();
-            });
+            cardToRemove
+                .transform.DOScale(Vector3.zero, 0.444f)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
+                {
+                    SpawnedCards.Remove(cardToRemove);
+                    Destroy(cardToRemove.gameObject);
+                    RetainOrder();
+                });
         }
     }
 

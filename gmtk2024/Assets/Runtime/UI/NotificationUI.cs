@@ -27,10 +27,7 @@ public class NotificationUI : MonoSingleton<NotificationUI>
     {
         if (_IsShowingMessage)
         {
-            if (_CurrentCoroutine != null)
-            {
-                StopCoroutine(_CurrentCoroutine);
-            }
+            Hide();
         }
 
         _IsShowingMessage = true;
@@ -76,5 +73,6 @@ public class NotificationUI : MonoSingleton<NotificationUI>
         Image.enabled = false;
         Text.enabled = false;
         _RectTransform.localPosition = _HiddenPosition;
+        _RectTransform.DOKill();
     }
 }

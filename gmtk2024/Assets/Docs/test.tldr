@@ -43,9 +43,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": -470.5039936945436,
-			"y": -102.03962601760247,
-			"lastActivityTimestamp": 1723980215176,
+			"x": -546.5039936945436,
+			"y": -35.03962601760247,
+			"lastActivityTimestamp": 1723981565568,
 			"meta": {}
 		},
 		{
@@ -961,7 +961,7 @@
 				"color": "black",
 				"size": "m",
 				"w": 548.09375,
-				"text": "TODO\n\n- UI Management\n- Fler kort (shapes, actions, morph etc.)\n- Modeller, ljud, UI ljud, musik\n- UI Art\n- Start Game / Game Over screen (w/ score)\n- Player Health / Lose Condition\n- Player Health UI\n- Restart Button\n- Exit Building Button\n- VFX (jump cloud particles, blood splash)\n- Animations?\n- Balancing B)\n- Obstacles ?????",
+				"text": "TODO\n\n- UI Management\n- Fler kort (shapes, actions, morph etc.)\n- Modeller, ljud, UI ljud, musik\n- UI Art\n- Start Game / Game Over screen (w/ score)\n- Player Health / Lose Condition\n- Player Health UI\n- Restart Button\n- Exit Building Button\n- VFX (jump cloud particles, blood splash)\n- Animations?\n- Balancing B)\n- Obstacles ?????\n- FONTS FONTS FONTS\n- LOGO???????",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,

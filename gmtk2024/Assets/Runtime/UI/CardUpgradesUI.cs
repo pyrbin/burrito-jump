@@ -73,20 +73,15 @@ public class CardUpgradesUI : MonoSingleton<CardUpgradesUI>
         if (cardToRemove != null)
         {
             cardToRemove.enabled = false;
-            var sequence = DOTween.Sequence();
-            sequence.Append(
-                cardToRemove.transform.DOShakePosition(0.255f, 10f, 10, 90f, false, true)
-            );
-            sequence.Join(
-                cardToRemove.transform.DOScale(Vector3.zero, 0.255f).SetEase(Ease.InQuad)
-            );
-
-            sequence.OnComplete(() =>
-            {
-                SpawnedCards.Remove(cardToRemove);
-                Destroy(cardToRemove.gameObject);
-                RetainOrder();
-            });
+            cardToRemove
+                .transform.DOScale(Vector3.zero, 0.444f)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
+                {
+                    SpawnedCards.Remove(cardToRemove);
+                    Destroy(cardToRemove.gameObject);
+                    RetainOrder();
+                });
         }
     }
 
