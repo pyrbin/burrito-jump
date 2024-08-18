@@ -24,6 +24,8 @@ public class Player : MonoSingleton<Player>
 
     public event Action<Card>? UsedCard;
 
+    public int UsedCards = 0;
+
     public void Start()
     {
         SetupEvents();
@@ -40,21 +42,25 @@ public class Player : MonoSingleton<Player>
 
     public void RefillDeck()
     {
+        ResetHand();
+        CardHolderUI.Sync(new List<Card>());
+        CardHolderUI.Reset();
         ActiveDeck.Clear();
-        ActiveDeck.AddRange(CurrentRunDeck.Select(x => x.Clone()));
+        ActiveDeck.AddRange(CurrentRunDeck);
         ActiveDeck.Shuffle();
         ResetHand();
     }
 
     public void AddToDeck(Card card)
     {
-        CurrentRunDeck.Add(card);
+        CurrentRunDeck.Add(card.Clone());
     }
 
     public void ResetHand()
     {
         Hand.Clear();
-        CardHolderUI.Sync(Hand);
+        CardHolderUI.Sync(new List<Card>());
+        CardHolderUI.Reset();
     }
 
     public void DiscardCardFromHand(Card card)
@@ -62,7 +68,16 @@ public class Player : MonoSingleton<Player>
         Hand.Remove(card);
         CardHolderUI.Sync(Hand);
 
-        UsedCard?.Invoke(card);
+        if (GameManager.Instance.GameState == GameState.Upgrades)
+        {
+            CurrentRunDeck.Remove(card);
+            CardHolderUI.Sync(Hand);
+        }
+        else
+        {
+            UsedCards++;
+            UsedCard?.Invoke(card);
+        }
     }
 
     public void DrawToHand(int count)
@@ -74,7 +89,6 @@ public class Player : MonoSingleton<Player>
         var clampedCount = Math.Clamp(count, 0, ActiveDeck.Count);
         Hand.AddRange(ActiveDeck.Take(clampedCount));
         ActiveDeck.RemoveRange(0, clampedCount);
-
         CardHolderUI.Sync(Hand);
     }
 
@@ -90,20 +104,25 @@ public class Player : MonoSingleton<Player>
         }
 
         CardHolderUI.Sync(Hand);
-
+        UsedCards++;
         UsedCard?.Invoke(card);
     }
 
     public void Restart()
     {
         CurrentRunDeck.Clear();
-        CurrentRunDeck.AddRange(Deck);
-
+        CurrentRunDeck.AddRange(Deck.Select(x => x.Clone()));
+        UsedCards = 0;
         RefillDeck();
     }
 
     void Update()
     {
+        if (CardHolderUI.SpawnedCards.Count != Hand.Count)
+        {
+            CardHolderUI.Sync(Hand);
+        }
+
         switch (GameManager.Instance.InputState)
         {
             case InputState.Building:

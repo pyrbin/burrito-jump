@@ -30,6 +30,8 @@ public class GameManager : MonoSingleton<GameManager>
     public LevelManager LevelManager => LevelManager.Instance;
     public Character Character => Character.Instance;
 
+    public List<Card> Upgrades = new();
+
     public CameraManager cameraManager;
     public UIManager uiManager;
 
@@ -37,7 +39,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public GameInput Input => _GameInput;
 
-    public event Action<GameState> OnGameStateChanged;
+    public event Action<GameState>? OnGameStateChanged;
+    public event Action OnUpgradeComplete;
 
     void OnEnable()
     {
@@ -123,6 +126,7 @@ public class GameManager : MonoSingleton<GameManager>
                 Player.DrawToHand(3);
                 SetInputState(InputState.Building);
                 cameraManager?.SwitchToCamera("BuildCamera");
+                Player.DrawToHand(3);
                 break;
             case (GameState.Platforming, _):
                 Player.ResetHand();
@@ -132,12 +136,19 @@ public class GameManager : MonoSingleton<GameManager>
                 cameraManager?.SwitchToCamera("PlatformCamera");
                 break;
             case (GameState.Upgrades, _):
+                cameraManager?.SwitchToCamera("BuildCamera");
                 LevelManager.HideGoalObject();
                 SetInputState(InputState.Menu);
-                await UniTask.Delay(222);
-                // TODO: dont immeditedly go to building
-                SetGameState(GameState.Building);
-
+                CardUI.s_EnableUpgrade = true;
+                Player.RefillDeck();
+                Player.DrawToHand(3);
+                NotificationUI.Instance.ShowMessage(
+                    "Choose a card to add to your deck. You can also discard up-to 3 cards.",
+                    99999.Secs()
+                );
+                Upgrades.Shuffle();
+                CardUpgradesUI.Instance.Show();
+                CardUpgradesUI.Instance.Sync(Upgrades.Take(3).ToList());
                 break;
             case (GameState.GameOver, _):
                 SetInputState(InputState.Menu);
@@ -159,6 +170,8 @@ public class GameManager : MonoSingleton<GameManager>
                 MovementController.State = MovementController.MovementState.Frozen;
                 break;
             case GameState.Upgrades:
+                NotificationUI.Instance.HideMessage();
+                CardUpgradesUI.Instance.Hide();
                 break;
             case GameState.GameOver:
                 break;
@@ -199,6 +212,18 @@ public class GameManager : MonoSingleton<GameManager>
         {
             SetInputState(InputState.Building);
         }
+    }
+
+    public async void AddUpgradeCardToDeck(Card card)
+    {
+        Player.Instance.AddToDeck(card);
+        OnUpgradeComplete?.Invoke();
+        CardUI.s_EnableUpgrade = false;
+        CardUpgradesUI.Instance.Sync(new List<Card>());
+
+        await UniTask.Delay(222);
+        Player.ResetHand();
+        SetGameState(GameState.Building);
     }
 
     #endregion

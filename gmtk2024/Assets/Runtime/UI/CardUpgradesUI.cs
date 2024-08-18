@@ -1,26 +1,38 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class CardHolderUI : MonoBehaviour
+public class CardUpgradesUI : MonoSingleton<CardUpgradesUI>
 {
     public float SpaceBetween = 10f;
     public GameObject CardUIPrefab;
     public List<CardUI> SpawnedCards = new();
-    public TMP_Text CardText;
-    public CardDragIndicator CardDragIndicator;
 
-    public void Update()
+    public void Start()
     {
-        RetainOrder();
+        GameManager.Instance.OnUpgradeComplete += () =>
+        {
+            Sync(new List<Card>());
+        };
+
+        Hide();
     }
 
-    public void Reset()
+    public void Show()
     {
-        foreach (var cardUI in SpawnedCards.ToList())
+        foreach (var t in transform.EnumerateHierarchy())
         {
-            RemoveCard(cardUI.Card);
+            if (t == this)
+                continue;
+            t.gameObject.SetActive(true);
+        }
+    }
+
+    public void Hide()
+    {
+        foreach (var t in transform.EnumerateHierarchy())
+        {
+            if (t == this)
+                continue;
+            t.gameObject.SetActive(false);
         }
     }
 
@@ -43,17 +55,15 @@ public class CardHolderUI : MonoBehaviour
             }
         }
         RetainOrder();
-
-        CardText.text = Player.Instance.ActiveDeck.Count.ToString();
     }
 
     public void AddCard(Card card)
     {
         var cardUIObject = Instantiate(CardUIPrefab, parent: this.transform);
         var cardUI = cardUIObject.GetComponent<CardUI>();
+        cardUI.IsUpgradeCard = true;
         cardUI.SetCardData(card);
         SpawnedCards.Add(cardUI);
-
         RetainOrder();
     }
 
@@ -80,27 +90,32 @@ public class CardHolderUI : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        RetainOrder();
+    }
+
     [Button("Retain")]
     public void RetainOrder()
     {
         if (SpawnedCards.Count == 0)
             return;
 
-        var totalHeight = 0f;
+        var totalWidth = 0f;
         foreach (var cardUI in SpawnedCards)
         {
-            totalHeight += cardUI.GetComponent<RectTransform>().sizeDelta.y;
+            totalWidth += cardUI.GetComponent<RectTransform>().sizeDelta.x;
         }
-        totalHeight += (SpawnedCards.Count - 1) * SpaceBetween;
+        totalWidth += (SpawnedCards.Count - 1) * SpaceBetween;
 
-        var startY = totalHeight / 2f;
+        var startX = -totalWidth / 2f;
 
         for (var i = 0; i < SpawnedCards.Count; i++)
         {
             var rectTransform = SpawnedCards[i].GetComponent<RectTransform>();
-            var cardHeight = rectTransform.sizeDelta.y;
-            var cardPositionY = -startY + (i * (cardHeight + SpaceBetween));
-            rectTransform.anchoredPosition = new Vector2(0, cardPositionY + cardHeight / 2f);
+            var cardWidth = rectTransform.sizeDelta.x;
+            var cardPositionX = startX + (i * (cardWidth + SpaceBetween));
+            rectTransform.anchoredPosition = new Vector2(cardPositionX + cardWidth / 2f, 0);
         }
     }
 }

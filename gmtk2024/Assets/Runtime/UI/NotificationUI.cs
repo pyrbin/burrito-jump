@@ -44,6 +44,19 @@ public class NotificationUI : MonoSingleton<NotificationUI>
         _CurrentCoroutine = StartCoroutine(HideAfterDuration(duration.Seconds));
     }
 
+    public void HideMessage()
+    {
+        if (_IsShowingMessage)
+        {
+            if (_CurrentCoroutine != null)
+            {
+                StopCoroutine(_CurrentCoroutine);
+            }
+        }
+
+        Hide();
+    }
+
     private IEnumerator HideAfterDuration(float duration)
     {
         yield return new WaitForSeconds(duration);

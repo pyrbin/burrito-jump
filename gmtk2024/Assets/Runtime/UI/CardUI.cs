@@ -21,6 +21,8 @@ public class CardUI
     private Vector3 _OriginalImagePosition;
     private Vector3 _OriginalTextScale;
 
+    public bool IsUpgradeCard = false;
+
     public static Card? s_CardInAction;
 
     public static Action<float3>? s_StartedDragging;
@@ -34,6 +36,11 @@ public class CardUI
         Card = card;
         UpdateElements();
         SpawnAnimation();
+
+        if (IsUpgradeCard)
+        {
+            Discard.gameObject.SetActive(false);
+        }
     }
 
     [Button("Update Elements")]
@@ -50,17 +57,22 @@ public class CardUI
         _OriginalImagePosition = Image.rectTransform.localPosition;
         _OriginalTextScale = Header.rectTransform.localScale;
         Discard.onClick.AddListener(OnDiscard);
-        Discard.gameObject.SetActive(true);
+        if (!IsUpgradeCard)
+            Discard.gameObject.SetActive(true);
     }
 
     void OnDiscard()
     {
+        if (IsUpgradeCard)
+            return;
         Player.Instance.DiscardCardFromHand(Card);
         Discard.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (IsUpgradeCard)
+            return;
         if (_IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph))
         {
             var distance = Vector3.Distance(_MousePos, Input.mousePosition);
@@ -102,9 +114,19 @@ public class CardUI
     InputState _LastState = InputState.Building;
     Vector3 _MousePos = Vector3.zero;
     bool _ActionsDisabled => s_CardInAction || BuildingController.Instance.IsDropping;
+    public static bool s_EnableUpgrade = false;
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (_DoingAnimation)
+            return;
+        if (IsUpgradeCard && s_EnableUpgrade)
+        {
+            GameManager.Instance.AddUpgradeCardToDeck(Card);
+            s_EnableUpgrade = false;
+        }
+        if (GameManager.Instance.GameState == GameState.Upgrades)
+            return;
         if (BuildingController.Instance.currentBlock != null && Card.Action == CardAction.Spawn)
             return;
         if (BuildingController.Instance.currentBlock == null && Card.Action == CardAction.Morph)
@@ -123,14 +145,26 @@ public class CardUI
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (BuildingController.Instance.currentBlock != null && Card.Action == CardAction.Spawn)
+        if (_DoingAnimation)
+            return;
+        if (
+            GameManager.Instance.GameState != GameState.Upgrades
+            && BuildingController.Instance.currentBlock != null
+            && Card.Action == CardAction.Spawn
+        )
         {
+            NotificationUI.Instance.HideMessage();
             NotificationUI.Instance.ShowMessage("A block is already active!", 1500.Ms());
             ShakeAnimation();
             return;
         }
-        if (BuildingController.Instance.currentBlock == null && Card.Action == CardAction.Morph)
+        if (
+            GameManager.Instance.GameState != GameState.Upgrades
+            && BuildingController.Instance.currentBlock == null
+            && Card.Action == CardAction.Morph
+        )
         {
+            NotificationUI.Instance.HideMessage();
             NotificationUI.Instance.ShowMessage(
                 "You need an active block to use this card!",
                 1500.Ms()
@@ -138,24 +172,40 @@ public class CardUI
             ShakeAnimation();
             return;
         }
-        if (_ActionsDisabled)
+        if (GameManager.Instance.GameState != GameState.Upgrades && _ActionsDisabled)
             return;
         HoverAnimation();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (BuildingController.Instance.currentBlock != null && Card.Action == CardAction.Spawn)
+        if (_DoingAnimation)
             return;
-        if (BuildingController.Instance.currentBlock == null && Card.Action == CardAction.Morph)
+        if (
+            GameManager.Instance.GameState != GameState.Upgrades
+            && BuildingController.Instance.currentBlock != null
+            && Card.Action == CardAction.Spawn
+        )
             return;
-        if (_ActionsDisabled)
+        if (
+            GameManager.Instance.GameState != GameState.Upgrades
+            && BuildingController.Instance.currentBlock == null
+            && Card.Action == CardAction.Morph
+        )
+            return;
+        if (GameManager.Instance.GameState != GameState.Upgrades && _ActionsDisabled)
             return;
         ResetHoverAnimation();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (_DoingAnimation)
+            return;
+        if (IsUpgradeCard)
+            return;
+        if (GameManager.Instance.GameState == GameState.Upgrades)
+            return;
         if (BuildingController.Instance.currentBlock != null && Card.Action == CardAction.Spawn)
             return;
         if (BuildingController.Instance.currentBlock == null && Card.Action == CardAction.Morph)
@@ -188,7 +238,8 @@ public class CardUI
 
     void DraggingDisabled()
     {
-        GameManager.Instance.SetInputState(_LastState);
+        if (Player.Instance.Hand.Count != 0)
+            GameManager.Instance.SetInputState(_LastState);
     }
 
     void ShrinkCard()
@@ -206,14 +257,18 @@ public class CardUI
         _RectTransform.DOShakePosition(0.5f, 10f, 10, 90f, false, true).SetEase(Ease.OutQuad);
     }
 
+    bool _DoingAnimation = false;
+
     void SpawnAnimation()
     {
+        _DoingAnimation = true;
         _RectTransform
             .DOScale(_OriginalScale * 1.1f, 0.2f)
             .SetEase(Ease.OutQuad)
             .OnComplete(() =>
             {
                 _RectTransform.DOScale(_OriginalScale, 0.2f).SetEase(Ease.InQuad);
+                _DoingAnimation = false;
             });
     }
 
