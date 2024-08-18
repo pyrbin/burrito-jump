@@ -93,7 +93,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 40
-    OrthographicSize: 14
+    OrthographicSize: 8
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -298,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3636073923536437497, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: PixelsPerUnit
-      value: 8
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3636073923536437497, guid: 2a6cb709a53b65d46ac5ac9921cb7291, type: 3}
       propertyPath: EnableTransformSnapping

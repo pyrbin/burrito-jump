@@ -8,6 +8,7 @@ public class Player : MonoSingleton<Player>
     public MovementController MovementController;
     public BuildingController BuildingController;
     public CardHolderUI CardHolderUI;
+    public int DamageDivider = 15;
 
     public List<Card> Deck = new();
 
@@ -31,6 +32,21 @@ public class Player : MonoSingleton<Player>
 
     int _MaxHealth = 3;
 
+    [Button("Deal Damage")]
+    public void DealDamage()
+    {
+        if (GameManager.Instance.GameState != GameState.Platforming)
+            return;
+        var damage = 1;
+        Health -= damage;
+        Health = Math.Clamp(Health, 0, _MaxHealth);
+        TookDamage?.Invoke(damage);
+        if (Health == 0)
+        {
+            HealthZero?.Invoke();
+        }
+    }
+
     public void Start()
     {
         _MaxHealth = Health;
@@ -43,8 +59,8 @@ public class Player : MonoSingleton<Player>
         {
             if (GameManager.Instance.GameState != GameState.Platforming)
                 return;
-            const int k_DamageDivider = 8;
-            var damage = (int)Mathfs.Clamp(height / k_DamageDivider, 0, Health);
+            var damage = (int)Mathfs.Clamp(height / DamageDivider, 0, Health);
+            TakeDamage(damage);
         };
     }
 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e06e162ca6f47a543b18f196f0363c56, type: 3}
-  m_Name: Spawn Block
+  m_Name: CUPID
   m_EditorClassIdentifier: 
-  CardName: Spawn Block
+  CardName: CUPID
   IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   Action: 1
-  Block: {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
+  Block: {fileID: 2496268187844714548, guid: 1b2b167513ee3b04e88c5237663de869, type: 3}

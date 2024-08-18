@@ -59,4 +59,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingController: {fileID: 0}
   MovementController: {fileID: 0}
+  Upgrades:
+  - {fileID: 11400000, guid: 0ecf32aa23707be45a140530ce020414, type: 2}
+  - {fileID: 11400000, guid: 371132751fa7f294eaaacb79d3c80153, type: 2}
+  - {fileID: 11400000, guid: a0bb43046d6f92941b4791eeec68f5f3, type: 2}
+  - {fileID: 11400000, guid: ad55406262753bc408665bb91dd7d163, type: 2}
+  - {fileID: 11400000, guid: 862eec5f981c0e248a49772c863b04a5, type: 2}
+  - {fileID: 11400000, guid: b804d731ba1b4e243925bfe03f454589, type: 2}
+  - {fileID: 11400000, guid: c8fcaeba74d4159449d5bd0054d3219e, type: 2}
+  - {fileID: 11400000, guid: c7d678940c948b744819d1218537c504, type: 2}
+  - {fileID: 11400000, guid: befb0b11c48ea9d45b82635a61d8940f, type: 2}
+  - {fileID: 11400000, guid: 50f48b566a361bd48bff08aed2e06b8c, type: 2}
+  - {fileID: 11400000, guid: befb0b11c48ea9d45b82635a61d8940f, type: 2}
+  - {fileID: 11400000, guid: edc3c6138b9e3b64b84db5879d3031c1, type: 2}
+  - {fileID: 11400000, guid: edc3c6138b9e3b64b84db5879d3031c1, type: 2}
+  - {fileID: 11400000, guid: ad55406262753bc408665bb91dd7d163, type: 2}
+  - {fileID: 11400000, guid: 4b47108371b2a8643b7f952063ebd7ea, type: 2}
+  - {fileID: 11400000, guid: 4b47108371b2a8643b7f952063ebd7ea, type: 2}
+  - {fileID: 11400000, guid: befb0b11c48ea9d45b82635a61d8940f, type: 2}
+  - {fileID: 11400000, guid: fb833d1226a350548990d634b2b75161, type: 2}
+  - {fileID: 11400000, guid: fb833d1226a350548990d634b2b75161, type: 2}
+  - {fileID: 11400000, guid: 4b47108371b2a8643b7f952063ebd7ea, type: 2}
+  - {fileID: 11400000, guid: edc3c6138b9e3b64b84db5879d3031c1, type: 2}
+  - {fileID: 11400000, guid: edc3c6138b9e3b64b84db5879d3031c1, type: 2}
+  - {fileID: 11400000, guid: fb833d1226a350548990d634b2b75161, type: 2}
+  cameraManager: {fileID: 0}
   Player: {fileID: 0}

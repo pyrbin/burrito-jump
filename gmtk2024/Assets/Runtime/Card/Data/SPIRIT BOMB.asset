@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06e162ca6f47a543b18f196f0363c56, type: 3}
+  m_Name: SPIRIT BOMB
+  m_EditorClassIdentifier: 
+  CardName: SPIRIT BOMB
+  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  Action: 1
+  Block: {fileID: 8548055240586072727, guid: 5bd031c4e59b12f4f98b13555588fc20, type: 3}

@@ -29,7 +29,9 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     [ReadOnly]
     public float LastLevelHeight = 0f;
-    public float CurrentLevelHeight => Level * LevelHeight;
+    public float CurrentLevelHeight => Level * LevelHeight + LevelAddition;
+
+    public float LevelAddition => Math.CeilToInt(Level / 5) * 3;
 
     [ShowInInspector]
     public Bounds SpawnBounds

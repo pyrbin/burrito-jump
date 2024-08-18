@@ -2,18 +2,21 @@ using UnityEngine.UI;
 
 public class PlatformingHUD : MonoSingleton<PlatformingHUD>
 {
-    public List<HealthIconUI> HealthIcons;
+    public HealthIconUI Health1;
+    public HealthIconUI Health2;
+    public HealthIconUI Health3;
+
     public Button RestartButton;
 
     public void Show()
     {
-        HealthIcons.First().transform.parent.gameObject.SetActive(true);
+        Health1.transform.parent.gameObject.SetActive(true);
         RestartButton.gameObject.SetActive(true);
     }
 
     public void Hide(bool showRestart = false)
     {
-        HealthIcons.First().transform.parent.gameObject.SetActive(false);
+        Health1.transform.parent.gameObject.SetActive(false);
         RestartButton.gameObject.SetActive(showRestart);
     }
 
@@ -34,12 +37,10 @@ public class PlatformingHUD : MonoSingleton<PlatformingHUD>
 
     public void Sync(int health)
     {
-        var i = 0;
-        foreach (var icon in HealthIcons)
-        {
-            i++;
-            icon.SetIsActive(i <= health);
-        }
+        // if anyone sees this, i'm sorry :P
+        Health1.SetIsActive(health >= 1);
+        Health2.SetIsActive(health >= 2);
+        Health3.SetIsActive(health >= 3);
     }
 
     public void Update()
