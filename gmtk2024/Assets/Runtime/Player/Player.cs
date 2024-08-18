@@ -32,6 +32,21 @@ public class Player : MonoSingleton<Player>
 
     int _MaxHealth = 3;
 
+    [Button("Deal Damage")]
+    public void DealDamage()
+    {
+        if (GameManager.Instance.GameState != GameState.Platforming)
+            return;
+        var damage = 1;
+        Health -= damage;
+        Health = Math.Clamp(Health, 0, _MaxHealth);
+        TookDamage?.Invoke(damage);
+        if (Health == 0)
+        {
+            HealthZero?.Invoke();
+        }
+    }
+
     public void Start()
     {
         _MaxHealth = Health;

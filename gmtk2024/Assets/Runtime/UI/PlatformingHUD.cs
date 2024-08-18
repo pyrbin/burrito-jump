@@ -38,33 +38,9 @@ public class PlatformingHUD : MonoSingleton<PlatformingHUD>
     public void Sync(int health)
     {
         // if anyone sees this, i'm sorry :P
-        if (health == 0)
-        {
-            Health1.SetIsActive(false);
-            Health2.SetIsActive(false);
-            Health3.SetIsActive(false);
-        }
-
-        if (health == 1)
-        {
-            Health1.SetIsActive(true);
-            Health2.SetIsActive(false);
-            Health3.SetIsActive(false);
-        }
-
-        if (health == 2)
-        {
-            Health1.SetIsActive(true);
-            Health2.SetIsActive(true);
-            Health3.SetIsActive(false);
-        }
-
-        if (health == 3)
-        {
-            Health1.SetIsActive(true);
-            Health2.SetIsActive(true);
-            Health3.SetIsActive(true);
-        }
+        Health1.SetIsActive(health >= 1);
+        Health2.SetIsActive(health >= 2);
+        Health3.SetIsActive(health >= 3);
     }
 
     public void Update()

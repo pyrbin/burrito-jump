@@ -100,7 +100,7 @@ public class MovementController : MonoBehaviour
 
     public void CheckFallingHeight()
     {
-        if (IsFalling && !_MarkFall)
+        if (!IsGrounded && !_MarkFall)
         {
             _JumpGracePeriodTimer.Reset();
             _MarkFall = true;
@@ -186,10 +186,17 @@ public class MovementController : MonoBehaviour
 
     public void Jump()
     {
-        if ((IsGrounded || !_JumpGracePeriodTimer.Finished) && _UsedJumps < k_TotalJumps)
+        if (
+            (IsGrounded || !_JumpGracePeriodTimer.Finished)
+            && _UsedJumps < k_TotalJumps
+            && !IsFalling
+        )
         {
             _IsJumping = true;
-            _Rigidbody.AddForce(new float2(0, JumpForce), ForceMode2D.Impulse);
+            _Rigidbody.AddForce(
+                new float2(0, JumpForce * (_UsedJumps > 0 ? 0.35f : 1f)),
+                ForceMode2D.Impulse
+            );
             _UsedJumps++;
             OnJump?.Invoke();
         }

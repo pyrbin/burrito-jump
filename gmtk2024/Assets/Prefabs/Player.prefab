@@ -48,13 +48,20 @@ MonoBehaviour:
   Health: 3
   MovementController: {fileID: 0}
   BuildingController: {fileID: 0}
+  CardHolderUI: {fileID: 0}
+  DamageDivider: 15
   Deck:
-  - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
-  - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
-  - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
-  - {fileID: 4935770106493350351, guid: 6dc29466866c0d147a791885a1d7f2fe, type: 3}
+  - {fileID: 11400000, guid: ad55406262753bc408665bb91dd7d163, type: 2}
+  - {fileID: 11400000, guid: 4b47108371b2a8643b7f952063ebd7ea, type: 2}
+  - {fileID: 11400000, guid: edc3c6138b9e3b64b84db5879d3031c1, type: 2}
+  - {fileID: 11400000, guid: befb0b11c48ea9d45b82635a61d8940f, type: 2}
+  - {fileID: 11400000, guid: c8fcaeba74d4159449d5bd0054d3219e, type: 2}
+  - {fileID: 11400000, guid: 50f48b566a361bd48bff08aed2e06b8c, type: 2}
+  - {fileID: 11400000, guid: ad55406262753bc408665bb91dd7d163, type: 2}
   CurrentRunDeck: []
   ActiveDeck: []
+  Hand: []
+  UsedCards: 0
 --- !u!114 &2998312276167436933
 MonoBehaviour:
   m_ObjectHideFlags: 0

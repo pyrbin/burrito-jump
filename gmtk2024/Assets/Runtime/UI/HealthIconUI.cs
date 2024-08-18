@@ -11,6 +11,9 @@ public class HealthIconUI : MonoBehaviour
 
     public void SetIsActive(bool active)
     {
+        if (_Active == active)
+            return;
+
         _Active = active;
         ImageRefererence.sprite = FilledImage;
         ImageRefererence.gameObject.SetActive(active);
