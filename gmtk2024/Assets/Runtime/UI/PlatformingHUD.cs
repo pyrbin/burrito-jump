@@ -35,9 +35,8 @@ public class PlatformingHUD : MonoSingleton<PlatformingHUD>
         });
     }
 
-    public void Sync(int health)
+    public void SyncPlayerHealthValues(int health)
     {
-        // if anyone sees this, i'm sorry :P
         Health1.SetIsActive(health >= 1);
         Health2.SetIsActive(health >= 2);
         Health3.SetIsActive(health >= 3);
@@ -45,6 +44,6 @@ public class PlatformingHUD : MonoSingleton<PlatformingHUD>
 
     public void Update()
     {
-        Sync(Player.Instance.Health);
+        SyncPlayerHealthValues(Player.Instance.Health);
     }
 }

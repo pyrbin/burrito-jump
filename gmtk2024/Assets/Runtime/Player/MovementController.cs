@@ -86,6 +86,9 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    const float k_GroundedJumpCheckDelay = 0.5f;
+    float _GroundedJumpCheckTimer = 0f;
+
     void FixedUpdate()
     {
         CollisionChecks();
@@ -100,7 +103,12 @@ public class MovementController : MonoBehaviour
 
     public void CheckFallingHeight()
     {
-        if (!IsGrounded && !_MarkFall)
+        if (_IsJumping)
+        {
+            _GroundedJumpCheckTimer += Time.fixedDeltaTime;
+        }
+
+        if (!IsGrounded && !_MarkFall && _IsJumping)
         {
             _JumpGracePeriodTimer.Reset();
             _MarkFall = true;
@@ -117,9 +125,16 @@ public class MovementController : MonoBehaviour
             _FallingHeight = 0;
         }
 
-        if (_IsJumping && IsGrounded && _JumpGracePeriodTimer.Finished)
+        if (
+            _IsJumping
+            && IsGrounded
+            && _JumpGracePeriodTimer.Finished
+            && !IsFalling
+            && _GroundedJumpCheckTimer > k_GroundedJumpCheckDelay
+        )
         {
             _IsJumping = false;
+            _JumpGracePeriodTimer.Tick(_JumpGracePeriodTimer.Duration);
             _UsedJumps = 0;
         }
     }
@@ -181,22 +196,23 @@ public class MovementController : MonoBehaviour
     }
 
     bool _IsJumping = false;
+
+    [ShowInInspector]
     int _UsedJumps = 0;
     const int k_TotalJumps = 2;
 
     public void Jump()
     {
-        if (
-            (IsGrounded || !_JumpGracePeriodTimer.Finished)
-            && _UsedJumps < k_TotalJumps
-            && !IsFalling
-        )
+        if ((IsGrounded || !_JumpGracePeriodTimer.Finished) && _UsedJumps < k_TotalJumps)
         {
             _IsJumping = true;
-            _Rigidbody.AddForce(
-                new float2(0, JumpForce * (_UsedJumps > 0 ? 0.35f : 1f)),
-                ForceMode2D.Impulse
-            );
+            const float k_DoubleJumpMod = 0.46f;
+            var force = JumpForce * (_UsedJumps <= 0 ? 1f : k_DoubleJumpMod);
+            _Rigidbody.AddForce(new float2(0, force), ForceMode2D.Impulse);
+            if (_UsedJumps == 0)
+            {
+                _GroundedJumpCheckTimer = 0;
+            }
             _UsedJumps++;
             OnJump?.Invoke();
         }
@@ -253,7 +269,7 @@ public class MovementController : MonoBehaviour
             boxCastSize,
             0f,
             Vector2.down,
-            0.5f,
+            0.15f,
             GroundLayer
         );
         _IsGrounded = _GroundHit.collider != null;

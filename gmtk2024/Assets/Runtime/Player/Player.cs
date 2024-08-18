@@ -79,7 +79,8 @@ public class Player : MonoSingleton<Player>
         CurrentRunDeck.Add(card.Clone());
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
         Health -= damage;
         TookDamage?.Invoke(damage);
         if (Health == 0)

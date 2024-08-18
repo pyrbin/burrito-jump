@@ -49,6 +49,13 @@ public class GameManager : MonoSingleton<GameManager>
         _GameInput.Building.Disable();
     }
 
+    void Awake()
+    {
+        QualitySettings.vSyncCount = 0;
+        // WHY IS THE GAME FRAMERATE DEPENDENT WAT
+        Application.targetFrameRate = 144;
+    }
+
     void Start()
     {
         SetupEvents();

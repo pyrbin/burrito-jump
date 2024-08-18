@@ -77,7 +77,7 @@ public class CardUI
         if (_IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph))
         {
             var distance = Vector3.Distance(_MousePos, Input.mousePosition);
-            const float k_Threshold = 200f;
+            const float k_Threshold = 220f;
             if (distance >= k_Threshold)
             {
                 _IsDragging = false;
@@ -101,7 +101,7 @@ public class CardUI
                 s_HintOnDestroyCard = false;
                 NotificationUI.Instance.ShowMessage(
                     "Use this card on a block by dragging your mouse over it and release.",
-                    6.Secs()
+                    10.Secs()
                 );
             }
             var mousePosition = new float3(Input.mousePosition.x, Input.mousePosition.y, 0f);
@@ -183,7 +183,7 @@ public class CardUI
             if (!BuildingController.Instance.IsDropping)
             {
                 NotificationUI.Instance.HideMessage();
-                NotificationUI.Instance.ShowMessage("A block is already active!", 1500.Ms());
+                NotificationUI.Instance.ShowMessage("A block is already active!", 2000.Ms());
                 ShakeAnimation();
             }
             return;
@@ -197,7 +197,7 @@ public class CardUI
             NotificationUI.Instance.HideMessage();
             NotificationUI.Instance.ShowMessage(
                 "You need an active block to use this card!",
-                1500.Ms()
+                2500.Ms()
             );
             ShakeAnimation();
             return;
@@ -260,6 +260,15 @@ public class CardUI
                 Player.Instance.ActivateCard(Card, block);
                 NotificationUI.Instance.HideMessage();
             }
+        }
+        else if (
+            _IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph)
+        )
+        {
+            Block? block = null;
+            if (Card.Action == CardAction.Morph)
+                block = BuildingController.Instance.currentBlock;
+            Player.Instance.ActivateCard(Card, block);
         }
 
         _IsDragging = false;

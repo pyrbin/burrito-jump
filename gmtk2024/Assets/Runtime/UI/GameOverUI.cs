@@ -51,8 +51,8 @@ public class GameOverUI : MonoSingleton<GameOverUI>
     {
         _RectTransform ??= GetComponent<RectTransform>();
 
-        Vector3 initialPosition = new Vector3(0, Screen.height, 0);
-        Vector3 targetPosition = new Vector3(0, 0, 0);
+        var initialPosition = new Vector3(0, Screen.height, 0);
+        var targetPosition = _RectTransform.anchoredPosition;
         _RectTransform.anchoredPosition = initialPosition;
         _RectTransform.DOAnchorPos(targetPosition, 0.5f).SetEase(Ease.OutBounce);
     }
