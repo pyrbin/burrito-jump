@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06289d751c855574bb622034511cec35, type: 3}
-  m_Name: Scale Card
+  m_Script: {fileID: 11500000, guid: e06e162ca6f47a543b18f196f0363c56, type: 3}
+  m_Name: KURT ANGLE
   m_EditorClassIdentifier: 
-  CardName: Scale
+  CardName: KURT ANGLE
   IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  Action: 2
-  Block: {fileID: 0}
-  ScaleFactor: 2
+  Action: 1
+  Block: {fileID: 1437975056440601360, guid: 7f12d05889678cc439f56defbb6b1d36, type: 3}

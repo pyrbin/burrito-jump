@@ -8,6 +8,7 @@ public class Player : MonoSingleton<Player>
     public MovementController MovementController;
     public BuildingController BuildingController;
     public CardHolderUI CardHolderUI;
+    public int DamageDivider = 15;
 
     public List<Card> Deck = new();
 
@@ -43,8 +44,7 @@ public class Player : MonoSingleton<Player>
         {
             if (GameManager.Instance.GameState != GameState.Platforming)
                 return;
-            const int k_DamageDivider = 8;
-            var damage = (int)Mathfs.Clamp(height / k_DamageDivider, 0, Health);
+            var damage = (int)Mathfs.Clamp(height / DamageDivider, 0, Health);
             Health -= damage;
             TookDamage?.Invoke(damage);
             if (Health == 0)
