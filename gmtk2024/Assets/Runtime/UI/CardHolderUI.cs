@@ -49,9 +49,21 @@ public class CardHolderUI : MonoBehaviour
         var cardToRemove = SpawnedCards.Find(c => c.Card == card);
         if (cardToRemove != null)
         {
-            SpawnedCards.Remove(cardToRemove);
-            Destroy(cardToRemove.gameObject);
-            RetainOrder();
+            cardToRemove.enabled = false;
+            var sequence = DOTween.Sequence();
+            sequence.Append(
+                cardToRemove.transform.DOShakePosition(0.255f, 10f, 10, 90f, false, true)
+            );
+            sequence.Join(
+                cardToRemove.transform.DOScale(Vector3.zero, 0.255f).SetEase(Ease.InQuad)
+            );
+
+            sequence.OnComplete(() =>
+            {
+                SpawnedCards.Remove(cardToRemove);
+                Destroy(cardToRemove.gameObject);
+                RetainOrder();
+            });
         }
     }
 

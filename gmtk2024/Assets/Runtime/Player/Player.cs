@@ -57,6 +57,14 @@ public class Player : MonoSingleton<Player>
         CardHolderUI.Sync(Hand);
     }
 
+    public void DiscardCardFromHand(Card card)
+    {
+        Hand.Remove(card);
+        CardHolderUI.Sync(Hand);
+
+        UsedCard?.Invoke(card);
+    }
+
     public void DrawToHand(int count)
     {
         if (Hand.Count + count > 3)
@@ -72,6 +80,8 @@ public class Player : MonoSingleton<Player>
 
     public void ActivateCard(Card card, Block? block)
     {
+        if (!Hand.Contains(card))
+            return;
         Hand.Remove(card);
         var spawned = card.Activate(block);
         if (spawned.IsNotNull())

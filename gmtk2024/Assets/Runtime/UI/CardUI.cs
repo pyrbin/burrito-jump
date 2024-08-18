@@ -14,6 +14,7 @@ public class CardUI
     public Card Card;
     public Image Image;
     public TMP_Text Header;
+    public Button Discard;
 
     private RectTransform _RectTransform;
     private Vector3 _OriginalScale;
@@ -48,6 +49,14 @@ public class CardUI
         _OriginalScale = _RectTransform.localScale;
         _OriginalImagePosition = Image.rectTransform.localPosition;
         _OriginalTextScale = Header.rectTransform.localScale;
+        Discard.onClick.AddListener(OnDiscard);
+        Discard.gameObject.SetActive(true);
+    }
+
+    void OnDiscard()
+    {
+        Player.Instance.DiscardCardFromHand(Card);
+        Discard.gameObject.SetActive(false);
     }
 
     void Update()
