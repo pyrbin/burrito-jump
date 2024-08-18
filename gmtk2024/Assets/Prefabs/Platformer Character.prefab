@@ -358,7 +358,7 @@ MonoBehaviour:
   _Feet: {fileID: 830307132248833544}
   _IsGrounded: 0
   _Body: {fileID: 1830488351742302631}
-  JumpForce: 7
+  JumpForce: 9
   MaxSpeed: 4
   Acceleration: 10
   Deacceleration: 20
@@ -366,7 +366,7 @@ MonoBehaviour:
   AirAccelerationFactor: 0.75
   JumpGracePeriod:
     _Secs: 0
-    _Nanos: 330000013
+    _Nanos: 888000011
   GroundLayer:
     serializedVersion: 2
     m_Bits: 4672
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2ea4b53b6384540a01ea077d596770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 0}
+  Controller: {fileID: 2903552564900812869}
 --- !u!1 &6935503792965327629
 GameObject:
   m_ObjectHideFlags: 0

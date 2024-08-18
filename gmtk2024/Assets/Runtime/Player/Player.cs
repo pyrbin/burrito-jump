@@ -43,6 +43,7 @@ public class Player : MonoSingleton<Player>
         ActiveDeck.Clear();
         ActiveDeck.AddRange(CurrentRunDeck.Select(x => x.Clone()));
         ActiveDeck.Shuffle();
+        ResetHand();
     }
 
     public void AddToDeck(Card card)

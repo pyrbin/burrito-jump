@@ -9,10 +9,7 @@ public class CardHolderUI : MonoBehaviour
     public GameObject CardUIPrefab;
     public List<CardUI> SpawnedCards = new();
     public TMP_Text CardText;
-
-    public void DragStart(float3 mousePos) { }
-
-    public void DragEnd(float3 mousePos) { }
+    public CardDragIndicator CardDragIndicator;
 
     public void Sync(List<Card> cards)
     {

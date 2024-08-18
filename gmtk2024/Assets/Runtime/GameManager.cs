@@ -54,7 +54,6 @@ public class GameManager : MonoSingleton<GameManager>
         Restart();
 
         SetGameState(GameState);
-
     }
 
     void SetupEvents()
@@ -126,6 +125,7 @@ public class GameManager : MonoSingleton<GameManager>
                 cameraManager?.SwitchToCamera("BuildCamera");
                 break;
             case (GameState.Platforming, _):
+                Player.ResetHand();
                 MovementController.State = MovementController.MovementState.Free;
                 LevelManager.ShowGoalObject();
                 SetInputState(InputState.Platforming);

@@ -22,7 +22,7 @@ public class CardUI
 
     public static Card? s_CardInAction;
 
-    public static Action? s_StartedDragging;
+    public static Action<float3>? s_StartedDragging;
 
     public static Action? s_EndedDragging;
 
@@ -55,7 +55,7 @@ public class CardUI
         if (_IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph))
         {
             var distance = Vector3.Distance(_MousePos, Input.mousePosition);
-            const float k_Threshold = 160f;
+            const float k_Threshold = 240f;
             if (distance >= k_Threshold)
             {
                 _IsDragging = false;
@@ -68,6 +68,7 @@ public class CardUI
 
                 if (Card.Action == CardAction.Morph)
                     block = BuildingController.Instance.currentBlock;
+                ShakeAnimation();
                 Player.Instance.ActivateCard(Card, block);
             }
         }
@@ -106,7 +107,7 @@ public class CardUI
         GameManager.Instance.SetInputState(InputState.Menu);
         _MousePos = Input.mousePosition;
         s_CardInAction = Card;
-        s_StartedDragging?.Invoke();
+        s_StartedDragging?.Invoke(_MousePos);
         s_OverValidTarget = false;
         ShrinkCard();
     }
@@ -114,9 +115,20 @@ public class CardUI
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (BuildingController.Instance.currentBlock != null && Card.Action == CardAction.Spawn)
+        {
+            NotificationUI.Instance.ShowMessage("A block is already active!", 1500.Ms());
+            ShakeAnimation();
             return;
+        }
         if (BuildingController.Instance.currentBlock == null && Card.Action == CardAction.Morph)
+        {
+            NotificationUI.Instance.ShowMessage(
+                "You need an active block to use this card!",
+                1500.Ms()
+            );
+            ShakeAnimation();
             return;
+        }
         if (_ActionsDisabled)
             return;
         HoverAnimation();
@@ -152,6 +164,7 @@ public class CardUI
             if (hit.collider is not null)
             {
                 var block = hit.collider.gameObject.GetComponent<Block>();
+                ShakeAnimation();
                 Player.Instance.ActivateCard(Card, block);
             }
         }
@@ -177,6 +190,11 @@ public class CardUI
     void ResetCardSize()
     {
         _RectTransform.DOScale(_OriginalScale, 0.2f).SetEase(Ease.OutQuad);
+    }
+
+    void ShakeAnimation()
+    {
+        _RectTransform.DOShakePosition(0.5f, 10f, 10, 90f, false, true).SetEase(Ease.OutQuad);
     }
 
     void SpawnAnimation()
