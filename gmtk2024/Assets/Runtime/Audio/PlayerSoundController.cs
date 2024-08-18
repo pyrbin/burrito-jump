@@ -27,11 +27,11 @@ public class PlayerSoundController : MonoBehaviour
         Falling = RuntimeManager.CreateInstance(FallingEvent);
         FallingScream = RuntimeManager.CreateInstance(FallingScreamEvent);
 
+        GameManager.Instance.Player.HealthZero += () => FMODUtil.PlayOneShot(FallingScreamEvent);
     }
 
     void Update()
     {   
-        Log(movementController.IsMovingSideways);
         FMODUtil.PlayIfElseStop(movementController.IsMovingSideways, Run);
     }
 

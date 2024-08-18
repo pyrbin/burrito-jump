@@ -9,6 +9,10 @@ public class ScaleCard : Card
 
     public override void DoMorph(Block block)
     {
-        block.gameObject.transform.localScale *= ScaleFactor;
+        var scaled = block.gameObject.transform.localScale * ScaleFactor;
+        block.gameObject.transform.localScale = scaled with
+        {
+            z = block.gameObject.transform.localScale.z
+        };
     }
 }

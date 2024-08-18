@@ -45,12 +45,6 @@ public class Player : MonoSingleton<Player>
                 return;
             const int k_DamageDivider = 8;
             var damage = (int)Mathfs.Clamp(height / k_DamageDivider, 0, Health);
-            Health -= damage;
-            TookDamage?.Invoke(damage);
-            if (Health == 0)
-            {
-                HealthZero?.Invoke();
-            }
         };
     }
 
@@ -67,6 +61,15 @@ public class Player : MonoSingleton<Player>
     public void AddToDeck(Card card)
     {
         CurrentRunDeck.Add(card.Clone());
+    }
+
+    public void TakeDamage(int damage) {
+        Health -= damage;
+        TookDamage?.Invoke(damage);
+        if (Health == 0)
+        {
+            HealthZero?.Invoke();
+        }
     }
 
     public void ResetHand()

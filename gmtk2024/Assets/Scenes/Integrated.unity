@@ -4999,11 +4999,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Goal is to build a tower using blocks from your deck to reach the burrito.\n\nBuilding:
-    \nChoose cards & build a tower using \"tetris\"-like placement.\n\nPlatforming:
-    \nControl your character using simple 2d platform controls to reach the burrito
-    by \"scaling\" your tower upwards.\n\nYour score is calculated by how many cards
-    you used (use less) & how high you got when you eventually fall to your death
-    :)\n"
+    \nChoose cards & build a tower using \"tetris\"-like placement. Use A and D to
+    rotate.\n\nPlatforming: \nControl your character using simple 2d platform controls
+    to reach the burrito by \"scaling\" your tower upwards.\n\nYour score is calculated
+    by how many cards you used (use less) & how high you got when you eventually
+    fall to your death :)\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
   m_sharedMaterial: {fileID: 5417787669527259189, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
