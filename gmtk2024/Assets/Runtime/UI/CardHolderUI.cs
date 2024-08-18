@@ -57,6 +57,7 @@ public class CardHolderUI : MonoBehaviour
 
     public void Update()
     {
+        
         RetainOrder();
 
         if (SpawnedCards.Count > 0 && GameManager.Instance.GameState == GameState.Building)
@@ -67,6 +68,11 @@ public class CardHolderUI : MonoBehaviour
         {
             StartButton.gameObject.SetActive(false);
         }
+
+        if (GameManager.Instance.GameState == GameState.Upgrades)
+            CardText.text = Player.Instance.CurrentRunDeck.Count.ToString();
+        else
+            CardText.text = Player.Instance.ActiveDeck.Count.ToString();
     }
 
     public void Reset()
@@ -96,8 +102,6 @@ public class CardHolderUI : MonoBehaviour
             }
         }
         RetainOrder();
-
-        CardText.text = Player.Instance.ActiveDeck.Count.ToString();
     }
 
     public void AddCard(Card card)

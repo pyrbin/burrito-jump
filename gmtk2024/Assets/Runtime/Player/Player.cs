@@ -23,11 +23,17 @@ public class Player : MonoSingleton<Player>
     public int ActiveDeckCount => ActiveDeck.Count;
 
     public event Action<Card>? UsedCard;
+    public event Action? HealthZero;
+    public event Action<int>? TookDamage;
+    public event Action? DiscardedCard;
 
     public int UsedCards = 0;
 
+    int _MaxHealth = 3;
+
     public void Start()
     {
+        _MaxHealth = Health;
         SetupEvents();
     }
 
@@ -35,8 +41,16 @@ public class Player : MonoSingleton<Player>
     {
         MovementController.OnFell += (height) =>
         {
-            // TODO: deal damage based on height
-            Debug.Log(height);
+            if (GameManager.Instance.GameState != GameState.Platforming)
+                return;
+            const int k_DamageDivider = 8;
+            var damage = (int)Mathfs.Clamp(height / k_DamageDivider, 0, Health);
+            Health -= damage;
+            TookDamage?.Invoke(damage);
+            if (Health == 0)
+            {
+                HealthZero?.Invoke();
+            }
         };
     }
 
@@ -48,7 +62,6 @@ public class Player : MonoSingleton<Player>
         ActiveDeck.Clear();
         ActiveDeck.AddRange(CurrentRunDeck);
         ActiveDeck.Shuffle();
-        ResetHand();
     }
 
     public void AddToDeck(Card card)
@@ -59,7 +72,7 @@ public class Player : MonoSingleton<Player>
     public void ResetHand()
     {
         Hand.Clear();
-        CardHolderUI.Sync(new List<Card>());
+        CardHolderUI.Sync(Hand);
         CardHolderUI.Reset();
     }
 
@@ -76,7 +89,7 @@ public class Player : MonoSingleton<Player>
         else
         {
             UsedCards++;
-            UsedCard?.Invoke(card);
+            DiscardedCard?.Invoke();
         }
     }
 
@@ -113,6 +126,8 @@ public class Player : MonoSingleton<Player>
         CurrentRunDeck.Clear();
         CurrentRunDeck.AddRange(Deck.Select(x => x.Clone()));
         UsedCards = 0;
+        MovementController.MaxHeight = 0;
+        Health = _MaxHealth;
         RefillDeck();
     }
 

@@ -56,6 +56,8 @@ MonoBehaviour:
   Image: {fileID: 1686817076706849763}
   Header: {fileID: 2140896052840018911}
   Discard: {fileID: 3671081113233773991}
+  DiscardHoverState: {fileID: 0}
+  IsUpgradeCard: 0
 --- !u!1 &1566468934234632354
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +92,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.03, y: 7.54}
+  m_AnchoredPosition: {x: 5.7, y: 0.1}
   m_SizeDelta: {x: 25, y: 16.9501}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7180491064028790306
@@ -123,8 +125,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bd3108a015325844598fc4646cf61bd1, type: 2}
-  m_sharedMaterial: {fileID: 4111169358711455683, guid: bd3108a015325844598fc4646cf61bd1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
+  m_sharedMaterial: {fileID: 5417787669527259189, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -325,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.15391971, g: 0.1469384, b: 0.24528301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -593,15 +595,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Destroy Card
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
+  m_sharedMaterial: {fileID: 5417787669527259189, guid: eadf57b673f07ac4f84a983b8269afcf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278240767
-  m_fontColor: {r: 1, g: 0.77412665, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -672,6 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7618185866126445952}
   - component: {fileID: 3671081113233773991}
+  - component: {fileID: 1324617427649113666}
   m_Layer: 5
   m_Name: Discard
   m_TagString: Untagged
@@ -744,3 +747,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1324617427649113666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8295003363653779962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da9be30a685c74cbef2b55da8a8bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsHovered: 0

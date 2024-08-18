@@ -72,7 +72,11 @@ public class MovementController : MonoBehaviour
     }
 
     bool _MarkFall = false;
+
+    [ShowInInspector]
     float _FallingHeight = 0;
+
+    public float MaxHeight = 0;
 
     void Update()
     {
@@ -101,6 +105,7 @@ public class MovementController : MonoBehaviour
             _JumpGracePeriodTimer.Reset();
             _MarkFall = true;
             _FallingHeight = transform.position.y;
+            MaxHeight = Math.Max(_FallingHeight, MaxHeight);
         }
 
         if (IsGrounded && _MarkFall)

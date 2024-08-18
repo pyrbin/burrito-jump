@@ -1,0 +1,51 @@
+fileFormatVersion: 2
+guid: f54d55501c42e3e48b2e81cd1a7f4ba6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 804e1ce4c496647cfa3f1a1134187c71, type: 3}
+  _removeEmptyRootObjects: 1
+  _scaleFactor: 2
+  _maximumLod: 300
+  _readWriteEnabled: 1
+  _generateColliders: 0
+  _swapUvs: 0
+  _generateLightmapUVs: 0
+  _importBlendShapeNames: 1
+  _blendShapeFrameWeight:
+    _option: 0
+    _multiplier: 1
+  _importNormals: 0
+  _importTangents: 0
+  _importCamera: 2
+  _importAnimations: 2
+  _addAnimatorComponent: 0
+  _animationLoopTime: 1
+  _animationLoopPose: 0
+  _importMaterials: 1
+  _enableGpuInstancing: 0
+  _useSceneNameIdentifier: 1
+  _textureCompression: -50
+  optimizeGameObjects: 0
+  materials:
+  - {fileID: -6443035220513836574, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: 2646190618815262879, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: -870952796764628979, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: -2669957238963622279, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: 269840283077852131, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: -364905699845747727, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  - {fileID: -3072155499180562189, guid: f54d55501c42e3e48b2e81cd1a7f4ba6, type: 3}
+  textures: []
+  hasSceneData: 1
+  hasAnimationData: 0
+  hasMaterialData: 1
+  hasTextureData: 0
+  animations: []
+  _extensions: []
+  _textures: []
+  _mainAssetIdentifier: scenes/Scene
+  _importPlugins: []

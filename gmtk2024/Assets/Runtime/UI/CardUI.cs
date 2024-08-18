@@ -13,6 +13,7 @@ public class CardUI
     public Image Image;
     public TMP_Text Header;
     public Button Discard;
+    public ButtonHoverHandler DiscardHoverState;
 
     private RectTransform _RectTransform;
     private Vector3 _OriginalScale;
@@ -57,6 +58,8 @@ public class CardUI
         Discard.onClick.AddListener(OnDiscard);
         if (!IsUpgradeCard)
             Discard.gameObject.SetActive(true);
+
+        DiscardHoverState = Discard.GetComponent<ButtonHoverHandler>();
     }
 
     void OnDiscard()
@@ -74,7 +77,7 @@ public class CardUI
         if (_IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph))
         {
             var distance = Vector3.Distance(_MousePos, Input.mousePosition);
-            const float k_Threshold = 240f;
+            const float k_Threshold = 200f;
             if (distance >= k_Threshold)
             {
                 _IsDragging = false;
@@ -93,6 +96,14 @@ public class CardUI
 
         if (_IsDragging && Card.Action == CardAction.Action)
         {
+            if (s_HintOnDestroyCard)
+            {
+                s_HintOnDestroyCard = false;
+                NotificationUI.Instance.ShowMessage(
+                    "Use this card on a block by dragging your mouse over it and release.",
+                    6.Secs()
+                );
+            }
             var mousePosition = new float3(Input.mousePosition.x, Input.mousePosition.y, 0f);
             var ray = Camera.main.ScreenPointToRay(mousePosition);
             var hit = Physics2D.GetRayIntersection(ray, 30f, LayerMask.GetMask("Block"));
@@ -105,16 +116,31 @@ public class CardUI
                 s_OverValidTarget = false;
             }
         }
+        if (_IsHovering && DiscardHoverState.IsHovered && !_ResetForDiscardHover)
+        {
+            _ResetForDiscardHover = true;
+            ResetHoverAnimation();
+        }
+        if (_IsHovering && !DiscardHoverState.IsHovered && _ResetForDiscardHover)
+        {
+            HoverAnimation();
+            _ResetForDiscardHover = false;
+        }
     }
+
+    bool _ResetForDiscardHover = false;
 
     bool _IsDragging = false;
     InputState _LastState = InputState.Building;
     Vector3 _MousePos = Vector3.zero;
     bool _ActionsDisabled => s_CardInAction || BuildingController.Instance.IsDropping;
     public static bool s_EnableUpgrade = false;
+    public static bool s_HintOnDestroyCard = true;
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (DiscardHoverState.IsHovered)
+            return;
         if (_DoingAnimation)
             return;
         if (IsUpgradeCard && s_EnableUpgrade)
@@ -140,8 +166,12 @@ public class CardUI
         ShrinkCard();
     }
 
+    bool _IsHovering = false;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (DiscardHoverState.IsHovered)
+            return;
         if (_DoingAnimation || _ActionsDisabled)
             return;
         if (
@@ -174,6 +204,8 @@ public class CardUI
         }
         if (GameManager.Instance.GameState != GameState.Upgrades && _ActionsDisabled)
             return;
+        _IsHovering = true;
+        _ResetForDiscardHover = false;
         HoverAnimation();
     }
 
@@ -195,7 +227,9 @@ public class CardUI
             return;
         if (GameManager.Instance.GameState != GameState.Upgrades && _ActionsDisabled)
             return;
-        ResetHoverAnimation();
+        _IsHovering = false;
+        if (!_ResetForDiscardHover)
+            ResetHoverAnimation();
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -224,6 +258,7 @@ public class CardUI
             {
                 var block = hit.collider.gameObject.GetComponent<Block>();
                 Player.Instance.ActivateCard(Card, block);
+                NotificationUI.Instance.HideMessage();
             }
         }
 
@@ -237,7 +272,7 @@ public class CardUI
 
     void DraggingDisabled()
     {
-        if (Player.Instance.Hand.Count != 0)
+        if (Player.Instance.Hand.Count != 0 && GameManager.Instance.GameState == GameState.Building)
             GameManager.Instance.SetInputState(_LastState);
     }
 

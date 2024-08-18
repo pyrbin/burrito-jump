@@ -33,7 +33,6 @@ public class GameManager : MonoSingleton<GameManager>
     public List<Card> Upgrades = new();
 
     public CameraManager cameraManager;
-    public UIManager uiManager;
 
     public Player Player;
 
@@ -67,36 +66,61 @@ public class GameManager : MonoSingleton<GameManager>
             MovementController.State = MovementController.MovementState.Frozen;
             SetGameState(GameState.Upgrades);
         };
-
-        Player.UsedCard += async (card) =>
-        {
-            if (
-                BuildingController.currentBlock == null
-                && (Player.ActiveDeckCount <= 0 && Player.Hand.Count <= 0)
-            )
-            {
-                SetGameState(GameState.Platforming);
-            }
-            else if (card.Action != CardAction.Spawn)
-            {
-                await UniTask.Delay(533);
-                Player.DrawToHand(1);
-            }
-        };
+        Player.HealthZero += OnDeath;
+        Player.DiscardedCard += OnDiscard;
+        Player.UsedCard += OnUsedCard;
     }
 
     void Update()
     {
-        // DEBUG
-        if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+        // if (GameState == GameState.Building && Player.Hand.Count < 3 && Player.ActiveDeckCount > 0)
+        // {
+        //     Player.DrawToHand(3);
+        // }
+    }
+
+    public async void OnUsedCard(Card card)
+    {
+        if (!CheckHandStatus())
         {
-            SetGameState(
-                GameState == GameState.Building ? GameState.Platforming : GameState.Building
-            );
+            await UniTask.Delay(500);
+            Player.DrawToHand(1);
         }
     }
 
-    void Restart()
+    public async void OnDiscard()
+    {
+        if (!CheckHandStatus())
+        {
+            await UniTask.Delay(500);
+            Player.DrawToHand(1);
+        }
+    }
+
+    public async void OnDeath()
+    {
+        MovementController.State = MovementController.MovementState.Frozen;
+        SetInputState(InputState.Menu);
+
+        await UniTask.Delay(500);
+
+        SetGameState(GameState.GameOver);
+    }
+
+    public bool CheckHandStatus()
+    {
+        if (
+            BuildingController.currentBlock == null
+            && (Player.ActiveDeckCount <= 0 && Player.Hand.Count <= 0)
+        )
+        {
+            SetGameState(GameState.Platforming);
+            return true;
+        }
+        return false;
+    }
+
+    public void Restart()
     {
         LevelManager.Restart();
         BuildingController.Restart();
@@ -116,15 +140,16 @@ public class GameManager : MonoSingleton<GameManager>
     {
         switch ((gameState, LastGameState))
         {
-            case (GameState.StartMenu, GameState.GameOver):
-                LevelManager.Restart();
-                BuildingController.Restart();
-                Player.Restart();
-                break;
             case (GameState.StartMenu, _):
+                StartMenuUI.Instance.Show();
+                GameOverUI.Instance.Hide();
+                PlatformingHUD.Instance.Hide(false);
+                Player.Instance.CardHolderUI.Hide();
                 SetInputState(InputState.Menu);
                 break;
             case (GameState.Building, _):
+                GameOverUI.Instance.Hide();
+                PlatformingHUD.Instance.Hide(false);
                 Player.Instance.CardHolderUI.Show();
                 LevelManager.ShowGoalObject();
                 BuildingController.Enable();
@@ -135,6 +160,8 @@ public class GameManager : MonoSingleton<GameManager>
                 Player.DrawToHand(3);
                 break;
             case (GameState.Platforming, _):
+                GameOverUI.Instance.Hide();
+                PlatformingHUD.Instance.Show();
                 Player.ResetHand();
                 MovementController.State = MovementController.MovementState.Free;
                 LevelManager.ShowGoalObject();
@@ -142,6 +169,8 @@ public class GameManager : MonoSingleton<GameManager>
                 cameraManager?.SwitchToCamera("PlatformCamera");
                 break;
             case (GameState.Upgrades, _):
+                GameOverUI.Instance.Hide();
+                PlatformingHUD.Instance.Hide(false);
                 Player.Instance.CardHolderUI.Show();
                 cameraManager?.SwitchToCamera("BuildCamera");
                 LevelManager.HideGoalObject();
@@ -158,6 +187,8 @@ public class GameManager : MonoSingleton<GameManager>
                 CardUpgradesUI.Instance.Sync(Upgrades.Take(3).ToList());
                 break;
             case (GameState.GameOver, _):
+                GameOverUI.Instance.Show(Player.UsedCards, MovementController.MaxHeight);
+                PlatformingHUD.Instance.Hide(true);
                 SetInputState(InputState.Menu);
                 break;
         }
@@ -182,6 +213,7 @@ public class GameManager : MonoSingleton<GameManager>
                 CardUpgradesUI.Instance.Hide();
                 break;
             case GameState.GameOver:
+                GameOverUI.Instance.Hide();
                 break;
         }
     }
