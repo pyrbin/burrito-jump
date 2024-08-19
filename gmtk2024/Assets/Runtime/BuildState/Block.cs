@@ -1,3 +1,5 @@
+using FMODUnity;
+
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class Block : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class Block : MonoBehaviour
 
     public event Action<Block>? OnStartFalling;
     public event Action<Block>? OnStopFalling;
+
+    public EventReference EntryReference;
+    public EventReference StopReference;
 
     void Start()
     {
@@ -25,6 +30,7 @@ public class Block : MonoBehaviour
     public void StartFalling()
     {
         OnStartFalling?.Invoke(this);
+        FMODUtil.PlayOneShot(EntryReference);
         _Rb.linearVelocity = new Vector2(0, -fallSpeed);
         _Rb.bodyType = RigidbodyType2D.Dynamic;
         _IsFalling = true;
@@ -33,7 +39,7 @@ public class Block : MonoBehaviour
     public void StopFalling()
     {
         OnStopFalling?.Invoke(this);
-
+        FMODUtil.PlayOneShot(StopReference);
         _Rb.linearVelocity = new Vector2(0, 0);
         _Rb.bodyType = RigidbodyType2D.Static;
         _IsFalling = false;

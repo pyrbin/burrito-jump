@@ -183,6 +183,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: 318672324
+      Data2: 1291622750
+      Data3: 1070729601
+      Data4: 1103392315
+    Path: event:/Announcer/Block entry/The Nail
+  StopReference:
+    Guid:
+      Data1: -1970069036
+      Data2: 1190689300
+      Data3: -2146866534
+      Data4: -1895181380
+    Path: event:/Blocks/Blocks colliding/Nail hit
 --- !u!114 &6522044462880009289
 MonoBehaviour:
   m_ObjectHideFlags: 0

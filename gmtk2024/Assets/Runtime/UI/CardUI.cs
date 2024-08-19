@@ -1,3 +1,4 @@
+using FMODUnity;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class CardUI
         IPointerUpHandler,
         IPointerDownHandler
 {
+
+
     public Card Card;
     public Image Image;
     public TMP_Text Header;
@@ -28,6 +31,7 @@ public class CardUI
     public static Action<float3>? s_StartedDragging;
 
     public static Action? s_EndedDragging;
+    public static Action? s_HoverStarted;
 
     public static bool s_OverValidTarget = false;
 
@@ -230,6 +234,7 @@ public class CardUI
         _IsHovering = true;
         _ResetForDiscardHover = false;
         HoverAnimation();
+        s_HoverStarted?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)

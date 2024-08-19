@@ -190,6 +190,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: -725105288
+      Data2: 1263036085
+      Data3: -1827693380
+      Data4: -509469604
+    Path: event:/Announcer/Block entry/The Stair
+  StopReference:
+    Guid:
+      Data1: 125886220
+      Data2: 1171879921
+      Data3: -744805993
+      Data4: -1896560654
+    Path: event:/Blocks/Blocks colliding/Stair hit
 --- !u!114 &7800883245839091281
 MonoBehaviour:
   m_ObjectHideFlags: 0

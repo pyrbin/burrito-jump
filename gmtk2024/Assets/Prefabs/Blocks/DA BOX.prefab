@@ -184,6 +184,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: 1950519634
+      Data2: 1260618208
+      Data3: 1802439334
+      Data4: -514939316
+    Path: event:/Announcer/Block entry/Da Box
+  StopReference:
+    Guid:
+      Data1: 137070014
+      Data2: 1266434002
+      Data3: 1132286612
+      Data4: 960140554
+    Path: event:/Blocks/Blocks colliding/Da box hit
 --- !u!114 &2247321249805030596
 MonoBehaviour:
   m_ObjectHideFlags: 0

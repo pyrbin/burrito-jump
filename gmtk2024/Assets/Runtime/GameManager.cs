@@ -150,7 +150,7 @@ public class GameManager : MonoSingleton<GameManager>
         switch ((gameState, LastGameState))
         {
             case (GameState.StartMenu, _):
-            MusicManager.SetMusicLevel(1);
+                MusicManager.SetMusicLevel(1);
                 MovementController.State = MovementController.MovementState.Frozen;
                 StartMenuUI.Instance.Show();
                 GameOverUI.Instance.Hide();
@@ -210,6 +210,7 @@ public class GameManager : MonoSingleton<GameManager>
         switch (gameState)
         {
             case GameState.StartMenu:
+                MusicManager.SetMusicLevel(2);
                 break;
             case GameState.Building:
                 BuildingController.Disable();
