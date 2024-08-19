@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5711195347010799632}
   - component: {fileID: 9174796439048357817}
   - component: {fileID: 1552860422596080954}
+  - component: {fileID: 1500831404357135561}
+  - component: {fileID: 3583668757653358023}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -73,8 +75,74 @@ MonoBehaviour:
     Path: event:/Card Deck/Card play
   CardHoverReference:
     Guid:
-      Data1: 1312692533
-      Data2: 1173752468
-      Data3: -1200142424
-      Data4: -628174902
-    Path: event:/Announcer/Falling far
+      Data1: 1980121943
+      Data2: 1139806665
+      Data3: -1998445392
+      Data4: -1255194209
+    Path: event:/Card Deck/Card hover
+--- !u!114 &1500831404357135561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286061967321830655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b937c09c521fd47b7ffd14d9e735f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameEndRef:
+    Guid:
+      Data1: -792863828
+      Data2: 1111639123
+      Data3: 2035389840
+      Data4: -1744047646
+    Path: event:/Announcer/Game end
+  GameStartRef:
+    Guid:
+      Data1: -1139528361
+      Data2: 1244735983
+      Data3: 1523458748
+      Data4: -1653633897
+    Path: event:/Announcer/Game start
+  GameIntroRef:
+    Guid:
+      Data1: 1748542286
+      Data2: 1222751334
+      Data3: -482714471
+      Data4: 1563552360
+    Path: event:/Announcer/Game intro
+  RandomCommentaryRef:
+    Guid:
+      Data1: 266415900
+      Data2: 1244000429
+      Data3: 451069357
+      Data4: -212893380
+    Path: event:/Announcer/Random commentary
+  CheckpointRef:
+    Guid:
+      Data1: -604390695
+      Data2: 1262141431
+      Data3: -37441602
+      Data4: -507390633
+    Path: event:/Announcer/Reaching checkpoint
+--- !u!114 &3583668757653358023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286061967321830655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d01d4ae2643ca4c86b02235d64bce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BOINGSOUND:
+    Guid:
+      Data1: -695540075
+      Data2: 1119130523
+      Data3: 842180489
+      Data4: -1655636972
+    Path: event:/BOINGGGG
