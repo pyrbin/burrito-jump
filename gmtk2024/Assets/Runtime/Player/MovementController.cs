@@ -27,6 +27,9 @@ public class MovementController : MonoBehaviour
     public Duration JumpGracePeriod = 0.33f.Secs();
     public LayerMask GroundLayer;
     public Transform ModelPivot;
+    public Animator Animator;
+    public Transform PuffParticleSpawnPoint;
+    public GameObject PuffParticlePrefab;
 
     public bool IsFacingRight { get; private set; } = true;
 
@@ -85,6 +88,34 @@ public class MovementController : MonoBehaviour
         {
             _JumpGracePeriodTimer = new Timer(JumpGracePeriod);
         }
+
+        if (State == MovementState.Frozen)
+        {
+            Animator.SetBool("falling", false);
+            Animator.SetBool("walk", false);
+            Animator.SetBool("idle", true);
+            return;
+        }
+
+        if (!IsGrounded && !Animator.GetBool("falling"))
+        {
+            Animator.SetBool("falling", true);
+        }
+        else
+        {
+            Animator.SetBool("falling", false);
+        }
+
+        if (IsGrounded && MovementDirection != 0 && !_IsJumping && !Animator.GetBool("walk"))
+        {
+            Animator.SetBool("idle", false);
+            Animator.SetBool("walk", true);
+        }
+        else if (IsGrounded && !_IsJumping && !Animator.GetBool("idle"))
+        {
+            Animator.SetBool("walk", false);
+            Animator.SetBool("idle", true);
+        }
     }
 
     const float k_GroundedJumpCheckDelay = 0.5f;
@@ -131,6 +162,9 @@ public class MovementController : MonoBehaviour
             var height = _FallingHeight - transform.position.y;
             if (height > 0)
                 OnFell?.Invoke(height);
+            Animator.SetTrigger("land");
+            var obj = Instantiate(PuffParticlePrefab);
+            obj.transform.position = PuffParticleSpawnPoint.position;
             _FallingHeight = 0;
         }
 
@@ -246,6 +280,12 @@ public class MovementController : MonoBehaviour
             {
                 _GroundedJumpCheckTimer = 0;
             }
+            Animator.SetTrigger("jump");
+            var obj = Instantiate(PuffParticlePrefab);
+            obj.transform.position = PuffParticleSpawnPoint.position with
+            {
+                y = PuffParticleSpawnPoint.position.y + 0.3f
+            };
             _UsedJumps++;
             OnJump?.Invoke();
         }
@@ -305,6 +345,7 @@ public class MovementController : MonoBehaviour
             0.15f,
             GroundLayer
         );
+
         _IsGrounded = _GroundHit.collider != null;
     }
 }
