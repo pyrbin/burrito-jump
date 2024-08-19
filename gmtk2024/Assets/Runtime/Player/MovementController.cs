@@ -115,7 +115,7 @@ public class MovementController : MonoBehaviour
             IsGrounded
             && !_IsJumping
             && !Animator.GetBool("idle")
-            && math.length(Velocity.x) <= math.EPSILON
+            && math.length(Velocity.x) <= 0.4
         )
         {
             Animator.SetBool("walk", false);

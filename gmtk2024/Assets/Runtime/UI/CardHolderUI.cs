@@ -50,6 +50,8 @@ public class CardHolderUI : MonoBehaviour
     {
         StartButton.onClick.AddListener(() =>
         {
+            if (BuildingController.Instance.IsDropping)
+                return;
             GameManager.Instance.SetGameState(GameState.Platforming);
         });
         Hide();
@@ -57,8 +59,10 @@ public class CardHolderUI : MonoBehaviour
 
     public void Update()
     {
-        
         RetainOrder();
+
+        if (StartButton.gameObject.activeSelf != !BuildingController.Instance.IsDropping)
+            StartButton.gameObject.SetActive(!BuildingController.Instance.IsDropping);
 
         if (SpawnedCards.Count > 0 && GameManager.Instance.GameState == GameState.Building)
         {
