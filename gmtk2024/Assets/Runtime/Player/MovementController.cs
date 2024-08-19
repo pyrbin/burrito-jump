@@ -26,6 +26,7 @@ public class MovementController : MonoBehaviour
     public float AirAccelerationFactor = 0.75f;
     public Duration JumpGracePeriod = 0.33f.Secs();
     public LayerMask GroundLayer;
+    public Transform ModelPivot;
 
     public bool IsFacingRight { get; private set; } = true;
 
@@ -101,6 +102,8 @@ public class MovementController : MonoBehaviour
             _JumpGracePeriodTimer.Tick(Time.fixedDeltaTime.Secs());
     }
 
+    bool _MarkFallingHeight = false;
+
     public void CheckFallingHeight()
     {
         if (_IsJumping)
@@ -112,6 +115,11 @@ public class MovementController : MonoBehaviour
         {
             _JumpGracePeriodTimer.Reset();
             _MarkFall = true;
+        }
+
+        if (IsFalling && !_MarkFallingHeight)
+        {
+            _MarkFallingHeight = true;
             _FallingHeight = transform.position.y;
             MaxHeight = Math.Max(_FallingHeight, MaxHeight);
         }
@@ -119,6 +127,7 @@ public class MovementController : MonoBehaviour
         if (IsGrounded && _MarkFall)
         {
             _MarkFall = false;
+            _MarkFallingHeight = false;
             var height = _FallingHeight - transform.position.y;
             if (height > 0)
                 OnFell?.Invoke(height);
@@ -165,17 +174,18 @@ public class MovementController : MonoBehaviour
         }
         else
         {
+            TurnCenter();
             Stop();
         }
     }
 
     private void TurnCheck(float moveInput)
     {
-        if (IsFacingRight && moveInput < 0f)
+        if ((IsFacingRight || _TurnedCenter) && moveInput < 0f)
         {
             Turn(false);
         }
-        else if (!IsFacingRight && moveInput > 0f)
+        else if ((!IsFacingRight || _TurnedCenter) && moveInput > 0f)
         {
             Turn(true);
         }
@@ -186,13 +196,23 @@ public class MovementController : MonoBehaviour
         if (turnRight)
         {
             IsFacingRight = true;
-            transform.DORotate(new Vector3(0f, 0f, 0f), 0.33f);
+            ModelPivot.DORotate(new Vector3(0f, 0f, 0f), 0.33f);
         }
         else
         {
             IsFacingRight = false;
-            transform.DORotate(new Vector3(0f, 180f, 0f), 0.33f);
+            ModelPivot.DORotate(new Vector3(0f, 180f, 0f), 0.33f);
         }
+        _TurnedCenter = false;
+    }
+
+    bool _TurnedCenter = false;
+
+    private void TurnCenter()
+    {
+        if (!_TurnedCenter)
+            ModelPivot.DORotate(new Vector3(0f, 90f, 0f), 0.33f);
+        _TurnedCenter = true;
     }
 
     bool _IsJumping = false;
@@ -207,7 +227,20 @@ public class MovementController : MonoBehaviour
         {
             _IsJumping = true;
             const float k_DoubleJumpMod = 0.46f;
-            var force = JumpForce * (_UsedJumps <= 0 ? 1f : k_DoubleJumpMod);
+            const float k_DoubleJumpModTest = 0.30f;
+
+            var force =
+                JumpForce
+                * (
+                    _UsedJumps <= 0
+                        ? 1f
+                        : (
+                            _JumpGracePeriodTimer.Fract <= 0.5
+                                ? k_DoubleJumpModTest
+                                : k_DoubleJumpMod
+                        )
+                );
+
             _Rigidbody.AddForce(new float2(0, force), ForceMode2D.Impulse);
             if (_UsedJumps == 0)
             {

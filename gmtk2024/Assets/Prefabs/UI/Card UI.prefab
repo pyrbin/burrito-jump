@@ -56,8 +56,12 @@ MonoBehaviour:
   Image: {fileID: 1686817076706849763}
   Header: {fileID: 2140896052840018911}
   Discard: {fileID: 3671081113233773991}
-  DiscardHoverState: {fileID: 0}
+  DiscardHoverState: {fileID: 1324617427649113666}
+  Background: {fileID: 3394539193599638305}
   IsUpgradeCard: 0
+  SpawnColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.5529412}
+  MorphColor: {r: 0.25146616, g: 1, b: 0, a: 0.5803922}
+  ActionColor: {r: 1, g: 0.3443396, b: 0.3443396, a: 0.57254905}
 --- !u!1 &1566468934234632354
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,16 +223,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3089747957917294054}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.05275306, w: 0.9986076}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6763640231631573244}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.048}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1000003, y: 20.4}
+  m_AnchoredPosition: {x: 1.7, y: 29.7}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7960676887368755319
@@ -327,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15391971, g: 0.1469384, b: 0.24528301, a: 1}
+  m_Color: {r: 0.16367716, g: 0.14351194, b: 0.4056604, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -474,7 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.3443396, b: 0.3443396, a: 0.57254905}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STAIR
   m_EditorClassIdentifier: 
   CardName: STAIR
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 8238c4f6a4901574493dad42b30a6cf8, type: 3}
   Action: 1
   Block: {fileID: 4120938074508660772, guid: 4f47da21fb481ac468c674112e676fd0, type: 3}

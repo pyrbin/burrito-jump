@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CUPID
   m_EditorClassIdentifier: 
   CardName: CUPID
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 2832d056ffdc9184ea8741980eed8171, type: 3}
   Action: 1
   Block: {fileID: 2496268187844714548, guid: 1b2b167513ee3b04e88c5237663de869, type: 3}

@@ -53,6 +53,9 @@ public class LevelManager : MonoSingleton<LevelManager>
     [ReadOnly]
     public List<Block> Blocks = new();
 
+    [ReadOnly]
+    public List<Obstacle> Obstacles = new();
+
     void Start()
     {
         SetupEvents();
@@ -65,7 +68,14 @@ public class LevelManager : MonoSingleton<LevelManager>
             if (block != null)
                 Destroy(block.gameObject);
         }
+        foreach (var obstacle in Obstacles)
+        {
+            if (obstacle != null)
+                Destroy(obstacle.gameObject);
+        }
         Blocks = new List<Block>();
+        Obstacles = new List<Obstacle>();
+
         Level = 1;
         LastLevelHeight = 0;
         Height = CurrentLevelHeight;
@@ -128,8 +138,12 @@ public class LevelManager : MonoSingleton<LevelManager>
 
         await UniTask.Delay(millisecondsDelay: 500);
 
+        SpawnObstacles();
+
         GoalObject.Enabled = true;
     }
+
+    void SpawnObstacles() { }
 
     void UpdateLevelHeight()
     {

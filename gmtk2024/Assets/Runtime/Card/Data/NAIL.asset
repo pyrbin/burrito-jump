@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NAIL
   m_EditorClassIdentifier: 
   CardName: NAIL
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 22842e99d6e7f85418fb4f2764bb4326, type: 3}
   Action: 1
   Block: {fileID: 8302306998400733602, guid: e532a244b4f4f8149a3c4c4d2575e712, type: 3}

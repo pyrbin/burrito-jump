@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: KURT ANGLE
   m_EditorClassIdentifier: 
   CardName: KURT ANGLE
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: b105b72314367174faad41158d653863, type: 3}
   Action: 1
   Block: {fileID: 1437975056440601360, guid: 7f12d05889678cc439f56defbb6b1d36, type: 3}

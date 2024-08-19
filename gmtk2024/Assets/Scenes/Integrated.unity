@@ -959,10 +959,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 5.5684867
       objectReference: {fileID: 0}
+    - target: {fileID: 1249932093781283977, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: FollowOffset.y
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532887017858080528, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: Lens.OrthographicSize
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3532887017858080528, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1846659975}
+    - target: {fileID: 4675078088829077705, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: Lens.OrthographicSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4675078088829077705, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -978,6 +990,10 @@ PrefabInstance:
     - target: {fileID: 6141021045796066059, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: ShowCameraFrustum
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636830959845137021, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: orthographic size
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7636830959845137021, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
@@ -2298,18 +2314,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 339776980409641317, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2903552564900812869, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
-      propertyPath: JumpGracePeriod._Secs
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2903552564900812869, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
-      propertyPath: JumpGracePeriod._Nanos
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5976406246467326258, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
-      propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6377326497718411943, guid: 2c9e5db060b6ab1488a8718f1f048195, type: 3}
@@ -3690,7 +3694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1888642428372336228, guid: 9289a6f6507b93542a4458ee0756522d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1888642428372336228, guid: 9289a6f6507b93542a4458ee0756522d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5512,31 +5516,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 121604837920795824, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1847188498656205725, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1847188498656205725, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 2998610806316368677, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4026933115110873351, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4026933115110873351, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 4378364634552468602, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4580939595180832316, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_Name
@@ -5544,11 +5548,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608945469165885074, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6271125474219391022, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: Height
-      value: 12
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271125474219391022, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: LevelHeight
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7093936161376086137, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5592,7 +5600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481682636813393548, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5641,7 +5649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1888642428372336228, guid: 9289a6f6507b93542a4458ee0756522d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 1888642428372336228, guid: 9289a6f6507b93542a4458ee0756522d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5797,6 +5805,10 @@ PrefabInstance:
       propertyPath: CardHolderUI
       value: 
       objectReference: {fileID: 1246288101}
+    - target: {fileID: 926314240016937991, guid: bdd7b010e3cac7d44ac0082a079bf5a0, type: 3}
+      propertyPath: DamageDivider
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 926314240016937991, guid: bdd7b010e3cac7d44ac0082a079bf5a0, type: 3}
       propertyPath: BuildingController
       value: 

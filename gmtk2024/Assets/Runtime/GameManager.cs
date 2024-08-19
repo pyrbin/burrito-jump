@@ -148,6 +148,7 @@ public class GameManager : MonoSingleton<GameManager>
         switch ((gameState, LastGameState))
         {
             case (GameState.StartMenu, _):
+                MovementController.State = MovementController.MovementState.Frozen;
                 StartMenuUI.Instance.Show();
                 GameOverUI.Instance.Hide();
                 PlatformingHUD.Instance.Hide(false);

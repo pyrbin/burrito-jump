@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: T-TIME
   m_EditorClassIdentifier: 
   CardName: T-TIME
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: be6e82d0b0b033d478cd2fcdfac12966, type: 3}
   Action: 1
   Block: {fileID: 1942780336415962284, guid: f3a235e602dfe1a4598703e70c8790b9, type: 3}

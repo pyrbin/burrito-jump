@@ -14,6 +14,7 @@ public class CardUI
     public TMP_Text Header;
     public Button Discard;
     public ButtonHoverHandler DiscardHoverState;
+    public Image Background;
 
     private RectTransform _RectTransform;
     private Vector3 _OriginalScale;
@@ -29,6 +30,10 @@ public class CardUI
     public static Action? s_EndedDragging;
 
     public static bool s_OverValidTarget = false;
+
+    public Color SpawnColor;
+    public Color MorphColor;
+    public Color ActionColor;
 
     public void SetCardData(Card card)
     {
@@ -47,6 +52,24 @@ public class CardUI
     {
         Image.sprite = Card.IconAsset;
         Header.text = Card.CardName;
+
+        switch (Card.Action)
+        {
+            case CardAction.Spawn:
+                Background.color = SpawnColor;
+                break;
+            case CardAction.Morph:
+                Background.color = MorphColor;
+                break;
+            case CardAction.Action:
+                Background.color = ActionColor;
+                break;
+        }
+
+        var rectTransform = Image.rectTransform;
+        var sprite = Card.IconAsset;
+        var spriteAspectRatio = (float)sprite.texture.width / sprite.texture.height;
+        rectTransform.sizeDelta = new Vector2(50 * spriteAspectRatio, 50);
     }
 
     void Awake()
@@ -318,7 +341,7 @@ public class CardUI
     void HoverAnimation()
     {
         _RectTransform.DOScale(_OriginalScale * 1.1f, 0.2f).SetEase(Ease.OutQuad);
-        Image.rectTransform.DOLocalMoveY(_OriginalImagePosition.y + 10, 0.2f).SetEase(Ease.OutQuad);
+        Image.rectTransform.DOLocalMoveY(_OriginalImagePosition.y + 7, 0.2f).SetEase(Ease.OutQuad);
     }
 
     void ResetHoverAnimation()

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SPIRIT BOMB
   m_EditorClassIdentifier: 
   CardName: SPIRIT BOMB
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: cbfa4a7c4e8a08643adf311214c6fdcf, type: 3}
   Action: 1
   Block: {fileID: 8548055240586072727, guid: 5bd031c4e59b12f4f98b13555588fc20, type: 3}

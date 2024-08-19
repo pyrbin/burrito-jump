@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b2150ad5f1f280f4a95b13e531df82d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.9609165
+      value: -2.5155792
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2150ad5f1f280f4a95b13e531df82d5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.540297
+      value: 4.781443
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b2150ad5f1f280f4a95b13e531df82d5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: b2150ad5f1f280f4a95b13e531df82d5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 366cc3fa5b6073b45aa266dd2cd77dcf, type: 2}
+      objectReference: {fileID: 2100000, guid: 06c9437ae003d64409bb051f78f53751, type: 2}
     - target: {fileID: 919132149155446097, guid: b2150ad5f1f280f4a95b13e531df82d5, type: 3}
       propertyPath: m_Name
       value: SPIRIT BOMB
