@@ -28,6 +28,7 @@ public class GameManager : MonoSingleton<GameManager>
     public BuildingController BuildingController;
     public MovementController MovementController;
     public LevelManager LevelManager => LevelManager.Instance;
+    public MusicManager MusicManager => MusicManager.Instance;
     public Character Character => Character.Instance;
 
     public List<Card> Upgrades = new();
@@ -129,6 +130,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void Restart()
     {
+        MusicManager.Restart();
         LevelManager.Restart();
         BuildingController.Restart();
         Player.Restart();
@@ -148,6 +150,7 @@ public class GameManager : MonoSingleton<GameManager>
         switch ((gameState, LastGameState))
         {
             case (GameState.StartMenu, _):
+            MusicManager.SetMusicLevel(1);
                 MovementController.State = MovementController.MovementState.Frozen;
                 StartMenuUI.Instance.Show();
                 GameOverUI.Instance.Hide();
@@ -207,7 +210,6 @@ public class GameManager : MonoSingleton<GameManager>
         switch (gameState)
         {
             case GameState.StartMenu:
-
                 break;
             case GameState.Building:
                 BuildingController.Disable();
