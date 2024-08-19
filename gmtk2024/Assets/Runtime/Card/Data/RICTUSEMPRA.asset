@@ -15,4 +15,14 @@ MonoBehaviour:
   CardName: RICTUSEMPRA
   IconAsset: {fileID: 21300000, guid: 4ac425c99de22ca4783e0af92d9c05c1, type: 3}
   Action: 1
+  ActivateSoundRef:
+    <__Kind>k__BackingField: 0
+    <__Value>k__BackingField:
+      <T00>k__BackingField:
+        Guid:
+          Data1: 0
+          Data2: 0
+          Data3: 0
+          Data4: 0
+        Path: 
   Block: {fileID: 4076424569933482238, guid: b182ec680d8453744b6a11f533dd1316, type: 3}

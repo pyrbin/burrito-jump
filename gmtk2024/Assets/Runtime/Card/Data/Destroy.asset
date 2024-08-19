@@ -15,4 +15,14 @@ MonoBehaviour:
   CardName: Destroy Card
   IconAsset: {fileID: 21300000, guid: 72655973d6f2d1f4c9332993b1a796ee, type: 3}
   Action: 4
+  ActivateSoundRef:
+    <__Kind>k__BackingField: 1
+    <__Value>k__BackingField:
+      <T00>k__BackingField:
+        Guid:
+          Data1: 445714614
+          Data2: 1312854868
+          Data3: -2144645985
+          Data4: -1371052226
+        Path: event:/Card Deck/Destroy
   Block: {fileID: 0}

@@ -1,9 +1,11 @@
+using FMODUnity;
 using UnityEngine;
 
 public class KillOnCollision : MonoBehaviour
 {
     public PhysicsEvents2D events2D;
     private Player _Player;
+    public EventReference TriggerEnterSoundRef;
 
     void Start()
     {
@@ -15,6 +17,7 @@ public class KillOnCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            FMODUtil.PlayOneShot(TriggerEnterSoundRef);
             _Player.TakeDamage(1);
             Vector2 direction = (other.transform.position - transform.position).normalized;
             _Player

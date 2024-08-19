@@ -15,5 +15,15 @@ MonoBehaviour:
   CardName: Scale
   IconAsset: {fileID: 21300000, guid: 0860054a9d15c704db2169e83159182c, type: 3}
   Action: 2
+  ActivateSoundRef:
+    <__Kind>k__BackingField: 1
+    <__Value>k__BackingField:
+      <T00>k__BackingField:
+        Guid:
+          Data1: 671620617
+          Data2: 1184186816
+          Data3: 983913858
+          Data4: -108974702
+        Path: event:/Card Deck/Scale
   Block: {fileID: 0}
   ScaleFactor: 1.5
