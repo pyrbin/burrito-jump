@@ -183,6 +183,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: 1150070742
+      Data2: 1086226295
+      Data3: 1508955535
+      Data4: 1877930202
+    Path: event:/Announcer/Block entry/Kurt Angle
+  StopReference:
+    Guid:
+      Data1: -657414929
+      Data2: 1166292090
+      Data3: 1924571555
+      Data4: 1340335022
+    Path: event:/Blocks/Blocks colliding/Kurt angle hit
 --- !u!114 &4068925270013344141
 MonoBehaviour:
   m_ObjectHideFlags: 0

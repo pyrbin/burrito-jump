@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2286061967321830655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5711195347010799632}
+  - component: {fileID: 9174796439048357817}
+  - component: {fileID: 1552860422596080954}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5711195347010799632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286061967321830655}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 872.8428, y: 325.6712, z: 6.2623234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9174796439048357817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286061967321830655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77e33d6ce22a4f44980e15252585ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundtrackReference:
+    Guid:
+      Data1: -1367507863
+      Data2: 1090819915
+      Data3: -1086112874
+      Data4: 990382868
+    Path: event:/Music/MusicMaster
+--- !u!114 &1552860422596080954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286061967321830655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcb9327d96b21754ebdc4eefad380eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSelectReference:
+    Guid:
+      Data1: -1466590341
+      Data2: 1209642499
+      Data3: 1684683412
+      Data4: 148211335
+    Path: event:/Card Deck/Card play
+  CardHoverReference:
+    Guid:
+      Data1: 1980121943
+      Data2: 1139806665
+      Data3: -1998445392
+      Data4: -1255194209
+    Path: event:/Card Deck/Card hover

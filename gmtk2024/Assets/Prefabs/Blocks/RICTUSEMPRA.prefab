@@ -182,6 +182,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: -284335697
+      Data2: 1270609768
+      Data3: 1980066200
+      Data4: 1917808221
+    Path: event:/Announcer/Block entry/Rictumsempra
+  StopReference:
+    Guid:
+      Data1: 635599107
+      Data2: 1196954505
+      Data3: 429468093
+      Data4: 1846363602
+    Path: event:/Blocks/Blocks colliding/Rictumsempra hit
 --- !u!114 &7988173270730620103
 MonoBehaviour:
   m_ObjectHideFlags: 0

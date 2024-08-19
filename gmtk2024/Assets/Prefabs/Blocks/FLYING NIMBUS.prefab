@@ -206,6 +206,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: -2001202241
+      Data2: 1163491132
+      Data3: 1629881271
+      Data4: 1619901599
+    Path: event:/Announcer/Block entry/FLying Nimbus
+  StopReference:
+    Guid:
+      Data1: 1183354294
+      Data2: 1079853368
+      Data3: 1425235852
+      Data4: -843739630
+    Path: event:/Blocks/Blocks colliding/Flying nimbus hit
 --- !u!114 &5806998869539528516
 MonoBehaviour:
   m_ObjectHideFlags: 0

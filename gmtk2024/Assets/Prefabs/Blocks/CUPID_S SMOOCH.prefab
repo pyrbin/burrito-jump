@@ -189,6 +189,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: -716991157
+      Data2: 1102417211
+      Data3: 39483554
+      Data4: 62511489
+    Path: event:/Announcer/Block entry/Cupid
+  StopReference:
+    Guid:
+      Data1: -1418272316
+      Data2: 1183865255
+      Data3: -1449751107
+      Data4: 1755105744
+    Path: event:/Blocks/Blocks colliding/Cupid flesh hit
 --- !u!114 &5217467676321935979
 MonoBehaviour:
   m_ObjectHideFlags: 0

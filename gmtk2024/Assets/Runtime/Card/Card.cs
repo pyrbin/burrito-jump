@@ -1,3 +1,4 @@
+using FMODUnity;
 using Unity.VisualScripting;
 
 [CreateAssetMenu(menuName = "GMTK2024 / Card")]

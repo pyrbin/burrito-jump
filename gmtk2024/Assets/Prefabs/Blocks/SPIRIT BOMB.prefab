@@ -163,6 +163,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: 1163125197
+      Data2: 1149198030
+      Data3: -108919893
+      Data4: 421472922
+    Path: event:/Announcer/Block entry/Spirit Bomb
+  StopReference:
+    Guid:
+      Data1: -975262065
+      Data2: 1270249366
+      Data3: 367258000
+      Data4: 1694584871
+    Path: event:/Blocks/Blocks colliding/Spirit bomb hit
 --- !u!114 &3673333348794900141
 MonoBehaviour:
   m_ObjectHideFlags: 0

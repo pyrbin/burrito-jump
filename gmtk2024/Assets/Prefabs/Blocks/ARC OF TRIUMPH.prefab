@@ -194,6 +194,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   _IsFalling: 0
+  EntryReference:
+    Guid:
+      Data1: 391896385
+      Data2: 1311128745
+      Data3: 797697180
+      Data4: -354706224
+    Path: event:/Announcer/Block entry/Arc of Triumph
+  StopReference:
+    Guid:
+      Data1: 1703212047
+      Data2: 1148521877
+      Data3: 1202757009
+      Data4: -1268391653
+    Path: event:/Blocks/Blocks colliding/Arc of triumph hit
 --- !u!114 &6864820469090647676
 MonoBehaviour:
   m_ObjectHideFlags: 0
