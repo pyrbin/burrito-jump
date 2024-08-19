@@ -50,6 +50,8 @@ MonoBehaviour:
   BuildingController: {fileID: 0}
   CardHolderUI: {fileID: 0}
   DamageDivider: 15
+  BloodParticleSpawnPoint: {fileID: 0}
+  BloodParticlePrefab: {fileID: 3370568269374388834, guid: f5f6a9b13bb0ce24491dad81d4e5bb59, type: 3}
   Deck:
   - {fileID: 11400000, guid: ad55406262753bc408665bb91dd7d163, type: 2}
   - {fileID: 11400000, guid: 4b47108371b2a8643b7f952063ebd7ea, type: 2}
