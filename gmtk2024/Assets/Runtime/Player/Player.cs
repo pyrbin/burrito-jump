@@ -9,6 +9,8 @@ public class Player : MonoSingleton<Player>
     public BuildingController BuildingController;
     public CardHolderUI CardHolderUI;
     public int DamageDivider = 15;
+    public Transform BloodParticleSpawnPoint;
+    public GameObject BloodParticlePrefab;
 
     public List<Card> Deck = new();
 
@@ -60,6 +62,8 @@ public class Player : MonoSingleton<Player>
             if (GameManager.Instance.GameState != GameState.Platforming)
                 return;
             var damage = (int)Mathfs.Clamp(height / DamageDivider, 0, Health);
+            if (damage == 0)
+                return;
             TakeDamage(damage);
         };
     }
@@ -82,6 +86,12 @@ public class Player : MonoSingleton<Player>
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        if (damage > 0)
+        {
+            var obj = Instantiate(BloodParticlePrefab);
+            obj.transform.position = BloodParticleSpawnPoint.position with { z = -5 };
+        }
+
         TookDamage?.Invoke(damage);
         if (Health == 0)
         {

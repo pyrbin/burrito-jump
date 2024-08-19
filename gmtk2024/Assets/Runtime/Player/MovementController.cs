@@ -111,7 +111,12 @@ public class MovementController : MonoBehaviour
             Animator.SetBool("idle", false);
             Animator.SetBool("walk", true);
         }
-        else if (IsGrounded && !_IsJumping && !Animator.GetBool("idle"))
+        else if (
+            IsGrounded
+            && !_IsJumping
+            && !Animator.GetBool("idle")
+            && math.length(Velocity.x) <= math.EPSILON
+        )
         {
             Animator.SetBool("walk", false);
             Animator.SetBool("idle", true);
@@ -164,7 +169,7 @@ public class MovementController : MonoBehaviour
                 OnFell?.Invoke(height);
             Animator.SetTrigger("land");
             var obj = Instantiate(PuffParticlePrefab);
-            obj.transform.position = PuffParticleSpawnPoint.position;
+            obj.transform.position = PuffParticleSpawnPoint.position with { z = -5 };
             _FallingHeight = 0;
         }
 
@@ -284,7 +289,8 @@ public class MovementController : MonoBehaviour
             var obj = Instantiate(PuffParticlePrefab);
             obj.transform.position = PuffParticleSpawnPoint.position with
             {
-                y = PuffParticleSpawnPoint.position.y + 0.3f
+                y = PuffParticleSpawnPoint.position.y + 0.3f,
+                z = -5
             };
             _UsedJumps++;
             OnJump?.Invoke();
