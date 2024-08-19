@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shrink
   m_EditorClassIdentifier: 
   CardName: Shrink
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 6960eba413b3bf1408a34a4bfa2d7a37, type: 3}
   Action: 2
   Block: {fileID: 0}
   ScaleFactor: 0.75

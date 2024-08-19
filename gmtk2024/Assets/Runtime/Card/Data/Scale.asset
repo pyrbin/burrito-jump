@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scale
   m_EditorClassIdentifier: 
   CardName: Scale
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 0860054a9d15c704db2169e83159182c, type: 3}
   Action: 2
   Block: {fileID: 0}
   ScaleFactor: 1.5

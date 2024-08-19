@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Destroy
   m_EditorClassIdentifier: 
   CardName: Destroy Card
-  IconAsset: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  IconAsset: {fileID: 21300000, guid: 72655973d6f2d1f4c9332993b1a796ee, type: 3}
   Action: 4
   Block: {fileID: 0}

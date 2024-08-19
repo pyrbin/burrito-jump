@@ -54,10 +54,10 @@ public class CardDragIndicator : MonoBehaviour
 
         if (CardUI.s_OverValidTarget)
         {
-            _LineRenderer.startColor = Color.green;
-            _LineRenderer.endColor = Color.green;
-            DragEndIndicator.color = Color.green;
-            DragStartIndicator.color = Color.green;
+            _LineRenderer.startColor = Color.red;
+            _LineRenderer.endColor = Color.red;
+            DragEndIndicator.color = Color.red;
+            DragStartIndicator.color = Color.red;
         }
         else
         {
