@@ -226,6 +226,7 @@ RectTransform:
   - {fileID: 1894203905}
   - {fileID: 1301485394}
   - {fileID: 1358494428}
+  - {fileID: 548339128}
   m_Father: {fileID: 1557060923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -996,6 +997,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 844746817001968396, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5684867
+      objectReference: {fileID: 0}
     - target: {fileID: 3532887017858080528, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -1004,6 +1009,18 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1030603063}
+    - target: {fileID: 7636830959845137021, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636830959845137021, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952676062038893640, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5684867
+      objectReference: {fileID: 0}
     - target: {fileID: 9118174217527089300, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.041082
@@ -1659,7 +1676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -167.2}
+  m_AnchoredPosition: {x: 3, y: -184.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500472644
@@ -1709,8 +1726,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1747,7 +1764,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 25.018288}
+  m_margin: {x: 0, y: 0, z: -42.065865, w: 25.018288}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1760,6 +1777,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500472642}
+  m_CullTransparentMesh: 1
+--- !u!1 &548339127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548339128}
+  - component: {fileID: 548339130}
+  - component: {fileID: 548339129}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &548339128
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548339127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 43657427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -449, y: -225}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &548339129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548339127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0466197cad250a74f9ef23a705f8ad99, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &548339130
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548339127}
   m_CullTransparentMesh: 1
 --- !u!1 &548556126
 GameObject:
@@ -5878,7 +5970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 37.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753253853
@@ -6586,10 +6678,54 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 121604837920795824, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847188498656205725, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847188498656205725, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998610806316368677, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026933115110873351, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026933115110873351, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378364634552468602, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4580939595180832316, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_Name
       value: Level Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 5608945469165885074, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271125474219391022, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: Height
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271125474219391022, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: LevelHeight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271125474219391022, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: ObstaclePrefab
+      value: 
+      objectReference: {fileID: 8571982857934546062, guid: 001a77076cef20944943a9c2382fcb1d, type: 3}
     - target: {fileID: 7093936161376086137, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6629,6 +6765,10 @@ PrefabInstance:
     - target: {fileID: 7093936161376086137, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481682636813393548, guid: 596dc777e02dbc6459a61fd9ccb3f03c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

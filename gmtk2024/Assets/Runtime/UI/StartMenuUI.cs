@@ -76,7 +76,7 @@ public class StartMenuUI : MonoSingleton<StartMenuUI>
 
         _Starting = true;
 
-        var duration = 1f;
+        var duration = 1.5f;
         var targetHeight = 0f;
         InnerPanel.gameObject.SetActive(false);
         Background.GetComponent<Image>().color = Color.black;
