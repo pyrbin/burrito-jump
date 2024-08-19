@@ -9,6 +9,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public PillarBounds RightPillar;
     public Transform RightSpawnBounds;
+    public ParticleSystem Leaves;
 
     public Goal GoalObject;
     public Transform GoalPosition;
@@ -75,6 +76,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
         Blocks = new List<Block>();
         Obstacles = new List<Obstacle>();
+        Leaves.Stop();
 
         Level = 1;
         LastLevelHeight = 0;
@@ -135,7 +137,10 @@ public class LevelManager : MonoSingleton<LevelManager>
         LastLevelHeight = CurrentLevelHeight;
         Level++;
         Height = CurrentLevelHeight;
-
+        if (Level >= 3)
+        {
+            Leaves.Play();
+        }
         await UniTask.Delay(millisecondsDelay: 500);
 
         SpawnObstacles();
