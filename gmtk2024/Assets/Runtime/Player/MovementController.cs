@@ -152,10 +152,10 @@ public class MovementController : MonoBehaviour
 
             if (MovementDirection != 0)
             {
-                Accelerate();
+                Accelerate(Time.deltaTime);
             }
 
-            Deaccalerate();
+            Deaccalerate(Time.deltaTime);
 
             _Rigidbody.linearVelocityY = math.clamp(
                 _Rigidbody.linearVelocityY,
@@ -218,13 +218,13 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void Accelerate()
+    private void Accelerate(float deltaTime)
     {
         var movementDir = new Vector2(MovementDirection, 0);
+
         _Rigidbody.linearVelocity +=
-            movementDir
-            * (Acceleration * (IsFalling ? AirAccelerationFactor : 1f))
-            * Time.fixedDeltaTime;
+            movementDir * (Acceleration * (IsFalling ? AirAccelerationFactor : 1f)) * deltaTime;
+
         if (math.abs(_Rigidbody.linearVelocity.x) > MaxSpeed)
         {
             _Rigidbody.linearVelocity = new Vector2(
@@ -234,10 +234,10 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void Deaccalerate()
+    private void Deaccalerate(float deltaTime)
     {
         var movementDir = new Vector2(MovementDirection, 0);
-        var decrease = Time.fixedDeltaTime * Deacceleration;
+        var decrease = deltaTime * Deacceleration;
 
         var xVelocity = _Rigidbody.linearVelocity.x;
         if (xVelocity > 0 && movementDir.x <= 0)

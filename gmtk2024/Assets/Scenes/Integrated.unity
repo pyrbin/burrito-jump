@@ -967,6 +967,18 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1030603063}
+    - target: {fileID: 6141021045796066059, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: UpdateMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141021045796066059, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: BlendUpdateMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141021045796066059, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
+      propertyPath: ShowCameraFrustum
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7636830959845137021, guid: 0f068f50230dc074ca0daa31e1bb3c7c, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
       value: 1
@@ -5422,7 +5434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2047129905976367306, guid: 4cec9e57a1fb899499512403b194fdf4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100.81256
+      value: -200.7
       objectReference: {fileID: 0}
     - target: {fileID: 2047129905976367306, guid: 4cec9e57a1fb899499512403b194fdf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

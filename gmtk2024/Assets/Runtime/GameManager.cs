@@ -51,8 +51,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Awake()
     {
-        QualitySettings.vSyncCount = 0;
-        // WHY IS THE GAME FRAMERATE DEPENDENT WAT
+        // Looks like a Unity 6 2D Physics bug, we shouldn't be frame dependent ???
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 144;
     }
 
