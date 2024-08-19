@@ -14,11 +14,12 @@ public class KillOnCollision : MonoBehaviour
 
     public void TriggerEnter(Collider2D other)
     {
-        Log(other.tag);
         if (other.gameObject.CompareTag("Player"))
         {
-            _Player.TakeDamage(_Player.Health);
+            _Player.TakeDamage(1);
         }
-    }
 
+        LevelManager.Instance.RemoveObstacle(this.GetComponent<Obstacle>());
+        Destroy(this.gameObject);
+    }
 }

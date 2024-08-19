@@ -14,6 +14,8 @@ public class LevelManager : MonoSingleton<LevelManager>
     public Goal GoalObject;
     public Transform GoalPosition;
 
+    public Obstacle ObstaclePrefab;
+
     public Transform CameraPosition;
 
     public const f32 k_GoalYOffset = 3f;
@@ -32,14 +34,14 @@ public class LevelManager : MonoSingleton<LevelManager>
     public float LastLevelHeight = 0f;
     public float CurrentLevelHeight => Level * LevelHeight + LevelAddition;
 
-    public float LevelAddition => Math.CeilToInt(Level / 5) * 3;
+    public float LevelAddition => Math.FloorToInt(Level / 5) * 3;
 
     [ShowInInspector]
     public Bounds SpawnBounds
     {
         get
         {
-            var minY = LastLevelHeight + 1;
+            var minY = LastLevelHeight + 2;
             var maxY = CurrentLevelHeight - 4;
             var width = k_MapWidth - 2f;
             var height = maxY - minY;
@@ -82,6 +84,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         LastLevelHeight = 0;
         Height = CurrentLevelHeight;
         Character.Instance.transform.position = new Vector3(-7, 1.7f, 0);
+
+        SpawnObstacles();
     }
 
     public void RemoveBlock(Block block)
@@ -141,14 +145,54 @@ public class LevelManager : MonoSingleton<LevelManager>
         {
             Leaves.Play();
         }
-        await UniTask.Delay(millisecondsDelay: 500);
 
         SpawnObstacles();
+
+        await UniTask.Delay(millisecondsDelay: 500);
 
         GoalObject.Enabled = true;
     }
 
-    void SpawnObstacles() { }
+    void SpawnObstacles()
+    {
+        const bool k_DebugAlwaysSpawm = false;
+
+        const int k_LevelThreshold = 3;
+        if (!k_DebugAlwaysSpawm && Level < k_LevelThreshold)
+            return;
+        var count = k_DebugAlwaysSpawm
+            ? 3
+            : Random.Range(Math.Clamp01(Level - 6), Math.Clamp(Level - 3, 0, 4));
+        if (Level == k_LevelThreshold)
+        {
+            count = 1;
+        }
+        for (var i = 0; i < count; i++)
+        {
+            var second = Random.Range(0f, 1f);
+            if (!k_DebugAlwaysSpawm && second < 0.4f)
+                return;
+            var pos = GetRandomPositionInBounds(SpawnBounds);
+            var obs = Instantiate(ObstaclePrefab, pos, Quaternion.identity);
+            Obstacles.Add(obs);
+        }
+    }
+
+    public void RemoveObstacle(Obstacle obstacle)
+    {
+        Obstacles.Remove(obstacle);
+    }
+
+    Vector3 GetRandomPositionInBounds(Bounds bounds)
+    {
+        var randomX = Random.Range(bounds.min.x, bounds.max.x);
+        var randomY = Random.Range(bounds.min.y, bounds.max.y);
+
+        var z = -5;
+
+        // Return the random position
+        return new Vector3(randomX, randomY, z);
+    }
 
     void UpdateLevelHeight()
     {
