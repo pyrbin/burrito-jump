@@ -73,8 +73,8 @@ MonoBehaviour:
     Path: event:/Card Deck/Card play
   CardHoverReference:
     Guid:
-      Data1: 1980121943
-      Data2: 1139806665
-      Data3: -1998445392
-      Data4: -1255194209
-    Path: event:/Card Deck/Card hover
+      Data1: 1312692533
+      Data2: 1173752468
+      Data3: -1200142424
+      Data4: -628174902
+    Path: event:/Announcer/Falling far

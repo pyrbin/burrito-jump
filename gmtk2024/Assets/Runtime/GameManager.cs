@@ -159,6 +159,8 @@ public class GameManager : MonoSingleton<GameManager>
                 SetInputState(InputState.Menu);
                 break;
             case (GameState.Building, _):
+                if (LevelManager.Level == 1)
+                    FMODUtil.PlayOneShot(AnnouncerSoundController.Instance.GameStartRef);
                 GameOverUI.Instance.Hide();
                 PlatformingHUD.Instance.Hide(false);
                 Player.Instance.CardHolderUI.Show();
@@ -189,6 +191,8 @@ public class GameManager : MonoSingleton<GameManager>
                 CardUI.s_EnableUpgrade = true;
                 Player.RefillDeck();
                 Player.DrawToHand(3);
+                FMODUtil.PlayOneShot(AnnouncerSoundController.Instance.CheckpointRef);
+            
                 NotificationUI.Instance.ShowMessage(
                     "Choose a card to add to your deck. You can also discard up-to 3 cards.",
                     99999.Secs()
@@ -211,6 +215,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             case GameState.StartMenu:
                 MusicManager.SetMusicLevel(2);
+              
                 break;
             case GameState.Building:
                 BuildingController.Disable();
