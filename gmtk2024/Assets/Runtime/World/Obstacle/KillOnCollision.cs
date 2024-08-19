@@ -5,7 +5,6 @@ public class KillOnCollision : MonoBehaviour
     public PhysicsEvents2D events2D;
     private Player _Player;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _Player = GameManager.Instance.Player;
@@ -17,8 +16,11 @@ public class KillOnCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _Player.TakeDamage(1);
+            Vector2 direction = (other.transform.position - transform.position).normalized;
+            _Player
+                .MovementController.GetComponent<Rigidbody2D>()
+                .AddForce(-direction * 8f, ForceMode2D.Impulse);
         }
-
         LevelManager.Instance.RemoveObstacle(this.GetComponent<Obstacle>());
         Destroy(this.gameObject);
     }
