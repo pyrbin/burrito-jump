@@ -32,7 +32,7 @@ public class PlayerSoundController : MonoBehaviour
 
     void Update()
     {   
-        FMODUtil.PlayIfElseStop(movementController.IsMovingSideways, Run);
+        FMODUtil.PlayIfElseStop(movementController.IsMovingSideways && movementController.IsGrounded, Run);
     }
 
 
