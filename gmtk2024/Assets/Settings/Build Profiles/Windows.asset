@@ -40,14 +40,14 @@ MonoBehaviour:
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}'
     - line: '|   m_ShowUnitySplashScreen: 1'
-    - line: '|   m_ShowUnitySplashLogo: 0'
+    - line: '|   m_ShowUnitySplashLogo: 1'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
     - line: '|   m_SplashScreenAnimation: 0'
     - line: '|   m_SplashScreenLogoStyle: 0'
     - line: '|   m_SplashScreenDrawMode: 1'
     - line: '|   m_SplashScreenBackgroundAnimationZoom: 1'
     - line: '|   m_SplashScreenLogoAnimationZoom: 1'
-    - line: '|   m_SplashScreenBackgroundLandscapeAspect: 1'
+    - line: '|   m_SplashScreenBackgroundLandscapeAspect: 1.7777778'
     - line: '|   m_SplashScreenBackgroundPortraitAspect: 1'
     - line: '|   m_SplashScreenBackgroundLandscapeUvs:'
     - line: '|     serializedVersion: 2'
@@ -62,6 +62,8 @@ MonoBehaviour:
     - line: '|     width: 1'
     - line: '|     height: 1'
     - line: '|   m_SplashScreenLogos:'
+    - line: '|   - logo: {instanceID: 0}'
+    - line: '|     duration: 2'
     - line: '|   - logo: {fileID: 21300000, guid: 0466197cad250a74f9ef23a705f8ad99,
         type: 3}'
     - line: '|     duration: 2'
@@ -113,7 +115,7 @@ MonoBehaviour:
     - line: '|   deferSystemGesturesMode: 0'
     - line: '|   hideHomeButton: 0'
     - line: '|   submitAnalytics: 1'
-    - line: '|   usePlayerLog: 1'
+    - line: '|   usePlayerLog: 0'
     - line: '|   dedicatedServerOptimizations: 1'
     - line: '|   bakeCollisionMeshes: 0'
     - line: '|   forceSingleInstance: 1'
@@ -164,7 +166,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.0.0-f893b9d'
+    - line: '|   bundleVersion: 0.0.0-87707a7'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: 11400000, guid: 544a98a5ad0ed944186c549401f1a56a, type:
         2}'
@@ -860,7 +862,7 @@ MonoBehaviour:
     - line: '|     PS4: DOTWEEN'
     - line: '|     PS5: DOTWEEN'
     - line: '|     QNX: DOTWEEN'
-    - line: '|     Standalone: DOTWEEN;UNITASK_DOTWEEN_SUPPORT;SAINTSFIELD_SAINTS_EDITOR_APPLY'
+    - line: '|     Standalone: DOTWEEN;UNITASK_DOTWEEN_SUPPORT'
     - line: '|     VisionOS: DOTWEEN'
     - line: '|     WebGL: DOTWEEN'
     - line: '|     Windows Store Apps: DOTWEEN'
@@ -868,8 +870,7 @@ MonoBehaviour:
     - line: '|     iPhone: DOTWEEN'
     - line: '|     tvOS: DOTWEEN'
     - line: '|   additionalCompilerArguments:'
-    - line: '|     Standalone:'
-    - line: '|     - SAINTSFIELD_SAINTS_EDITOR_APPLY'
+    - line: '|     Standalone: []'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
     - line: '|     Android: 1'
@@ -986,7 +987,8 @@ MonoBehaviour:
     - line: '|   windowsGamepadBackendHint: 0'
     - line: '|   cloudProjectId: 32f2b679-2e5e-4079-8b0f-4ef8b6e635f3'
     - line: '|   framebufferDepthMemorylessMode: 0'
-    - line: '|   qualitySettingsNames: []'
+    - line: '|   qualitySettingsNames:'
+    - line: '|   - PC'
     - line: '|   projectName: mote'
     - line: '|   organizationId: unity_zkticlbajvdo_a'
     - line: '|   cloudEnabled: 0'
@@ -1004,7 +1006,7 @@ MonoBehaviour:
     - rid: 2939791992698961922
       type: {class: WindowsPlatformSettings, ns: UnityEditor.WindowsStandalone, asm: UnityEditor.WindowsStandalone.Extensions}
       data:
-        m_Development: 1
+        m_Development: 0
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0

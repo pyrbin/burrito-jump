@@ -32,7 +32,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     [ReadOnly]
     public float LastLevelHeight = 0f;
-    public float CurrentLevelHeight => Level * LevelHeight + LevelAddition;
+    public float CurrentLevelHeight => Level * LevelHeight + LevelAddition + 3;
 
     public float LevelAddition => Math.FloorToInt(Level / 5) * 3;
 
@@ -87,8 +87,10 @@ public class LevelManager : MonoSingleton<LevelManager>
         SpawnObstacles();
 
         await UniTask.Delay(222);
-
+        Player.Instance.MovementController.IsTeleporting = true;
         Character.Instance.transform.position = new Vector3(-7f, 1.7f, 0);
+        await UniTask.Delay(222);
+        Player.Instance.MovementController.IsTeleporting = false;
     }
 
     public void RemoveBlock(Block block)

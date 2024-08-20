@@ -197,9 +197,13 @@ public class MovementController : MonoBehaviour
 
     const float k_GroundedJumpCheckDelay = 0.2f;
     float _GroundedJumpCheckTimer = 0f;
+    public bool IsTeleporting = false;
 
     void FixedUpdate()
     {
+        if (IsTeleporting)
+            return;
+
         HorizontalMovement();
         CollisionChecks();
         CheckFallingHeight();

@@ -47,7 +47,7 @@ MonoBehaviour:
     - line: '|   m_SplashScreenDrawMode: 0'
     - line: '|   m_SplashScreenBackgroundAnimationZoom: 1'
     - line: '|   m_SplashScreenLogoAnimationZoom: 1'
-    - line: '|   m_SplashScreenBackgroundLandscapeAspect: 1'
+    - line: '|   m_SplashScreenBackgroundLandscapeAspect: 1.5330296'
     - line: '|   m_SplashScreenBackgroundPortraitAspect: 1'
     - line: '|   m_SplashScreenBackgroundLandscapeUvs:'
     - line: '|     serializedVersion: 2'
@@ -108,7 +108,6 @@ MonoBehaviour:
     - line: '|   defaultIsNativeResolution: 1'
     - line: '|   macRetinaSupport: 1'
     - line: '|   runInBackground: 0'
-    - line: '|   captureSingleScreen: 0'
     - line: '|   muteOtherAudioSources: 0'
     - line: '|   Prepare IOS For Recording: 0'
     - line: '|   Force IOS Speakers When Recording: 0'
@@ -166,7 +165,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.0.0-f893b9d'
+    - line: '|   bundleVersion: 0.0.0-87707a7'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: 11400000, guid: 544a98a5ad0ed944186c549401f1a56a, type:
         2}'
@@ -890,11 +889,11 @@ MonoBehaviour:
     - line: '|   webGLCompressionFormat: 0'
     - line: '|   webGLWasmArithmeticExceptions: 0'
     - line: '|   webGLLinkerTarget: 1'
-    - line: '|   webGLThreadsSupport: 1'
+    - line: '|   webGLThreadsSupport: 0'
     - line: '|   webGLDecompressionFallback: 0'
     - line: '|   webGLInitialMemorySize: 128'
     - line: '|   webGLMaximumMemorySize: 2048'
-    - line: '|   webGLMemoryGrowthMode: 2'
+    - line: '|   webGLMemoryGrowthMode: 1'
     - line: '|   webGLMemoryLinearGrowthStep: 16'
     - line: '|   webGLMemoryGeometricGrowthStep: 0.2'
     - line: '|   webGLMemoryGeometricGrowthCap: 96'
@@ -1038,7 +1037,8 @@ MonoBehaviour:
     - line: '|   windowsGamepadBackendHint: 0'
     - line: '|   cloudProjectId: 32f2b679-2e5e-4079-8b0f-4ef8b6e635f3'
     - line: '|   framebufferDepthMemorylessMode: 0'
-    - line: '|   qualitySettingsNames: []'
+    - line: '|   qualitySettingsNames:'
+    - line: '|   - PC'
     - line: '|   projectName: mote'
     - line: '|   organizationId: unity_zkticlbajvdo_a'
     - line: '|   cloudEnabled: 0'
@@ -1067,7 +1067,7 @@ MonoBehaviour:
         m_ExplicitArrayBoundsChecks: 0
         m_CompressionType: -1
         m_InstallInBuildFolder: 0
-        m_CodeOptimization: 1
+        m_CodeOptimization: 0
         m_WebGLClientBrowserPath: 
         m_WebGLClientBrowserType: 0
         m_WebGLTextureSubtarget: 0
