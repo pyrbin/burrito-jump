@@ -64,7 +64,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         SetupEvents();
     }
 
-    public void Restart()
+    public async void Restart()
     {
         foreach (var block in Blocks)
         {
@@ -83,9 +83,12 @@ public class LevelManager : MonoSingleton<LevelManager>
         Level = 1;
         LastLevelHeight = 0;
         Height = CurrentLevelHeight;
-        Character.Instance.transform.position = new Vector3(-7, 1.7f, 0);
 
         SpawnObstacles();
+
+        await UniTask.Delay(222);
+
+        Character.Instance.transform.position = new Vector3(-7f, 1.7f, 0);
     }
 
     public void RemoveBlock(Block block)

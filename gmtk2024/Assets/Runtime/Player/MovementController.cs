@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovementController : MonoBehaviour
 {
@@ -8,71 +10,141 @@ public class MovementController : MonoBehaviour
         Free
     }
 
+    [Header("References")]
     [SerializeField]
     private Collider2D _Feet;
-    private RaycastHit2D _GroundHit;
-
-    [ReadOnly]
-    public bool _IsGrounded;
 
     [SerializeField]
     private Collider2D _Body;
 
-    public float JumpForce = 7f;
-    public float MaxSpeed = 5f;
+    [Header("Movement")]
+    [field: SerializeField]
+    public float JumpHeight { get; private set; } = 2f;
     public float Acceleration = 15f;
-    public float Deacceleration = 20f;
-    public float MaxFallingSpeed = 20f;
+
+    [field: SerializeField]
+    public float GravityFactor { get; private set; } = 1f;
+
+    [field: SerializeField]
+    public float MaxSpeed { get; private set; } = 10f;
+
+    [field: SerializeField]
+    public float MaxVertical { get; private set; } = 20f;
+
+    [field: SerializeField]
+    public float MaxVerticalUp { get; private set; } = 12f;
+
+    [Min(0)]
+    [SerializeField]
+    private float _SurfaceAnchor = 0.05f;
+
+    [Range(0, 90)]
+    [SerializeField]
+    private float _MaxSlop = 45f;
+
     public float AirAccelerationFactor = 0.75f;
     public Duration JumpGracePeriod = 0.33f.Secs();
     public LayerMask GroundLayer;
+
+    [SerializeField]
+    [ShowInInspector]
+    [ReadOnly]
+    private float2 _Velocity;
+
+    [SerializeField]
+    [ShowInInspector]
+    [ReadOnly]
+    private Rigidbody2D.SlideMovement _SlideMovement = new Rigidbody2D.SlideMovement();
+
+    [ReadOnly]
+    public bool _IsGrounded = true;
+    private RaycastHit2D _GroundHit;
+
+    [Header("Visuals")]
     public Transform ModelPivot;
     public Animator Animator;
     public Transform PuffParticleSpawnPoint;
     public GameObject PuffParticlePrefab;
 
-    public bool IsFacingRight { get; private set; } = true;
+    // Private
+    private float _MinGroundVertical;
+    private float _JumpForce;
+
+    public Vector2 Velocity
+    {
+        get => _Velocity;
+        set
+        {
+            _Velocity = new Vector2(
+                math.clamp(value.x, -MaxSpeed, MaxSpeed),
+                math.clamp(value.y, -MaxVertical, MaxVerticalUp)
+            );
+        }
+    }
 
     public float Direction
     {
-        get => MovementDirection;
-        set => MovementDirection = value;
+        get => _Direction;
+        set
+        {
+            _Direction = value;
+            Velocity = new float2(
+                value * (Acceleration * (!IsGrounded ? AirAccelerationFactor : 1f)),
+                _Velocity.y
+            );
+        }
     }
+    private float _Direction;
+
+    public bool IsFacingRight { get; private set; } = true;
 
     private Rigidbody2D _Rigidbody;
-    private float MovementDirection { get; set; }
 
     [SerializeField]
     public MovementState State = MovementState.Free;
 
-    public bool IsMovingSideways => math.abs(_Rigidbody.linearVelocity.x) > 0;
+    public bool IsMovingSideways => math.abs(Velocity.x) > 0;
 
-    public bool IsAcceleratingSideways => MovementDirection != 0;
+    public bool IsAcceleratingSideways => Direction != 0;
 
     public bool IsGrounded => _IsGrounded;
 
-    public bool IsFalling => _Rigidbody.linearVelocity.y < 0 && !IsGrounded;
-
-    public float2 Velocity => _Rigidbody.linearVelocity;
-
-    public Vector2 MovingDirection => new(MovementDirection, 0);
+    public bool IsFalling => Velocity.y < 0 && !IsGrounded;
 
     private Timer _JumpGracePeriodTimer;
 
     // events.
-
     public event Action? OnJump;
     public event Action<float>? OnFell;
-
-    [Header("Debugging")]
-    public bool DrawGizmos = true;
 
     void Awake()
     {
         IsFacingRight = true;
         _JumpGracePeriodTimer = new Timer(JumpGracePeriod);
         _JumpGracePeriodTimer.Tick(JumpGracePeriod);
-        TryGetComponent(out _Rigidbody);
+        _Rigidbody = GetComponent<Rigidbody2D>();
+
+        _MinGroundVertical = Mathf.Cos(_MaxSlop * Mathf.PI / 180f);
+        _SlideMovement = CreateSlideMovement();
+        _JumpForce = math.sqrt(2 * Physics2D.gravity.magnitude * GravityFactor * JumpHeight);
+        Animator.SetBool("falling", false);
+        Animator.SetBool("walk", false);
+        Animator.SetBool("idle", true);
+    }
+
+    private Rigidbody2D.SlideMovement CreateSlideMovement()
+    {
+        return new Rigidbody2D.SlideMovement
+        {
+            maxIterations = 3,
+            surfaceSlideAngle = 90,
+            gravitySlipAngle = 90,
+            surfaceUp = Vector2.up,
+            surfaceAnchor = Vector2.down * _SurfaceAnchor,
+            gravity = Vector2.zero,
+            layerMask = GroundLayer,
+            useLayerMask = true,
+        };
     }
 
     bool _MarkFall = false;
@@ -106,7 +178,7 @@ public class MovementController : MonoBehaviour
             Animator.SetBool("falling", false);
         }
 
-        if (IsGrounded && MovementDirection != 0 && !_IsJumping && !Animator.GetBool("walk"))
+        if (IsGrounded && Direction != 0 && !_IsJumping && !Animator.GetBool("walk"))
         {
             Animator.SetBool("idle", false);
             Animator.SetBool("walk", true);
@@ -123,19 +195,39 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    const float k_GroundedJumpCheckDelay = 0.5f;
+    const float k_GroundedJumpCheckDelay = 0.2f;
     float _GroundedJumpCheckTimer = 0f;
 
     void FixedUpdate()
     {
+        HorizontalMovement();
         CollisionChecks();
-
-        UpdateMovement();
-
         CheckFallingHeight();
 
         if (!_JumpGracePeriodTimer.Finished)
-            _JumpGracePeriodTimer.Tick(Time.fixedDeltaTime.Secs());
+            _JumpGracePeriodTimer.Tick(Time.deltaTime.Secs());
+    }
+
+    private void CollisionChecks()
+    {
+        CheckIsGrounded();
+    }
+
+    private void CheckIsGrounded()
+    {
+        var boxCastOrigin = new Vector2(_Feet.bounds.center.x, _Feet.bounds.min.y);
+        var boxCastSize = new Vector2(_Feet.bounds.size.x, _SurfaceAnchor);
+
+        _GroundHit = Physics2D.BoxCast(
+            boxCastOrigin,
+            boxCastSize,
+            0f,
+            Vector2.down,
+            0.25f,
+            GroundLayer
+        );
+
+        _IsGrounded = _GroundHit.collider != null;
     }
 
     bool _MarkFallingHeight = false;
@@ -144,7 +236,7 @@ public class MovementController : MonoBehaviour
     {
         if (_IsJumping)
         {
-            _GroundedJumpCheckTimer += Time.fixedDeltaTime;
+            _GroundedJumpCheckTimer += Time.deltaTime;
         }
 
         if (!IsGrounded && !_MarkFall && _IsJumping)
@@ -176,7 +268,6 @@ public class MovementController : MonoBehaviour
         if (
             _IsJumping
             && IsGrounded
-            && _JumpGracePeriodTimer.Finished
             && !IsFalling
             && _GroundedJumpCheckTimer > k_GroundedJumpCheckDelay
         )
@@ -192,30 +283,55 @@ public class MovementController : MonoBehaviour
         _Rigidbody.linearVelocityX = 0f;
     }
 
-    private void UpdateMovement()
+    private void HorizontalMovement()
     {
+        if (State == MovementState.Frozen)
+        {
+            Direction = 0;
+        }
+        Slide();
+
         if (State != MovementState.Frozen)
         {
-            TurnCheck(MovementDirection);
-
-            if (MovementDirection != 0)
-            {
-                Accelerate(Time.deltaTime);
-            }
-
-            Deaccalerate(Time.deltaTime);
-
-            _Rigidbody.linearVelocityY = math.clamp(
-                _Rigidbody.linearVelocityY,
-                -MaxFallingSpeed,
-                50f
-            );
+            TurnCheck(Direction);
         }
         else
         {
             TurnCenter();
             Stop();
         }
+    }
+
+    private void Slide()
+    {
+        var downMod = IsGrounded && !_IsJumping ? 2f : 1f;
+        var gravity = Time.deltaTime * GravityFactor * Physics2D.gravity * downMod;
+        Velocity += gravity;
+
+        var slideResults = _Rigidbody.Slide(_Velocity, Time.deltaTime, _SlideMovement);
+
+        if (slideResults.slideHit)
+        {
+            var angle = Vector2.Angle(slideResults.slideHit.normal, Vector2.up);
+            var old = Velocity.y;
+            Velocity = ClipVector(_Velocity, slideResults.slideHit.normal);
+            if (angle >= _MaxSlop && !IsGrounded && !_IsJumping)
+            {
+                _Velocity.x = 0;
+                _Velocity.y = old + gravity.y / 2;
+                _Rigidbody.Slide(_Velocity, Time.deltaTime, _SlideMovement);
+            }
+        }
+        // else if (_Velocity.y <= 0 && slideResults.surfaceHit && !_IsJumping)
+        // {
+        //     var surfaceHit = slideResults.surfaceHit;
+        //     Velocity = ClipVector(_Velocity, surfaceHit.normal);
+        // }
+    }
+
+    private static Vector2 ClipVector(Vector2 vector, Vector2 hitNormal)
+    {
+        return vector - Vector2.Dot(vector, hitNormal) * hitNormal;
     }
 
     private void TurnCheck(float moveInput)
@@ -265,11 +381,11 @@ public class MovementController : MonoBehaviour
         if ((IsGrounded || !_JumpGracePeriodTimer.Finished) && _UsedJumps < k_TotalJumps)
         {
             _IsJumping = true;
-            const float k_DoubleJumpMod = 0.46f;
-            const float k_DoubleJumpModTest = 0.30f;
+            const float k_DoubleJumpMod = 0.8f;
+            const float k_DoubleJumpModTest = 0.8f;
 
             var force =
-                JumpForce
+                _JumpForce
                 * (
                     _UsedJumps <= 0
                         ? 1f
@@ -280,7 +396,15 @@ public class MovementController : MonoBehaviour
                         )
                 );
 
-            _Rigidbody.AddForce(new float2(0, force), ForceMode2D.Impulse);
+            if (_UsedJumps == 0)
+            {
+                Velocity = new Vector2(_Velocity.x, force);
+            }
+            else
+            {
+                Velocity = new Vector2(_Velocity.x, _Velocity.y + force);
+            }
+
             if (_UsedJumps == 0)
             {
                 _GroundedJumpCheckTimer = 0;
@@ -289,69 +413,11 @@ public class MovementController : MonoBehaviour
             var obj = Instantiate(PuffParticlePrefab);
             obj.transform.position = PuffParticleSpawnPoint.position with
             {
-                y = PuffParticleSpawnPoint.position.y + 0.3f,
+                y = PuffParticleSpawnPoint.position.y + 0.15f,
                 z = -5
             };
             _UsedJumps++;
             OnJump?.Invoke();
         }
-    }
-
-    private void Accelerate(float deltaTime)
-    {
-        var movementDir = new Vector2(MovementDirection, 0);
-
-        _Rigidbody.linearVelocity +=
-            movementDir * (Acceleration * (IsFalling ? AirAccelerationFactor : 1f)) * deltaTime;
-
-        if (math.abs(_Rigidbody.linearVelocity.x) > MaxSpeed)
-        {
-            _Rigidbody.linearVelocity = new Vector2(
-                _Rigidbody.linearVelocity.x * (MaxSpeed / _Rigidbody.linearVelocity.magnitude),
-                _Rigidbody.linearVelocity.y
-            );
-        }
-    }
-
-    private void Deaccalerate(float deltaTime)
-    {
-        var movementDir = new Vector2(MovementDirection, 0);
-        var decrease = deltaTime * Deacceleration;
-
-        var xVelocity = _Rigidbody.linearVelocity.x;
-        if (xVelocity > 0 && movementDir.x <= 0)
-        {
-            xVelocity -= decrease;
-            xVelocity = Mathf.Clamp(xVelocity, 0f, MaxSpeed);
-        }
-        if (xVelocity < 0 && movementDir.x >= 0)
-        {
-            xVelocity += decrease;
-            xVelocity = Mathf.Clamp(xVelocity, -MaxSpeed, 0);
-        }
-
-        _Rigidbody.linearVelocity = new Vector2(xVelocity, _Rigidbody.linearVelocity.y);
-    }
-
-    private void CollisionChecks()
-    {
-        CheckIsGrounded();
-    }
-
-    private void CheckIsGrounded()
-    {
-        var boxCastOrigin = new Vector2(_Feet.bounds.center.x, _Feet.bounds.min.y);
-        var boxCastSize = new Vector2(_Feet.bounds.size.x, 0.5f);
-
-        _GroundHit = Physics2D.BoxCast(
-            boxCastOrigin,
-            boxCastSize,
-            0f,
-            Vector2.down,
-            0.15f,
-            GroundLayer
-        );
-
-        _IsGrounded = _GroundHit.collider != null;
     }
 }

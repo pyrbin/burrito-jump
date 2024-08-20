@@ -42,6 +42,12 @@ public class GameManager : MonoSingleton<GameManager>
     public event Action<GameState>? OnGameStateChanged;
     public event Action OnUpgradeComplete;
 
+    public int TargetFps = 144;
+
+    private static bool s_FirstEnterBuildingMode = true;
+    private static bool s_FirstEnterPlatformingMode = true;
+    private static bool s_FirstEncounterTrap = true;
+
     void OnEnable()
     {
         _GameInput ??= new GameInput();
@@ -52,9 +58,27 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Awake()
     {
-        // Looks like a Unity 6 2D Physics bug, we shouldn't be frame dependent ???
-        QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 144;
+        Time.fixedDeltaTime = 0.01666667f;
+        Physics2D.simulationMode = SimulationMode2D.Script;
+        if (Application.targetFrameRate != TargetFps)
+        {
+            Application.targetFrameRate = TargetFps;
+            QualitySettings.vSyncCount = -1;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Physics2D.Simulate(Time.fixedDeltaTime);
+    }
+
+    void Update()
+    {
+        if (Application.targetFrameRate != TargetFps)
+        {
+            Application.targetFrameRate = TargetFps;
+            QualitySettings.vSyncCount = -1;
+        }
     }
 
     void Start()
@@ -77,14 +101,6 @@ public class GameManager : MonoSingleton<GameManager>
         Player.HealthZero += OnDeath;
         Player.DiscardedCard += OnDiscard;
         Player.UsedCard += OnUsedCard;
-    }
-
-    void Update()
-    {
-        // if (GameState == GameState.Building && Player.Hand.Count < 3 && Player.ActiveDeckCount > 0)
-        // {
-        //     Player.DrawToHand(3);
-        // }
     }
 
     public async void OnUsedCard(Card card)
@@ -159,6 +175,21 @@ public class GameManager : MonoSingleton<GameManager>
                 SetInputState(InputState.Menu);
                 break;
             case (GameState.Building, _):
+                if (s_FirstEnterBuildingMode)
+                {
+                    NotificationUI.Instance.ShowMessage(
+                        "Use your cards by hold + drag or clicking. Build a tower using your block cards to 'scale' for the burrito",
+                        10.Secs()
+                    );
+                }
+                if (LevelManager.Level == 3 && s_FirstEncounterTrap)
+                {
+                    NotificationUI.Instance.ShowMessage(
+                        "Be careful of spike balls! If you touch them you lose 1 health.",
+                        6.Secs()
+                    );
+                    s_FirstEncounterTrap = false;
+                }
                 if (LevelManager.Level == 1)
                     FMODUtil.PlayOneShot(AnnouncerSoundController.Instance.GameStartRef);
                 GameOverUI.Instance.Hide();
@@ -169,10 +200,13 @@ public class GameManager : MonoSingleton<GameManager>
                 Player.RefillDeck();
                 SetInputState(InputState.Building);
                 cameraManager?.SwitchToCamera("BuildCamera");
-                await UniTask.Delay(222);
+                if (!s_FirstEnterBuildingMode)
+                    await UniTask.Delay(222);
                 Player.DrawToHand(3);
+                s_FirstEnterBuildingMode = false;
                 break;
             case (GameState.Platforming, _):
+
                 GameOverUI.Instance.Hide();
                 PlatformingHUD.Instance.Show();
                 Player.ResetHand();
@@ -180,6 +214,14 @@ public class GameManager : MonoSingleton<GameManager>
                 LevelManager.ShowGoalObject();
                 SetInputState(InputState.Platforming);
                 cameraManager?.SwitchToCamera("PlatformCamera");
+                if (s_FirstEnterPlatformingMode)
+                {
+                    NotificationUI.Instance.ShowMessage(
+                        "Reach the burrito! Use WASD and SPACE to jump.",
+                        6.Secs()
+                    );
+                }
+                s_FirstEnterPlatformingMode = false;
                 break;
             case (GameState.Upgrades, _):
                 GameOverUI.Instance.Hide();
@@ -192,7 +234,7 @@ public class GameManager : MonoSingleton<GameManager>
                 Player.RefillDeck();
                 Player.DrawToHand(3);
                 FMODUtil.PlayOneShot(AnnouncerSoundController.Instance.CheckpointRef);
-            
+
                 NotificationUI.Instance.ShowMessage(
                     "Choose a card to add to your deck. You can also discard up-to 3 cards.",
                     99999.Secs()
@@ -215,7 +257,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             case GameState.StartMenu:
                 MusicManager.SetMusicLevel(2);
-              
+
                 break;
             case GameState.Building:
                 BuildingController.Disable();

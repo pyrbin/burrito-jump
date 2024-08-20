@@ -1,33 +1,5 @@
 TODO
 
-- UI Management
-- Fler kort (shapes, actions, morph etc.)
-- Modeller, ljud, UI ljud, musik
-- UI Art
-- Start Game / Game Over screen (w/ score)
-- Player Health / Lose Condition
-- Player Health UI
-- Restart Button
-- Exit Building Button
-- VFX (jump cloud particles, blood splash)
-- Animations?
-- Balancing B)
-- Obstacles ?????
-- FONTS FONTS FONTS
-- LOGO???????
-- Fall speed indicator??? :)
-
-
-TODO v2
-- Player Blood Splash
-- Player Jump Cloud Particles
-- Player Trail ???
-- Card Icons
-- Player Character Animations
-- Sounds
-- Add Obstacle Random Spawning
-- WHY IS IT FRAMERATE DEPENDENT??? WAT
-
-- Extras
-    - UI Sounds (???)
-    -
+- Balancing
+- Rotate with Q/E
+- Move with A/D when dropping (should work when falling)

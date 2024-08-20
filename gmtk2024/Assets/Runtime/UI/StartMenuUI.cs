@@ -69,14 +69,14 @@ public class StartMenuUI : MonoSingleton<StartMenuUI>
 
     bool _Starting = false;
 
-    private void OnStartButtonClicked()
+    private async void OnStartButtonClicked()
     {
         if (_Starting)
             return;
 
         _Starting = true;
 
-        var duration = 1.5f;
+        var duration = 1.5656f;
         var targetHeight = 0f;
         InnerPanel.gameObject.SetActive(false);
         Background.GetComponent<Image>().color = Color.black;
@@ -87,7 +87,10 @@ public class StartMenuUI : MonoSingleton<StartMenuUI>
             .OnComplete(() =>
             {
                 Hide();
-                GameManager.Instance.SetGameState(GameState.Building);
             });
+
+        await UniTask.Delay((int)Duration.FromSeconds(duration / 2f).Millis);
+
+        GameManager.Instance.SetGameState(GameState.Building);
     }
 }

@@ -27,12 +27,18 @@ public class Block : MonoBehaviour
         _Rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
+    public void FixedUpdate()
+    {
+        if (_IsFalling)
+            _Rb.Slide(new Vector2(0, -fallSpeed), Time.deltaTime, new Rigidbody2D.SlideMovement());
+    }
+
     public void StartFalling()
     {
         OnStartFalling?.Invoke(this);
         FMODUtil.PlayOneShot(EntryReference);
-        _Rb.linearVelocity = new Vector2(0, -fallSpeed);
-        _Rb.bodyType = RigidbodyType2D.Dynamic;
+        // _Rb.linearVelocity = new Vector2(0, -fallSpeed * Time.deltaTime);
+        // _Rb.bodyType = RigidbodyType2D.Dynamic;
         _IsFalling = true;
     }
 

@@ -10,8 +10,6 @@ public class CardUI
         IPointerUpHandler,
         IPointerDownHandler
 {
-
-
     public Card Card;
     public Image Image;
     public TMP_Text Header;
@@ -104,7 +102,7 @@ public class CardUI
         if (_IsDragging && (Card.Action == CardAction.Spawn || Card.Action == CardAction.Morph))
         {
             var distance = Vector3.Distance(_MousePos, Input.mousePosition);
-            const float k_Threshold = 220f;
+            const float k_Threshold = 200f;
             if (distance >= k_Threshold)
             {
                 _IsDragging = false;

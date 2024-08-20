@@ -19,9 +19,9 @@ public class KillOnCollision : MonoBehaviour
             Vector2 direction = (other.transform.position - transform.position).normalized;
             _Player
                 .MovementController.GetComponent<Rigidbody2D>()
-                .AddForce(-direction * 8f, ForceMode2D.Impulse);
+                .AddForce(-direction * 8f * Time.deltaTime, ForceMode2D.Impulse);
+            LevelManager.Instance.RemoveObstacle(this.GetComponent<Obstacle>());
+            Destroy(this.gameObject);
         }
-        LevelManager.Instance.RemoveObstacle(this.GetComponent<Obstacle>());
-        Destroy(this.gameObject);
     }
 }

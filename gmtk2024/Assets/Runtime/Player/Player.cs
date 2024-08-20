@@ -193,7 +193,9 @@ public class Player : MonoSingleton<Player>
             case InputState.Platforming:
                 var jumpPressed = GameManager.Instance.Input.Gameplay.Jump.WasPressedThisFrame();
                 var movement = GameManager.Instance.Input.Gameplay.Move.ReadValue<Vector2>();
+
                 MovementController.Direction = movement.x;
+
                 if (jumpPressed)
                 {
                     MovementController.Jump();

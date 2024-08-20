@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: toon_gray
+  m_Name: Brottare_Toon
   m_Shader: {fileID: -6465566751694194690, guid: d52a38819780a6a4da47a0c922af0b7b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
