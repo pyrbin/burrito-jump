@@ -339,6 +339,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8099228477561465722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Deck/Scale
+  m_EditorClassIdentifier: 
+  Path: event:/Card Deck/Scale
+  Guid:
+    Data1: 671620617
+    Data2: 1184186816
+    Data3: 983913858
+    Data4: -108974702
+  Banks:
+  - {fileID: 4719892002365715951}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 744
 --- !u!114 &-7964554204816696742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1246,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2125502456679410985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spike
+  m_EditorClassIdentifier: 
+  Path: event:/Spike
+  Guid:
+    Data1: -1837998777
+    Data2: 1318760719
+    Data3: 557004214
+    Data4: -1304442651
+  Banks:
+  - {fileID: 4719892002365715951}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 432
 --- !u!114 &-2087960476828093007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,13 +1603,16 @@ MonoBehaviour:
   - {fileID: -9167013401102140061}
   - {fileID: -7439483889668844097}
   - {fileID: -7804492265908055987}
+  - {fileID: -8099228477561465722}
+  - {fileID: -2125502456679410985}
+  - {fileID: 2826778698004194809}
   EditorParameters:
   - {fileID: -1414514804124043363}
   MasterBanks:
   - {fileID: 4719892002365715951}
   StringsBanks:
   - {fileID: 4124910922595659649}
-  cacheTime: 638596987352253172
+  cacheTime: 638597240150262830
   cacheVersion: 131619
 --- !u!114 &77447127204169942
 MonoBehaviour:
@@ -2067,6 +2124,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2826778698004194809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Deck/Destroy
+  m_EditorClassIdentifier: 
+  Path: event:/Card Deck/Destroy
+  Guid:
+    Data1: 445714614
+    Data2: 1312854868
+    Data3: -2144645985
+    Data4: -1371052226
+  Banks:
+  - {fileID: 4719892002365715951}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 794
 --- !u!114 &2891773542308225966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2208,10 +2292,10 @@ MonoBehaviour:
   Path: Assets/Audio/Bank/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638596987352253172
+  lastModified: 638597240150262830
   FileSizes:
   - Name: 
-    Value: 2988
+    Value: 3110
   Exists: 1
 --- !u!114 &4126263023309634730
 MonoBehaviour:
@@ -2255,7 +2339,7 @@ MonoBehaviour:
   Path: Assets/Audio/Bank/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 638596987352177979
+  lastModified: 638597240150007193
   FileSizes: []
   Exists: 1
 --- !u!114 &4815599042659467526
