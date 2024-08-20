@@ -62,6 +62,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events2D: {fileID: 6930958631151871992}
+  TriggerEnterSoundRef:
+    Guid:
+      Data1: -1837998777
+      Data2: 1318760719
+      Data3: 557004214
+      Data4: -1304442651
+    Path: event:/Spike
 --- !u!114 &6930958631151871992
 MonoBehaviour:
   m_ObjectHideFlags: 0

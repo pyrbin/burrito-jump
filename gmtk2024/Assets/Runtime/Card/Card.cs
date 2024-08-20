@@ -12,6 +12,9 @@ public class Card : ScriptableObject
     public CardAction Action = CardAction.Spawn;
 
     public virtual Option<CardAction> OverrideAction => None;
+    
+    [SerializeField]
+    public Option<EventReference> ActivateSoundRef;
 
     [SerializeReference]
     [HideIf(nameof(IsNotSpawn))]
@@ -44,6 +47,10 @@ public class Card : ScriptableObject
 
     public Block? Activate(Block? target)
     {
+        if (ActivateSoundRef.IsSome(out var sound)) {
+            FMODUtil.PlayOneShot(sound);
+        }
+
         // Check the action flags
         if ((Action & CardAction.Spawn) != 0)
         {
